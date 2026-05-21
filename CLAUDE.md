@@ -48,8 +48,8 @@ CHANGELOG.md                     rolling release history (auto-maintained)
 
 ## Pain cases the predecessor required manual fixes for (now automated)
 
-- `第8節 row 13` (Etanercept) — over-budget; was hand-split with `csv_splitter.py`. Now handled by `chunk._chunk_node` descent + `split_leaf` numbered-list split.
-- `第9節 row 85` (immune checkpoint inhibitors PD-L1 table) — over-budget AND contained an embedded matrix table. Was a Google Docs roundtrip. Now: `parse.py` reads `<w:tbl>` directly, `markdown.table_to_markdown` renders it, the chunker keeps it atomic.
+- `第8節 row 13` (Etanercept) — over-budget; was hand-split with `csv_splitter.py`. Now: `chunk._chunk_node` descent + `split_leaf` numbered-list split.
+- `第9節 row 85` (immune checkpoint inhibitors PD-L1 table) — over-budget + embedded matrix table. Was a Google Docs roundtrip. Now: `parse.py` reads `<w:tbl>` directly, `markdown.table_to_markdown` renders it, the chunker keeps it atomic.
 
 ## Running tests
 
@@ -57,3 +57,21 @@ CHANGELOG.md                     rolling release history (auto-maintained)
 uv run pytest                                       # all
 uv run pytest tests/test_chunk_pain_cases.py -v     # the regression net
 ```
+
+## Project history & lessons learned
+
+Read these in order before making non-trivial changes:
+
+1. [`docs/intent.md`](docs/intent.md) — original problem statement. Why the predecessor's flat-CSV model was the wrong shape; what "done right" looks like; failure modes the design must withstand; domain vocabulary (節/條/項/款/目).
+2. [`docs/spec.md`](docs/spec.md) — full design spec. Pipeline stages, core types, chunker algorithm, output schema.
+3. [`docs/next-fixes.md`](docs/next-fixes.md) — known issues + planned fixes (multi-format fetch for 通則/第六節, single-newline content, multi-block numbered-item splitter, tilde-reference parser fix). **If you're picking up this repo, this is your work queue.**
+
+### Lessons carried over from the predecessor (NHI-Knowledge-Extraction)
+
+- **Heading-based splitting destroys structure.** The predecessor split at 2/3-level headings and forced everything below into one CSV cell. This is why `csv_splitter.py` had to exist. The chunker here splits by token budget *as a contract*, descending the tree until each item fits.
+- **`odfpy.getElementsByType(P)` cannot see tables.** That's why the predecessor required a Google Docs → Markdown → LLM roundtrip for §9.69. `python-docx` walks `<w:tbl>` natively; tables become first-class `Block` types.
+- **NHI publishes some documents only as .doc/.odt (no .docx).** Notably 通則 and 第六節. Filter-by-extension drops them silently. Fetch by document title, prefer .docx, fall back via LibreOffice conversion. See `docs/next-fixes.md` Task A.
+- **NHI cross-references like `4.1~3項規定` look like headings to a naive regex.** The predecessor's parser had an explicit exception (`^\d+\.\d+~\d+` → reject). Carry that forward. See `docs/next-fixes.md` Task E.
+- **CSV `content` cells: avoid blank lines.** `\n\n` markdown joins become visible blank lines when the RAG appends extra columns. Single `\n` between blocks. See `docs/next-fixes.md` Task C.
+- **The token budget is a contract, not a linter.** The predecessor discovered overflows *after* CSV generation. Here, `chunk_document` raises `ValueError` if any item exceeds `HARD_BUDGET`. Never catch and ignore.
+- **`item_id` must be deterministic and stable across releases.** It's the diff key. Format: `sec{N}-{level}` (e.g. `sec9-9.69.1`). Splits use `-part1`/`-part2`. Don't change the scheme casually — it breaks release-over-release diffs.

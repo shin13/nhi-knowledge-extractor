@@ -17,4 +17,13 @@ uv run nhi-extract sync     # full pipeline: fetch → parse → chunk → rende
 
 Output: `data/regulations/medication/藥品給付規定_YYYYMMDD.zip` plus a release entry prepended to `CHANGELOG.md`.
 
-See [`CLAUDE.md`](CLAUDE.md) for full command reference, layout, and conventions.
+## Docs
+
+- [`docs/intent.md`](docs/intent.md) — original problem & failure modes
+- [`docs/spec.md`](docs/spec.md) — full design (pipeline, types, chunker algorithm, schema)
+- [`docs/next-fixes.md`](docs/next-fixes.md) — known issues + planned fixes
+- [`CLAUDE.md`](CLAUDE.md) — command reference, layout, conventions, lessons learned
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).
