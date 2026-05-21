@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+*.egg-info/
+dist/
+build/
+
+# Data is gitignored — releases are produced fresh each run
+data/regulations/medication/藥品給付規定_*/
+data/regulations/medication/藥品給付規定_*.zip
+data/regulations/medication/chapters/
