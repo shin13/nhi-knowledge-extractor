@@ -1,0 +1,245 @@
+# Changelog
+
+## [20260522] — 2026/05/22（民國115年5月22日）
+**Initial release.**
+**Source manifest:** 3 documents, 237 items emitted, max token count 5977.
+
+### Added
+- `sec3-3.1.1` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.1.靜脈營養輸液  Parenteral nutritions > 3.1.1. Fat emulsion：或含Fat emulsion之靜脈營養輸液(如含glucose、lipid、amino acid及electrolytes三合一靜脈營養輸液)：(97/11/1、98/7/1、98/12/1)限
+- `sec3-3.1.2` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.1.靜脈營養輸液  Parenteral nutritions > 3.1.2.Sodium glycerophosphate(如Glycophos)：（111/1/1）
+- `sec3-3.2` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.2.維生素 Vitamins
+- `sec3-3.3.1` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.1.肝庇護劑：(85/1/1、88/3/1、94/7/1、108/11/1、114/6/1)
+- `sec3-3.3.10` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.10.Laronidase (如Aldurazyme)：(97/7/1、106/10/1)
+- `sec3-3.3.11` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.11.Miglustat（如Zavesca）(98/8/1、108/5/1)
+- `sec3-3.3.12` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.12.Sodium phenylacetate＋Sodium benzoate（如Ammonul inj）： (99/2 /1)
+- `sec3-3.3.13` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.13.Agalsidase alfa(如Replagal)、agalsidase beta(如Fabrazyme)及pegunigalsidase alfa (如Elfabrio)：(102/1/1、103/9/1、108/5/1、112/8/1、114/2/1)
+- `sec3-3.3.14` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.14.Carglumic acid (如Carbaglu Tablets)：（102/9/1、106/7/1）
+- `sec3-3.3.15` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.15.Galsulfase (如Naglazyme)：(106/10/1、107/12/1)
+- `sec3-3.3.16` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.16.(刪除)(107/3/1、107/9/1、108/5/1、111/5/1)。
+- `sec3-3.3.17` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.17. Elosulfase alfa (如Vimizim) Elosulfase alfa (如Vimizim) (107/4/1、112/7/1)
+- `sec3-3.3.18` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.18.Eliglustat Capsules (如Cerdelga ) (108/5/1)
+- `sec3-3.3.19` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.19.先天性代謝異常之罕見疾病藥品(108/9/1、108/12/1、111/9/1、113/11/1)
+- `sec3-3.3.2` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.2.α-Keto acid-amino acid製劑(如Ketosteril)：限
+- `sec3-3.3.20` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.20.Polysaccharides of Astragalus membranaceus(如PG2 Lyo. Injection)：(110/3/1)
+- `sec3-3.3.21` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.21.alpha-glucosidase(如Myozyme)(110/12/1)
+- `sec3-3.3.22` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.22. CRRT non Ca dialysate：（111/4/1）
+- `sec3-3.3.23` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.23. 4%檸檬酸鈉溶液(如A.C.D.-4 Solution "S.T.")：（111/4/1）
+- `sec3-3.3.24` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.24. Support Cal 1.47% CaCl2：（111/4/1）
+- `sec3-3.3.25` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.25.Chenodeoxycholic acid (111/6/1)
+- `sec3-3.3.26` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.26.Alfa-avalglucosidase（如 Nexviazyme）（112/4/1）
+- `sec3-3.3.27` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.27.KH2PO4+Na2HPO4+NaH2PO4．H2O（如PhosAdd Tab.）：（112/5/1）
+- `sec3-3.3.28` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.28.Migalastat hydrochloride (如Galafold)：(112/8/1、114/2/1)
+- `sec3-3.3.29` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.29. Burosumab(如Crysvita)：(113/5/1)
+- `sec3-3.3.3` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.3.(刪除)：（88/9/1、93/8/1、107/10/1）
+- `sec3-3.3.30` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.30. Glycerol phenylbutyrate (如Ravicti)：(113/11/1)
+- `sec3-3.3.31` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.31.Givosiran(如Givlaari)：(114/1/1)
+- `sec3-3.3.4` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.4.口服鈣質補充劑oral calcium salt：（89/2/1）
+- `sec3-3.3.5` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.5.Nutrineal PD4 with 1.1% Amino Acid：(91/2/1、92/10/1、99/5/1)
+- `sec3-3.3.6` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.6."Baxter" Extraneal Peritoneal Dialysis Solution With 7.5% Icodextrin (93/12 /1、96/1/1、99/9/1、100/2/1、108/8/1）
+- `sec3-3.3.7` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.7.Sodium bicarbonate成分之口服製劑給付規定：(95/8/1、96/12/1)
+- `sec3-3.3.8` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.8.Idursulfase(如Elaprase)：(96/7/1、99/8/1、106/10/1)
+- `sec3-3.3.9` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.9.Imiglucerase(如Cerezyme inj.)、taliglucerase alfa(如Elelyso注射劑)、velaglucerase alfa(如VPRIV凍晶注射劑)（97/7/1、107/3/1、107/9/1、108/5/1、111/5/1）
+- `sec8-3.1-preamble` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)：
+- `sec8-3.6-preamble` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。
+- `sec8-8.1.1` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.1.Hepatitis B immune globulin：
+- `sec8-8.1.2` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.2.(刪除)
+- `sec8-8.1.3` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.3.高單位免疫球蛋白(111/2/1、113/11/1、114/10/1)：
+- `sec8-8.1.4` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.4.Immunoglobulin（如：Thymoglobuline inj）(90/11/1、96/2/1、97/8/1、99/2/1、109/4/1)：
+- `sec8-8.1.5` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.5.人用狂犬病疫苗及免疫球蛋白(如Rabipur)：(103/1/1、103/5/1、106/3/1)
+- `sec8-8.1.6` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.6.破傷風類毒素Tetanus toxoid：(112/11/12)
+- `sec8-8.2.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.1.Cyclosporin（如Sandimmun）：（86/1/1、86/9/1、89/7/1、101/10/1、111/5/1）限
+- `sec8-8.2.10` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.10.Eculizumab（如Soliris）、ravulizumab (如Ultomiris)、crovalimab(如Piasky) ：（101/4/1、102/10/1、108/6/1、108/9/1、114/2/1、114/10/1、115/3/1)
+- `sec8-8.2.11` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.11.Plerixafor (如Mozobil)：(102/12/1、106/10/1)
+- `sec8-8.2.12` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.12.Canakinumab（如Ilaris）：(104/8/1)
+- `sec8-8.2.13` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.13.Belimumab(如Benlysta)：(111/10/1、114/2/1)
+- `sec8-8.2.14` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.14.Satralizumab(如Enspryng)、inebilizumab(如Uplizna)：(112/10/1、115/1/1、115/2/1)
+- `sec8-8.2.15` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.15.Siltuximab (如Sylvant):(113/2/1)
+- `sec8-8.2.16` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.16. Apremilast（如Otezla）、deucravacitinib（如Sotyktu）：（113/3/1、113/10/1、114/6/1）
+- `sec8-8.2.17` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.17. Mepolizumab (如Nucala)、Benralizumab (如Fasenra)：(113/4/1、115/4/1)
+- `sec8-8.2.18` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.18.Anifrolumab（如Saphnelo）：(113/10/1)：
+- `sec8-8.2.19` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.19.Danicopan (如Voydeya)：（115/3/1）
+- `sec8-8.2.2.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.2.Tacrolimus > 8.2.2.1.Tacrolimus持續性口服製劑：(98/8/1)
+- `sec8-8.2.2.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.2.Tacrolimus > 8.2.2.2.Tacrolimus 注射劑及其他非持續性口服製劑： (88/8/1、93/12/1、102/7/1)
+- `sec8-8.2.3.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.1.Interferon beta-la (如Rebif) 、teriflunomide 14mg (如Aubagio)、 dimethyl fumarate (如Tecfidera)、peginterferon beta-1a (如Plegridy)、ozanimod (如Zeposia)、cladribine(如Mavenclad)：(91/4/1、97/8/1、100/10/1、106/10/1、107/7/1、107/10/1、109/11/1、112/3/1、115/3/1)
+- `sec8-8.2.3.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.2.Interferon beta-1b (如Betaferon 8MIU)：(92/3/1、92/12/1、93/3/1、97/8/1、99/10/1、100/10/1、106/10/1)
+- `sec8-8.2.3.3` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.3.Glatiramer acetate (如Copaxone injection)：(94/10/1、97/8/1)
+- `sec8-8.2.3.4` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.4.Natalizumab (如Tysabri) （100/5/1）:
+- `sec8-8.2.3.5` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.5.Fingolimod(如Gilenya)：(101/9/1、102/10/1、109/1/1、109/10/1、115/3/1)
+- `sec8-8.2.3.6` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.6.Alemtuzumab（如Lemtrada）：（108/7/1）
+- `sec8-8.2.3.7` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.7.Siponimod(如Mayzent)：(110/3/1)
+- `sec8-8.2.4.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.1. Etanercept(如Enbrel)；adalimumab(如Humira)；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；secukinumab（如Cosentyx）(94/3/1、101/12/1、102/1/1、102/10/1、105/10/1、108/1/1、111/2/1、113/10/1、114/7/1、114/10/1)：兒童治療部分
+- `sec8-8.2.4.10` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.4.10.Adalimumab（如Humira）(109/9/1) 用於小兒葡萄膜炎治療部分
+- `sec8-8.2.4.11` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.4.11.Guselkumab (如Tremfya) (111/9/1)：用於掌蹠膿皰症治療部分
+- `sec8-8.2.4.12` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.4.12.Tocilizumab(如Actemra)：(113/1/1)
+- `sec8-8.2.4.13` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.4.13.Baricitinib (Olumiant)：(113/1/1)
+- `sec8-8.2.4.14` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.4.14.Secukinumab（如Cosentyx）：用於化膿性汗腺炎（114/7/1）
+- `sec8-8.2.4.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.2. Etanercept(如Enbrel)； adalimumab（如Humira）；golimumab（如Simponi）； abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；certolizumab (Cimzia) ；baricitinib（如Olumiant）；opinercept (如Tunex)； infliximab(如Remicade)；peficitinib (如Smyraf)；upadacitinib(如Rinvoq)；filgotinib(如Jyseleca) (92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、102/1/1、102/4/1、102/10/1、103/12/1、106/4/1、106/11/1、107/9/1、108/3/1、108/5/1、109/8/1、109/9/1、109/12/1、110/3/1、110/5/1、110/6/1、112/5/1、114/9/1)：成人治療部分
+- `sec8-8.2.4.3` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.3. Adalimumab（如Humira）; etanercept (如Enbrel) ；golimumab（如Simponi）；secukinumab（如Cosentyx）；infliximab（如Remicade靜脈注射）；certolizumab (如Cimzia)；ixekizumab(如Taltz) ；upadacitinib(如Rinvoq)；tofacitinib (如Xeljanz)；brodalumab (如Lumicef)；bimekizumab（如Bimzelx） (98/8/1、98/11/1、101/1/1、102/1/1、107/1/1、109/9/1、109/12/1、110/7/1、111/5/1、112/3/1、112/4/1、112/12/1、114/9/1、115/5/1)：用於僵直性脊椎炎治療部分
+- `sec8-8.2.4.4` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.4.Adalimumab（如Humira）； etanercept (如Enbrel)；golimumab（如Simponi）；ustekinumab（如Stelara）；secukinumab（如Cosentyx）；ixekizumab (如Taltz)；tofacitinib（如Xeljanz）；certolizumab(如Cimzia)；brodalumab(如Lumicef)；guselkumab(如Tremfya)；upadacitinib(如Rinvoq) ；risankizumab (如Skyrizi)；bimekizumab（如Bimzelx）（98/8/1、98/11/1、99/1/1、102/1/1、102/2/1、105/10/1、107/1/1、109/3/1、109/6/1、109/8/1、109/9/1、110/7/1、111/3/1、111/5/1、111/9/1、112/3/1、112/4/1、112/12/1、114/2/1、115/5/1)：用於活動性乾癬性關節炎－乾癬性周邊關節炎治療部分
+- `sec8-8.2.4.5` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.5.Adalimumab（如Humira）;etanercept(如Enbrel)；golimumab（如Simponi）；secukinumab(如Cosentyx)；ixekizumab(如Taltz)；tofacitinib(如Xeljanz)；certolizumab(如Cimzia)；guselkumab(如Tremfya)；upadacitinib(如Rinvoq)；brodalumab (如Lumicef) ；risankizumab (如Skyrizi)；bimekizumab（如Bimzelx） (98/8/1、98/11/1、99/1/1、102/1/1、102/2/1、107/1/1、109/3/1、109/6/1、110/7/1、111/9/1、112/3/1、112/4/1、112/12/1、114/2/1、115/5/1)：用於活動性乾癬性關節炎－乾癬性脊椎病變治療部分
+- `sec8-8.2.4.6.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.6. Etanercept（如Enbrel）；adalimumab（如Humira）；ustekinumab（如Stelara）；secukinumab（如Cosentyx）；ixekizumab（如Taltz）；guselkumab（如Tremfya）；brodalumab（如Lumicef）；risankizumab（如Skyrizi）；certolizumab（如Cimzia）；spesolimab（如Spevigo)；bimekizumab（如Bimzelx）(98/11/1、100/7/1、101/5/1、101/12/1、102/1/1、104/4/1、105/9/1、107/8/1、108/3/1、108/4/1、109/9/1、109/12/1、110/5/1、110/7/1、113/3/1、113/7/1、114/6/1、115/5/1)：用於乾癬治療部分 > 8.2.4.6.1. Etanercept（如Enbrel）；adalimumab（如Humira）；ustekinumab（如Stelara）；secukinumab（如Cosentyx）；ixekizumab(如Taltz) ； guselkumab (如Tremfya) ；brodalumab (如Lumicef)；risankizumab(如Skyrizi) ；certolizumab (如Cimzia) ；bimekizumab（如Bimzelx）(98/11/1、100/7/1、101/5/1、101/12/1、102/1/1、104/4/1、105/9/1、107/8/1、108/3/1、108/4/1、109/9/1、109/12/1、110/5/1、110/7/1、113/3/1、114/6/1、115/5/1)：用於乾癬治療部分
+- `sec8-8.2.4.6.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.6. Etanercept（如Enbrel）；adalimumab（如Humira）；ustekinumab（如Stelara）；secukinumab（如Cosentyx）；ixekizumab（如Taltz）；guselkumab（如Tremfya）；brodalumab（如Lumicef）；risankizumab（如Skyrizi）；certolizumab（如Cimzia）；spesolimab（如Spevigo)；bimekizumab（如Bimzelx）(98/11/1、100/7/1、101/5/1、101/12/1、102/1/1、104/4/1、105/9/1、107/8/1、108/3/1、108/4/1、109/9/1、109/12/1、110/5/1、110/7/1、113/3/1、113/7/1、114/6/1、115/5/1)：用於乾癬治療部分 > 8.2.4.6.2.Spesolimab (如 Spevigo) (113/7/1)：用於全身型急性發作膿疱性乾癬治療部分
+- `sec8-8.2.4.7.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.7. Adalimumab（如Humira）、infliximab（如Remicade）、vedolizumab(如Entyvio)、ustekinumab（如Stelara）、risankizumab（如Skyrizi）、upadacitinib(如Rinvoq) (100/7/1、102/1/1、105/10/1、106/5/1、106/10/1、108/10/1、109/9/1、112/8/1、113/7/1、113/9/1、113/11/1、114/8/1、114/9/1)：用於克隆氏症治療部分 > 8.2.4.7.1. Adalimumab（如Humira）、infliximab（如Remicade）、vedolizumab(如Entyvio)、ustekinumab（如Stelara）、risankizumab（如Skyrizi）、upadacitinib(如Rinvoq）(105/10/1、106/5/1、106/10/1、108/10/1、109/9/1、112/8/1、113/7/1、113/9/1、113/11/1、114/8/1、114/9/1)：成人治療部分
+- `sec8-8.2.4.7.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.7. Adalimumab（如Humira）、infliximab（如Remicade）、vedolizumab(如Entyvio)、ustekinumab（如Stelara）、risankizumab（如Skyrizi）、upadacitinib(如Rinvoq) (100/7/1、102/1/1、105/10/1、106/5/1、106/10/1、108/10/1、109/9/1、112/8/1、113/7/1、113/9/1、113/11/1、114/8/1、114/9/1)：用於克隆氏症治療部分 > 8.2.4.7.2. Adalimumab（如Humira）、infliximab （如Remicade靜脈注射）、risankizumab（如Skyrizi）(105/10/1、106/5/1、108/10/1、111/2/1、113/7/1、113/9/1、114/9/1)：兒童治療部分
+- `sec8-8.2.4.8` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.4.8.Abatacept靜脈注射劑（如Orencia IV）（101/10/1、102/1/1、104/8/1、108/1/1、111/2/1）：用於幼年型慢性關節炎治療部分
+- `sec8-8.2.4.9.1` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.4.9. Golimumab(如Simponi)、Adalimumab（如Humira）、Vedolizumab（如Entyvio）、infliximab（如Remicade）、tofacitinib(如Xeljanz)、ustekinumab(如Stelara)、upadacitinib(如Rinvoq) (105/9/1、105/10/1、106/10/1、107/8/1、108/10/1、111/3/1、111/6/1、112/8/1、113/7/1、113/11/1、114/8/1、114/9/1)：用於潰瘍性結腸炎治療部分 > 8.2.4.9.1. Golimumab(如Simponi)、Adalimumab（如Humira）、Vedolizumab（如Entyvio）、infliximab（如Remicade）、tofacitinib(如Xeljanz) ustekinumab(如Stelara)、upadacitinib(如Rinvoq)(105/9/1、105/10/1、106/10/1、107/8/1、108/10/1、111/3/1、111/6/1、112/8/1、113/7/1、113/11/1、114/8/1、114/9/1)：成人治療部分
+- `sec8-8.2.4.9.2` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.4.9. Golimumab(如Simponi)、Adalimumab（如Humira）、Vedolizumab（如Entyvio）、infliximab（如Remicade）、tofacitinib(如Xeljanz)、ustekinumab(如Stelara)、upadacitinib(如Rinvoq) (105/9/1、105/10/1、106/10/1、107/8/1、108/10/1、111/3/1、111/6/1、112/8/1、113/7/1、113/11/1、114/8/1、114/9/1)：用於潰瘍性結腸炎治療部分 > 8.2.4.9.2. Infliximab（如Remicade靜脈注射）、adalimumab（如Humira） (107/8/1、108/10/1、111/2/1、111/5/1、113/7/1、114/9/1）：兒童治療部分
+- `sec8-8.2.5` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.5.Leflunomide (如Arava、Arheuma )：(92/9/1、93/5/1、97/9/1)
+- `sec8-8.2.6.1` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.6.短效干擾素、長效干擾素： > 8.2.6.1.Interferon alpha-2a （如Roferon-A）及interferon alpha-2b（如Intron A）（92/10/1、109/7/1）; peginterferon alfa-2a（如Pegasys）（92/11/1-C肝、94/11/1-B肝、96/10/1、98/11/1、99/5/1-B肝、100/6/1-B肝、102/2/1、105/10/1、106/1/1、106/4/1、109/7/1、110/3/1、111/2/1、111/3/1)：
+- `sec8-8.2.6.2` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.6.短效干擾素、長效干擾素： > 8.2.6.2.Peginterferon alpha-2b（如Peg-Intron）（92/10/1、94/10/1、109/7/1）；interferon alfacon-1（如Infergen）（93/7/1、94/10/1、98/11/1、109/7/1）
+- `sec8-8.2.7` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.7.Rituximab注射劑（如Mabthera，不同劑型之適用範圍需符合藥品許可證登載之適應症)：用於類風濕性關節炎之成人治療部分（97/11/1、99/2/1、101/7/1、102/1/1、102/4/1、106/9/1、109/11/1）
+- `sec8-8.2.8` — 第8節 免疫製劑 Immunologic agents > 3.6歲以上(risankizumab限使用於16歲以上未滿18歲)，經診斷為小兒克隆氏症且領有重大傷病證明，並排除第6項之情形及符合下列條件之一；且申請時應附上影像診斷評估報告；(111/2/1、113/9/1)。 > 8.2.8.Palivizumab (如Synagis)(99/12/1、102/7/1、106/4/1、111/2/1、111/4/1、114/6/1)
+- `sec8-8.2.9` — 第8節 免疫製劑 Immunologic agents > 3.1歲以下患有血液動力學上顯著異常之先天性心臟病童。需符合以下條件(111/2/1)： > 8.2.9.Thalidomide（如Thado）(100/2/1)
+- `sec9-3.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 3.1~2項規定內之疾病診斷或追蹤若需依據基因檢測報告，則需符合全民健康保險藥品給付規定之通則十二。
+- `sec9-4.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 4.1~3項規定內之疾病診斷或追蹤若需依據基因檢測報告，則需符合全民健康保險藥品給付規定之通則十二。(113/6/1)
+- `sec9-4.1-dup2` — 第9節抗癌瘤藥物Antineoplastics drugs > 4.1~3項規定內之疾病診斷或追蹤若需依據基因檢測報告，則需符合全民健康保險藥品給付規定之通則十二。(113/6/1)
+- `sec9-4.1-dup3` — 第9節抗癌瘤藥物Antineoplastics drugs > 4.1~2項規定之疾病診斷或追蹤若為依據基因檢測報告，需符合全民健康保險藥品給付規定之通則十二。
+- `sec9-4.112` — 第9節抗癌瘤藥物Antineoplastics drugs > 4.112年3月31日以前已核定用藥之病人，得經事前審查核准後，使用至總療程上限（第一線治療以總共16輸注為上限，第二線以上治療以總共22次輸注為上限，接受第一線治療以後，不再給付第二線以上治療）或使用期間發生疾病惡化為止。（112/4/1、114/9/1）
+- `sec9-6.110` — 第9節抗癌瘤藥物Antineoplastics drugs > 6.110年9月30日以前已核定用藥之病人，得經事前審查核准後，使用至總療程(即終生24個月)或總療程期間疾病惡化為止，且後續不得再申請使用本類藥品。（110/10/1、113/1/1）
+- `sec9-6.112` — 第9節抗癌瘤藥物Antineoplastics drugs > 6.112年3月31日以前已核定用藥之病人，得經事前審查核准後，使用至總療程上限（即終生10個療程，Pomado則每人6個療程）或使用期間發生疾病惡化為止。（112/4/1、113/9/1）
+- `sec9-8.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 8.1~7項規定內之疾病診斷或追蹤若需依據基因檢測報告，則需符合全民健康保險藥品給付規定之通則十二。(113/6/1)
+- `sec9-9.1.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.1.Aromatase Inhibitors > 9.1.1.Exemestane(如Aromasin Sugar Coated Tablets)：（88/11/1、90/10/1、99/6/1、105/8/1)
+- `sec9-9.1.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.1.Aromatase Inhibitors > 9.1.2.Anastrozole(如Arimidex)：（88/6/1、92/3/1、93/6/1）
+- `sec9-9.1.3` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.1.Aromatase Inhibitors > 9.1.3.Letrozole：（88/11/1、90/10/1、92/3/1、97/11/1、98/11/1、99/9/1、102/8/1)
+- `sec9-9.10` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.10.Oxaliplatin：（需符合藥品許可證登載之適應症）（89/7/1、91/10/1、93/8/1、98/2/1、98/3/1、98/7/1、102/9/1、102/12/1、109/12/1、110/5/1、110/6/1、110/7/1、111/11/1、113/4/1、113/6/1、115/2/1)
+- `sec9-9.100` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.100.Acalabrutinib(如Calquence)：(112/7/1、112/12/1、114/10/1、115/5/1)
+- `sec9-9.101` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.101.Tepotinib (如Tepmetko):(112/7/1、113/6/1)
+- `sec9-9.102` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.102.Dinutuximab beta (如Qarziba)：(112/8/1)
+- `sec9-9.103` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.103.Tisagenlecleucel(如Kymriah)：(112/11/1、113/2/1、114/8/1)
+- `sec9-9.104` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.104.Zanubrutinib(如Brukinsa)：(112/12/1、114/8/1、114/10/1、115/5/1)
+- `sec9-9.105` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.105.Polatuzumab vedotin (如Polivy)：(113/2/1、114/8/1)
+- `sec9-9.106` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.106.Sacituzumab govitecan (如Trodelvy）：(113/2/1、114/2/1、114/10/1)
+- `sec9-9.107` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.107.Abemaciclib (如Verzenio)：(113/3/1、113/6/1)
+- `sec9-9.108` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.108. Isatuximab(如Sarclisa)：(113/4/1、114/9/1)
+- `sec9-9.109` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.109.Enfortumab vedotin(如Padcev）：(113/5/1)
+- `sec9-9.11` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.11.Uracil-Tegafur：(如Ufur)(100/1/1)
+- `sec9-9.110` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.110.Tirabrutinib (如Velexbru）：(113/6/1)
+- `sec9-9.111` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.111.Elotuzumab (如Empliciti)：(113/9/1)
+- `sec9-9.112` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.112.Pertuzumab與trastuzumab皮下注射複方製劑(如Phesgo):(113/12/1、114/5/1)
+- `sec9-9.113` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.113.Gemtuzumab ozogamicin(如Mylotarg)：(114/1/1)
+- `sec9-9.114` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.114.Fedratinib (如Inrebic)：(114/1/1、114/10/1)
+- `sec9-9.115` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.115.Trastuzumab deruxtecan (如Enhertu)：(114/2/1)
+- `sec9-9.116` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.116.Selumetinib (如Koselugo)：(114/2/1)
+- `sec9-9.117` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.117.Selinexor(如Xpovio)：(114/3/1)
+- `sec9-9.118` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.118.Elranatamab (如Elrexfio)：(114/5/1、114/8/1)
+- `sec9-9.119` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.119. Teclistamab (如Tecvayli) ：(114/5/1、114/8/1)
+- `sec9-9.12.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.12.Irinotecan(90/10/1、107/8/1、110/5/1、110/7/1、110/8/1、112/2/1、114/12/1) > 9.12.1.Irinotecan(如Campto injection)：（需符合藥品許可證登載之適應症）(90/10/1、93/8/1、110/5/1、110/7/1、110/8/1、112/2/1)
+- `sec9-9.12.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.12.Irinotecan(90/10/1、107/8/1、110/5/1、110/7/1、110/8/1、112/2/1、114/12/1) > 9.12.2.Irinotecan微脂體注射劑(如Onivyde)：(107/8/1、114/12/1)
+- `sec9-9.120` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.120.Glofitamab（如Columvi）：（114/8/1)
+- `sec9-9.121` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.121.Epcoritamab (如Epkinly)：(114/8/1)
+- `sec9-9.122` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.122.Asciminib (如Scemblix)：(114/9/1)
+- `sec9-9.123` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.123.Ripretinib(如Qinlock）：(114/9/1)
+- `sec9-9.124` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.124.Tafasitamab（如Minjuvi）：（114/10/1、115/3/1、115/4/1）
+- `sec9-9.125` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.125.Quizartinib（如Vanflyta）：（114/10/1)
+- `sec9-9.126` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.126.Amivantamab(如Rybrevant)：(114/10/1)
+- `sec9-9.127` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.127.Momelotinib (如Omjjara)：(114/10/1)
+- `sec9-9.128` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.128.Tucidinostat (如Kepida)：(114/12/1)
+- `sec9-9.129` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.129.Alpelisib (如Piqray）：(115/1/1)
+- `sec9-9.13` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.13.Aldesleukin(如Proleukin for Injection)：(90/10/1、93/8/1)
+- `sec9-9.130` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.130.Fulvestrant(如 Fustron)：(115/1/1)
+- `sec9-9.131` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.131.Repotrectinib(如Augtyro)：(115/2/1)
+- `sec9-9.132` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.132.Bosutinib(如Bostini)：(115/2/1)
+- `sec9-9.133` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.133.Zolbetuximab (如Vyloy)：(115/4/1)
+- `sec9-9.134` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.134.Encorafenib (如Braftovi):(115/5/1)
+- `sec9-9.14` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.14.Doxorubicin hydrochloride liposome injection(如Lipo-Dox、Caelyx)：(91/3/1、93/8/1、93/11/1、99/10/1)
+- `sec9-9.15` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.15.Tretinoin（如Vesanoid Soft Gelatin）：（88/10/1）
+- `sec9-9.16.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.16.Topotecan（如Hycamtin）：（88/10/1、93/8/1、98/11/1、100/6/1） > 9.16.1.Topotecan注射劑（88/10/1、93/8/1、98/11/1）
+- `sec9-9.16.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.16.Topotecan（如Hycamtin）：（88/10/1、93/8/1、98/11/1、100/6/1） > 9.16.2.Topotecan口服劑型（100/6/1）
+- `sec9-9.17` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.17.Capecitabine（如Xeloda）：（88/10/1、91/4/1、92/6/1、93/8/1、96/9/1、97/12/1、110/2/1、113/4/1、113/6/1、115/2/1）
+- `sec9-9.18` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.18. Trastuzumab (如Herceptin)：(91/4/1、93/8/1、95/2/1、99/1/1、99/8/1、99/10/1、101/1/1、105/11/1、108/5/1、109/2/1、111/12/1、112/10/1、113/8/1、113/12/1、114/1/1、114/5/1、114/12/1)
+- `sec9-9.19` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.19.Estramustine sod. phosphate monohydrate(如Estracyt)：(91/4/1)
+- `sec9-9.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.2.Carboplatin(如Paraplatin；Carboplatin inj)：(112/12/1、114/2/1、114/6/1、114/8/1、114/10/1)
+- `sec9-9.20` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.20.Rituximab注射劑(如Mabthera，不同劑型之適用範圍需符合藥品許可證登載之適應症)：用於抗癌瘤部分(91/4/1、93/1/1、95/3/1、97/2/1、102/1/1、103/2/1、103/9/1、104/6/1、106/9/1、111/6/1、113/2/1、113/12/1、115/5/1)
+- `sec9-9.21` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.21.Fludarabine(如Fludara Oral, Film-Coated Tablet及Fludara Lyophilized IV Injection)：(92/12/1、93/3/1、94/10/1、99/10/1、106/11/1)
+- `sec9-9.22` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.22.Imatinib(如Glivec)：(91/5/1、93/7/1、97/8/1、99/6/1、100/2/1、102/9/1、113/6/1)附表九之八
+- `sec9-9.23` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.23.Arsenic trioxide(如Asadin Inj.)：(91/8/1、92/9/1)
+- `sec9-9.24` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.24.Gefitinib(如Iressa):(93/11/1、96/8/1、96/11/1、100/6/1、101/5/1、101/10/1、103/5/1、106/11/1、 108/6/1、108/11/1、109/4/1、109/6/1、109/10/1、111/2/1、111/4/1、113/3/1、113/6/1、113/10/1)
+- `sec9-9.25` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.25.Temozolomide(如Temodal)：(94/3/1、97/1/1、98/9/1、111/9/1)附表八之二
+- `sec9-9.26` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.26.Pemetrexed(如Alimta)：(95/3/1、95/7/1、97/11/1、98/9/1、103/4/1、103/9/1、106/11/1、111/2/1、114/6/1、114/8/1、114/10/1)
+- `sec9-9.27` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.27.Cetuximab(如Erbitux)：(96/3/1、98/7/1、98/8/1、99/10/1、101/12/1、104/11/1、106/1/1、106/4/1、107/6/1、110/6/1、111/2/1、112/12/1、113/6/1、115/2/1、115/5/1)
+- `sec9-9.28` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.28.Bortezomib（如Velcade）：（96/6/1、98/2/1、99/3/1、99/9/1、100/10/1、101/6/1、105/5/1、109/4/1、109/6/1、111/1/1、112/4/1）附表九之三
+- `sec9-9.29` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.29. Erlotinib（如Tarceva）：（96/6/1、96/8/1、97/6/1、101/5/1、101/10/1、102/4/1、102/11/1、103/5/1、106/11/1、108/6/1、108/11/1、109/4/1、109/6/1、109/10/1、111/2/1、111/4/1、113/3/1、113/6/1、113/9/1、113/10/1、114/3/1、114/4/1）
+- `sec9-9.3` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.3.Docetaxel：（87/7/1、92/11/1、93/8/1、95/8/1、96/1/1、99/6/1、100/1/1、101/9/1、108/1/1、113/5/1）
+- `sec9-9.30` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.30.Dasatinib(如Sprycel)：(98/1/1、102/4/1、104/12/1、110/5/1、113/6/1、115/2/1)
+- `sec9-9.31` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.31. Sunitinib（如Sutent）：（98/2/1、98/5/1、99/1/1、99/2/1、101/5/1、102/1/1、104/12/1、110/12/1、112/3/1）
+- `sec9-9.32.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.32. Nilotinib：（98/6/1、99/1/1、101/7/1、113/6/1、115/2/1）附表九之六 > 9.32.1.Nilotinib 200mg(如Tasigna 200mg)（98/6/1、99/1/1、104/12/1、113/6/1、115/2/1）
+- `sec9-9.32.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 4.1~2項規定內之疾病診斷或追蹤若需依據基因檢測報告，則需符合全民健康保險藥品給付規定之通則十二。(113/6/1) > 9.32.2.Nilotinib 150mg(如Tasigna 150mg)：(101/7/1、104/12/1、113/6/1)
+- `sec9-9.33` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.33.Thalidomide（如Thado）：(98/7/1)
+- `sec9-9.34` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.34.Sorafenib(如Nexavar)：(98/10/1、100/6/1、101/8/1、104/12/1、105/11/1、106/1/1、107/7/1、108/6/1、108/12/1、109/1/1、112/8/1、114/2/1、114/6/1)
+- `sec9-9.35` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.35.carmustine植入劑(如Gliadel Wafer)：(100/2/1)附表八之四
+- `sec9-9.36.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.36.Everolimus：（100/2/1、102/1/1）附表九之九 > 9.36.1.Everolimus 5mg及10mg(如Afinitor 5mg及10mg)：（100/2/1、102/1/1、104/9/1、104/12/1、106/3/1、108/10/1、109/4/1、114/12/1）
+- `sec9-9.36.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.36.Everolimus：（100/2/1、102/1/1）附表九之九 > 9.36.2.Everolimus 2.5mg及5mg(如Votubia)：（102/1/1、106/4/1、111/2/1）
+- `sec9-9.37` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.37. Bevacizumab(如Avastin)：（100/6/1、101/05/1、106/4/1、108/3/1、109/6/1、112/8/1、113/3/1、113/6/1、113/9/1、114/3/1、114/6/1、114/8/1、114/10/1)
+- `sec9-9.38` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.38.Temsirolimus(如Torisel)：（101/1/1）附表九之十一
+- `sec9-9.39` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.39.Flutamide；buserelin：（90/8/1、101/7/1）
+- `sec9-9.4` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.4.Gemcitabine（如Gemzar）：（92/12/1、93/8/1、94/10/1、96/5/1、99/10/1、105/2/1、114/2/1、115/2/1）
+- `sec9-9.40` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.40.Bicalutamide：（89/10/1、101/7/1）
+- `sec9-9.41` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.41.Pazopanib（如Votrient）：（101/8/1、104/4/1、106/3/1、110/12/1、112/10/1）附表九之十三
+- `sec9-9.42` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.42.Bendamustine（如Innomustine）：(101/10/1、103/2/1、108/10/1、113/2/1)
+- `sec9-9.43` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.43.Lenalidomide(如Revlimid)：（101/12/1、106/10/1、109/2/1、109/8/1、112/4/1、114/10/1、115/3/1、115/4/1、115/5/1）
+- `sec9-9.44.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.44.Azacitidine：（102/1/1、111/5/1、111/8/1、112/2/1、112/8/1、114/3/1、114/5/1、114/8/1、114/10/1、114/12/1） > 9.44.1.Azacitidine 注射劑（如Vidaza）：（102/1/1、111/5/1、111/8/1、112/2/1、112/8/1、114/3/1、114/8/1、114/12/1）
+- `sec9-9.44.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.44.Azacitidine：（102/1/1、111/5/1、111/8/1、112/2/1、112/8/1、114/3/1、114/5/1、114/8/1、114/10/1、114/12/1） > 9.44.2.Azacitidine 口服製劑（如Onureg）：(114/5/1、114/10/1）
+- `sec9-9.45` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.45.Afatinib（如Giotrif）：(103/5/1、106/11/1、108/6/1、108/11/1、109/4/1、109/6/1、109/10/1、111/4/1、113/3/1、113/6/1、113/10/1)
+- `sec9-9.46` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.46.Tegafur/gimeracil/oteracil複方製劑(如TS-1）：(103/6/1、105/12/1、109/2/1、113/2/1)
+- `sec9-9.47` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.47.Lapatinib（如Tykerb）：（103/9/1、106/11/1、110/2/1、114/2/1）
+- `sec9-9.48` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.48.Eribulin（如Halaven）：（103/12/1、106/11/1、108/12/1、110/2/1）
+- `sec9-9.49` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.49. Abiraterone(如Zytiga）：（103/12/1、105/9/1、106/9/1、108/3/1、109/5/1、109/10/1、110/2/1、110/3/1、110/11/1、111/3/1、112/9/1、113/8/1、113/9/1、114/6/1）
+- `sec9-9.5.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.5.Paclitaxel成分劑：（88/8/1、88/11/1、89/6/1、89/10/1、91/4/1、91/8/1、93/8/1、94/1/1、98/8/1、108/11/1、112/12/1、114/6/1、114/8/1） > 9.5.1.Paclitaxel成分注射劑：(108/11/1、112/12/1、114/6/1、114/8/1)
+- `sec9-9.5.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.5.Paclitaxel成分劑：（88/8/1、88/11/1、89/6/1、89/10/1、91/4/1、91/8/1、93/8/1、94/1/1、98/8/1、108/11/1、112/12/1、114/6/1、114/8/1） > 9.5.2.Albumin-based paclitaxel（如Abraxane）：(108/11/1)
+- `sec9-9.50` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.50.Crizotinib (如Xalkori)：(104/9/1、106/11/1、107/5/1、108/7/1、108/9/1、108/12/1、110/7/1、111/2/1、111/8/1、112/11/1、113/6/1、113/9/1)
+- `sec9-9.51` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.51.Regorafenib（如Stivarga）：（104/9/1、105/8/1、107/12/1、108/6/1、110/5/1、110/6/1、113/6/1）
+- `sec9-9.52` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.52.Vemurafenib(如Zelboraf)：(104/11/1、110/3/1、113/6/1）
+- `sec9-9.53` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.53.Panitumumab（如Vectibix）：(105/4/1、107/6/1、110/6/1、113/6/1、115/2/1)
+- `sec9-9.54` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.54. Enzalutamide（如Xtandi）：（105/9/1、106/9/1、108/3/1、109/10/1、110/3/1、110/11/1、111/3/1、112/9/1、113/8/1、114/6/1、114/10/1）
+- `sec9-9.55` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.55.Ruxolitinib(如Jakavi)：(105/10/1、113/3/1、113/6/1、114/1/1、114/10/1)
+- `sec9-9.56` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.56. Brentuximab vedotin(如Adcetris)：(105/10/1、106/4/1、109/2/1、111/2/1、114/12/1)
+- `sec9-9.57` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.57.Clofarabine（如Evoltra）：（106/1/1、109/12/1）
+- `sec9-9.58` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.58.Axitinib(如Inlyta)：（106/1/1、108/12/1）
+- `sec9-9.59` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.59.Ceritinib(如Zykadia)：(106/9/1、106/11/1、108/7/1、108/12/1、111/2/1、111/8/1、112/11/1、113/6/1)
+- `sec9-9.6` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.6.Streptococcus pyrogene(如Picibanil)：
+- `sec9-9.60` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.60.Alectinib(如Alecensa)：(106/11/1、108/12/1、111/2/1、111/8/1、112/11/1、113/6/1)
+- `sec9-9.61` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.61.Ibrutinib (如Imbruvica)：(106/11/1、108/9/1、111/1/1、112/7/1、112/12/1、113/2/1、114/10/1、115/5/1)
+- `sec9-9.62` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.62. Pomalidomide(如Pomalyst):(107/1/1、109/2/1、112/4/1、113/9/1)
+- `sec9-9.63` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.63. Lenvatinib(如Lenvima)：(107/7/1、109/1/1、109/8/1、112/8/1、114/2/1、114/6/1)
+1.用於放射性碘治療無效之局部晚期或轉移性的進行性(progressive)分化型甲狀腺癌(RAI-RDTC)：
+- `sec9-9.64` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.64.Blinatumomab(如Blincyto)：(107/9/1、109/12/1、112/12/1)
+- `sec9-9.65` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.65.Pralatrexate(如Folotyn)：(107/10/1、110/5/1)
+- `sec9-9.66` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.66.Trifluridine/tipiracil(如Lonsurf)：(107/12/1、109/12/1、110/6/1、113/6/1、115/2/1)
+- `sec9-9.67` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.67.Ponatinib(如Iclusig)：(107/12/1、113/6/1、115/2/1)
+- `sec9-9.68` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.68.Radium-223(如Xofigo)：(108/3/1)
+- `sec9-9.69-part1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.69.免疫檢查點抑制劑(如atezolizumab；nivolumab；pembrolizumab；avelumab；ipilimumab；durvalumab；tremelimumab；cemiplimab製劑)：(108/4/1、108/6/1、109/4/1、109/6/1、109/11/1、110/5/1、110/10/1、111/4/1、111/6/1、112/8/1、112/10/1、112/12/1、113/2/1、113/4/1、113/5/1、113/6/1、113/8/1、114/1/1、114/2/1、114/6/1、114/8/1、114/10/1、115/2/1、115/4/1、115/5/1)
+- `sec9-9.69-part2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.69.免疫檢查點抑制劑(如atezolizumab；nivolumab；pembrolizumab；avelumab；ipilimumab；durvalumab；tremelimumab；cemiplimab製劑)：(108/4/1、108/6/1、109/4/1、109/6/1、109/11/1、110/5/1、110/10/1、111/4/1、111/6/1、112/8/1、112/10/1、112/12/1、113/2/1、113/4/1、113/5/1、113/6/1、113/8/1、114/1/1、114/2/1、114/6/1、114/8/1、114/10/1、115/2/1、115/4/1、115/5/1)
+- `sec9-9.69-part3` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.69.免疫檢查點抑制劑(如atezolizumab；nivolumab；pembrolizumab；avelumab；ipilimumab；durvalumab；tremelimumab；cemiplimab製劑)：(108/4/1、108/6/1、109/4/1、109/6/1、109/11/1、110/5/1、110/10/1、111/4/1、111/6/1、112/8/1、112/10/1、112/12/1、113/2/1、113/4/1、113/5/1、113/6/1、113/8/1、114/1/1、114/2/1、114/6/1、114/8/1、114/10/1、115/2/1、115/4/1、115/5/1)
+- `sec9-9.7` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.7.（刪除）（87/7/1、94/1/1、109/10/1）
+- `sec9-9.70` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.70. Pertuzumab(如Perjeta)：(108/5/1、108/12/1、112/8/1、113/12/1、114/1/1、114/5/1、114/12/1)
+- `sec9-9.71` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.71. Venetoclax (如Venclexta)：(108/9/1、110/7/1、112/7/1、114/8/1、114/10/1)
+- `sec9-9.72` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.72. CDK4/6抑制劑 (如 ribociclib；palbociclib)：(108/10/1、108/12/1、109/4/1、109/10/1、110/5/1、110/10/1、113/1/1、113/3/1、114/7/1、115/1/1)
+- `sec9-9.73` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.73.Inotuzumab ozogamicin (如Besponsa)：(108/11/1、112/12/1)
+- `sec9-9.74` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.74.Cabozantinib (如Cabometyx)： (108/12/1、110/12/1、114/8/1)
+- `sec9-9.75` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.75. Carfilzomib (如Kyprolis)：(109/2/1、112/4/1、113/4/1)
+- `sec9-9.76` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.76.Midostaurin (如Rydapt)：(109/2/1、113/6/1、114/10/1)
+- `sec9-9.77` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.77. Ixazomib (如Ninlaro)：(109/3/1、112/4/1)
+- `sec9-9.78` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.78. Daratumumab(如Darzalex靜脈注射劑與皮下注射劑)：(109/4/1、112/4/1、113/4/1、114/9/1)
+- `sec9-9.79` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.79.Obinutuzumab(如Gazyva)：（109/4/1、113/2/1、114/8/1）
+- `sec9-9.8` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.8.Toremifene（如Fareston）：（88/6/1）
+- `sec9-9.80` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.80.Osimertinib (如Tagrisso)：(109/4/1、109/6/1、109/10/1、111/4/1、113/6/1、113/10/1)
+- `sec9-9.81` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.81.Lorlatinib (如Lorviqua)：(109/6/1、112/11/1、113/4/1、113/6/1)
+- `sec9-9.82` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.82.Brigatinib (如Alunbrig)：(109/8/1、111/8/1、112/11/1、113/6/1)
+- `sec9-9.83` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.83.Dacomitinib (如Vizimpro)：(109/10/1、111/9/1、113/6/1)
+- `sec9-9.84` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.84.Copanlisib (如Aliqopa）(刪除)：(109/11/1、113/6/1)
+- `sec9-9.85` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.85.PARP抑制劑(如olaparib、niraparib、talazoparib)：(109/11/1、111/6/1、111/8/1、112/1/1、112/11/1、113/3/1、113/6/1、113/9/1、114/3/1、114/6/1、114/8/1、114/10/1)
+- `sec9-9.86` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.86.Vandetanib (如Caprelsa)：(109/11/1)
+- `sec9-9.87` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.87.Trastuzumab emtansine (如Kadcyla)：(110/2/1、113/8/1、114/2/1、114/5/1)
+- `sec9-9.88` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.88.Ixabepilone (如Ixempra)：(110/2/1)
+- `sec9-9.89` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.89.(刪除)：(110/3/1、111/6/1、111/8/1、112/1/1)
+- `sec9-9.9` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.9.Vinorelbine：(91/1/1、95/6/1、96/9/1、101/3/1、106/11/1)
+- `sec9-9.90` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.90. Apalutamide (如Erleada)：(110/3/1、110/11/1、111/3/1、112/9/1、113/8/1、114/6/1)
+- `sec9-9.91` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.91.Dabrafenib (如Tafinlar)、Trametinib (如Mekinist)：(110/3/1、113/3/1、113/6/1)
+- `sec9-9.92` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.92. Ramucirumab (如Cyramza)：(110/5/1)
+- `sec9-9.93` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.93.Entrectinib (如Rozlytrek)：(110/7/1、113/6/1)
+- `sec9-9.94` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.94. Darolutamide(如Nubeqa)：(110/11/1、112/9/1、113/5/1、113/8/1、115/4/1)
+- `sec9-9.95` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.95.Larotrectinib (如Vitrakvi)：(111/3/1、111/6/1、112/12/1、113/6/1)
+- `sec9-9.96` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.96.Decitabine：(111/5/1)
+- `sec9-9.97` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.97.Avapritinib (如Ayvakit)：(111/6/1、113/6/1)
+- `sec9-9.98` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.98.Pemigatinib (如Pemazyre)：(112/5/1、113/6/1)
+- `sec9-9.99` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.99.Gilteritinib(如Xospata)：(112/6/1、113/6/1)
