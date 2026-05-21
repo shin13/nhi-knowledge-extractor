@@ -174,6 +174,7 @@ def split_leaf(
         return items
 
     # Strategy 3: paragraph-by-paragraph accumulation
+    from .config import HARD_BUDGET
     items = []
     current_parts: list[str] = []
     current_size = count_tokens(heading_prefix)
@@ -193,6 +194,41 @@ def split_leaf(
         current_size = count_tokens(heading_prefix)
         part_idx += 1
 
+    def _char_split_oversized(rendered: str) -> None:
+        """Last-resort: split a single block that exceeds HARD_BUDGET by character boundaries.
+
+        Uses an adaptive approach: estimate a conservative chars-per-token ratio, then
+        trim each slice so the final content (including heading_prefix) stays within HARD_BUDGET.
+        """
+        nonlocal part_idx
+        heading_tokens = count_tokens(heading_prefix)
+        content_budget = HARD_BUDGET - heading_tokens
+        block_tokens = count_tokens(rendered)
+        char_len = len(rendered)
+        # Conservative estimate: assume slightly more tokens per char than observed.
+        tokens_per_char = block_tokens / max(1, char_len)
+        # Start with estimated max chars; we'll trim if actual count exceeds budget.
+        estimated_max_chars = int(content_budget / max(tokens_per_char, 0.001))
+        start = 0
+        while start < char_len:
+            end = min(start + estimated_max_chars, char_len)
+            # Trim end backward until the slice fits within content_budget.
+            while end > start:
+                piece = rendered[start:end]
+                if count_tokens(piece) <= content_budget:
+                    break
+                # Reduce by ~10% and retry.
+                end = max(start + 1, end - max(1, (end - start) // 10))
+            piece = rendered[start:end]
+            content = f"{heading_prefix}{piece}"
+            items.append(_make_chunk_item(
+                base_id=base_id, part_index=part_idx, suffix="part",
+                heading=leaf.heading, section_path=section_path,
+                content_md=content, source=source,
+            ))
+            part_idx += 1
+            start = end
+
     for block in leaf.body:
         if isinstance(block, Paragraph):
             rendered = block.text
@@ -201,18 +237,121 @@ def split_leaf(
         block_size = count_tokens(rendered)
         if current_size + block_size > target_budget and current_parts:
             flush()
-        current_parts.append(rendered)
-        current_size += block_size
+        if block_size > HARD_BUDGET:
+            # Single block exceeds HARD_BUDGET — flush pending, then character-split this block.
+            flush()
+            _char_split_oversized(rendered)
+        else:
+            current_parts.append(rendered)
+            current_size += block_size
     flush()
 
-    # Edge case: even a single block exceeds budget. Accept it (spec §4.4 forbids sentence-level splitting).
-    if not items:
-        content = heading_prefix + "\n\n".join(
-            (b.text if isinstance(b, Paragraph) else table_to_markdown(b)) for b in leaf.body
+    return items
+
+
+# ---------------------------------------------------------------------------
+# Main recursive descent (spec §4.1)
+# ---------------------------------------------------------------------------
+
+def _emit_full_subtree(
+    node: Node,
+    ancestors: list[Node],
+    section_number: int | None,
+    source: SourceDoc,
+) -> Item:
+    """Emit a Node + its entire subtree as one Item."""
+    content_md = render_node_to_markdown(node)
+    return Item(
+        item_id=make_item_id(section_number, node.level),
+        section_path=format_section_path(node, ancestors),
+        heading=node.heading,
+        content_md=content_md,
+        source=source,
+        token_count=count_tokens(content_md),
+    )
+
+
+def _emit_body_only(
+    node: Node,
+    ancestors: list[Node],
+    section_number: int | None,
+    source: SourceDoc,
+) -> Item:
+    """Emit just this node's body (preamble before children) as a -preamble Item."""
+    parts: list[str] = [f"## {node.heading}"]
+    for block in node.body:
+        if isinstance(block, Paragraph):
+            parts.append(block.text)
+        else:
+            parts.append(table_to_markdown(block))
+    content_md = "\n\n".join(parts)
+    base_id = make_item_id(section_number, node.level)
+    return Item(
+        item_id=f"{base_id}-preamble",
+        section_path=format_section_path(node, ancestors),
+        heading=node.heading,
+        content_md=content_md,
+        source=source,
+        token_count=count_tokens(content_md),
+    )
+
+
+def _chunk_node(
+    node: Node,
+    ancestors: list[Node],
+    section_number: int | None,
+    source: SourceDoc,
+    target_budget: int,
+) -> list[Item]:
+    # Pure-heading nodes (no body, has children) always descend — never emit as a single item.
+    if node.children and not node.body:
+        out: list[Item] = []
+        new_ancestors = ancestors + [node]
+        for child in node.children:
+            out.extend(_chunk_node(child, new_ancestors, section_number, source, target_budget))
+        return out
+
+    rendered = render_node_to_markdown(node)
+    if count_tokens(rendered) <= target_budget:
+        return [_emit_full_subtree(node, ancestors, section_number, source)]
+
+    if node.children:
+        out = []
+        if has_significant_body(node):
+            out.append(_emit_body_only(node, ancestors, section_number, source))
+        new_ancestors = ancestors + [node]
+        for child in node.children:
+            out.extend(_chunk_node(child, new_ancestors, section_number, source, target_budget))
+        return out
+
+    # Leaf, over budget → semantic split.
+    return split_leaf(
+        node,
+        ancestors=ancestors,
+        section_number=section_number,
+        source=source,
+        target_budget=target_budget,
+    )
+
+
+def chunk_document(doc) -> list[Item]:
+    """Public entry point: Document → list[Item], all within HARD_BUDGET."""
+    from .config import HARD_BUDGET, TARGET_BUDGET
+    items: list[Item] = []
+    for child in doc.root.children:
+        items.extend(_chunk_node(
+            child,
+            ancestors=[doc.root],
+            section_number=doc.section_number,
+            source=doc.source,
+            target_budget=TARGET_BUDGET,
+        ))
+
+    over = [i for i in items if i.token_count > HARD_BUDGET]
+    if over:
+        ids = ", ".join(f"{i.item_id}({i.token_count})" for i in over)
+        raise ValueError(
+            f"Budget contract violated — {len(over)} items exceed HARD_BUDGET={HARD_BUDGET}: {ids}"
         )
-        items = [_make_chunk_item(
-            base_id=base_id, part_index=1, suffix="part",
-            heading=leaf.heading, section_path=section_path,
-            content_md=content, source=source,
-        )]
+
     return items
