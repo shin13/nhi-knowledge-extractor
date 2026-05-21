@@ -336,6 +336,8 @@ def _chunk_node(
 
 def chunk_document(doc) -> list[Item]:
     """Public entry point: Document → list[Item], all within HARD_BUDGET."""
+    from collections import Counter
+
     from .config import HARD_BUDGET, TARGET_BUDGET
     items: list[Item] = []
     for child in doc.root.children:
@@ -346,6 +348,22 @@ def chunk_document(doc) -> list[Item]:
             source=doc.source,
             target_budget=TARGET_BUDGET,
         ))
+
+    # Deduplicate item_ids that collide (e.g. the same numeric heading like "4.1"
+    # appearing in multiple drug subsections of a section DOCX).  The first
+    # occurrence keeps its original id; subsequent occurrences gain a "-dup{n}" suffix.
+    id_counts: Counter[str] = Counter()
+    deduped: list[Item] = []
+    for item in items:
+        id_counts[item.item_id] += 1
+        count = id_counts[item.item_id]
+        if count == 1:
+            deduped.append(item)
+        else:
+            # Replace the frozen dataclass with a new one bearing the suffixed id.
+            from dataclasses import replace
+            deduped.append(replace(item, item_id=f"{item.item_id}-dup{count}"))
+    items = deduped
 
     over = [i for i in items if i.token_count > HARD_BUDGET]
     if over:
