@@ -8,25 +8,56 @@
 
 ---
 
+## Live website survey (2026-05-22)
+
+Source page `https://www.nhi.gov.tw/ch/cp-7593-ad2a9-3397-1.html` publishes **92 documents** in these format combinations:
+
+| Formats | Count |
+|---|---|
+| docx + odt + pdf | 44 |
+| doc + odt + pdf | 31 |
+| odt + pdf | 14 |
+| pdf only | 2 (附表十三 DAS 28, 附表十五 RA 生物製劑申請表) |
+| doc + odt | 1 (第十一節 解毒劑) |
+
+**Current fetcher catches only 44/92** (it filters `.docx$` in href). Missing: 通則, 第六節, 第十一節, 第十二節, 第十五節, and ~40 附表 forms.
+
+**Decision:** the pipeline targets *規定* (regulation prose: 通則 + 第N節). 附表 are application/score-sheet forms with a different shape (single-page form templates), out of scope for the chunker. See Task G for the future plan to handle them.
+
+**Coverage target after Task A:** all 規定 documents (通則 + 第N節, ~17 docs), regardless of source format. 附表 explicitly skipped with a title-prefix filter and recorded in `Manifest.skipped_documents` with reason `"appendix_form"`.
+
+**Format strategy:** prefer native `.docx`; fall back to `.odt` + LibreOffice headless convert. Ignore `.doc` (every `.doc` doc also has `.odt`, ODT is cleaner). LibreOffice (`libreoffice`/`soffice` on PATH) is a hard dependency — fail fast with install hint.
+
+---
+
 ## Issue summary
 
 | # | Symptom | Root cause | Fix |
 |---|---------|-----------|-----|
 | 1 | 通則 (first chapter) not in release | NHI publishes 通則 only as `.doc`/`.odt`/`.pdf`, no `.docx` | Fetch falls back to `.odt`; convert to `.docx` via LibreOffice |
-| 2 | DOCX files gitignored | `.gitignore` excludes `chapters/` | Remove that line, commit existing files |
 | 3 | 第六節 呼吸道藥物 missing | Same as #1 | Same fix as #1 |
 | 4 | Blank lines between every line of `content` | `render_node_to_markdown` joins with `\n\n` | Use `\n` instead |
 | 5 | 9.69 split mid-numbered-item, table orphaned | Strategy 1 only fires on single-paragraph leaves | Multi-block numbered-item-aware splitter |
 
+(Issue 2 from the original audit — "DOCX files gitignored, commit them" — has been **dropped**. Decision 2026-05-22: downloaded NHI source files and generated CSV outputs are pipeline artefacts, not repo content. A weekly automated run regenerates them; committing would just create churn. See CLAUDE.md "What is and isn't committed".)
+
 ---
 
-## Task A — Multi-format fetch (Issues 1 + 3)
+## Task A — Multi-format fetch + 附表 filter (Issues 1 + 3, refined 2026-05-22)
 
-**Problem:** NHI publishes each document in `.doc`/`.docx`/`.odt`/`.pdf`. Our scraper filters `.docx` only, silently dropping documents NHI didn't publish in DOCX (通則, 第六節 呼吸道藥物).
+**Problem:** NHI publishes each document in `.doc`/`.docx`/`.odt`/`.pdf`. Our scraper filters `.docx` only, silently dropping 48/92 documents (including 通則, 第六節 呼吸道藥物, 第十一節, 第十二節, 第十五節, and most 附表).
 
-**Strategy:** Fetch by **document title**, not by file extension. For each unique title, prefer `.docx`, fall back to `.odt`. Convert `.odt` to `.docx` at fetch time via LibreOffice subprocess.
+**Strategy:**
 
-Skip `.doc` (old binary, no good Python parser, libreoffice converts slowly). Skip `.pdf` (different parsing pipeline entirely).
+1. **Group listing-page links by document title** (strip extension), not by `href` regex.
+2. For each title, classify by **kind**:
+   - `regulation` if title is 通則 or matches `^第[一二三四五六七八九十]+節` — in scope, download.
+   - `appendix_form` if title matches `^附表` — out of scope (see Task G), record in `Manifest.skipped_documents` with reason `"appendix_form"` and the best-available URL. Do not download.
+   - `unknown` if neither — record in `Manifest.skipped_documents` with reason `"unrecognized_title"`. Surface as a warning so future NHI additions don't silently disappear.
+3. For each `regulation`, pick best format: `.docx` first, then `.odt` + LibreOffice convert. Never use `.doc` (every `.doc` doc also has `.odt`). PDF-only regulation should not exist today, but guard with a clear error if encountered.
+4. **LibreOffice is a hard dependency.** Fail fast at startup with the `brew install --cask libreoffice` hint if `libreoffice`/`soffice` is not on PATH.
+
+This brings coverage from 44/92 → ~17/17 of the in-scope regulation documents. 附表 (~75 docs) are deliberately deferred to Task G with a paper trail in the manifest.
 
 ### Files
 
@@ -197,29 +228,9 @@ git commit -m "fix(fetch): support ODT-only documents (通則, 第六節) via Li
 
 ---
 
-## Task B — Commit DOCX source files (Issue 2)
+## ~~Task B~~ — dropped 2026-05-22
 
-**Problem:** `data/regulations/medication/chapters/` is in `.gitignore`. User wants source DOCX preserved in repo for traceability.
-
-### Steps
-
-**B1. Remove chapters from .gitignore**
-
-Edit `/Users/shin/Projects/nhi-knowledge-extractor/.gitignore`, delete the line:
-
-```
-data/regulations/medication/chapters/
-```
-
-**B2. Commit the existing DOCX files**
-
-```bash
-cd /Users/shin/Projects/nhi-knowledge-extractor
-git add .gitignore data/regulations/medication/chapters/
-git commit -m "chore: track downloaded DOCX source files in repo for traceability"
-```
-
-The release zips and release folders remain gitignored — only the upstream sources are committed.
+Originally proposed committing `data/regulations/medication/chapters/` to repo. **Reversed.** Downloads + CSV outputs are weekly-regenerated artefacts, not repo content. `.gitignore` stays as-is. See CLAUDE.md "What is and isn't committed".
 
 ---
 
@@ -674,4 +685,43 @@ Commit any CHANGELOG.md updates from the smoke run.
 
 ## Execution order
 
-A → B → C → D → E → F. Tasks A and B are independent; C, D, E touch chunker/parser code in sequence and should be done in order to avoid merge conflicts.
+A → C → D → E → F. (Task B dropped — see above.) C, D, E touch chunker/parser code in sequence and should be done in order to avoid merge conflicts.
+
+---
+
+## Task G (future) — 附表 forms → structured CSV
+
+**Status:** deferred. Scoped here so the design exists when we pick it up.
+
+**Problem:** ~75 of the 92 source documents are 附表 (appendix forms): application sheets, scoring rubrics, treatment-tracking forms. They are referenced from the regulation prose (e.g. "依附表二-D 申請") and clinicians need them too, but their shape is different from regulation chapters:
+
+- Single-page form templates, not hierarchical 節/條/項/款/目
+- Heavy use of tables for layout (boxes to fill in, checkboxes), not for data
+- Some are pure PDF (附表十三, 附表十五) — no DOCX/ODT
+- Title carries semantic meaning (e.g. "附表二-D：使用健保給付PCSK9血脂調節劑事前審查申請表")
+
+**Why the current chunker can't handle them:**
+
+- `parse._detect_heading_level` looks for `^\d+(\.\d+)+` numeric prefixes. Forms have no such structure.
+- `chunk_document` assumes a tree with `level` tuples. Forms are essentially flat.
+- The CSV `topic`/`section_path` columns assume hierarchical context. A form has only `topic = 藥品給付規定 / 附表二-D`.
+
+**Sketch of the eventual design:**
+
+1. **New document classifier** in `parse.py`: detect "appendix form" by title regex `^附表` (and the title is the only hierarchy).
+2. **New `parse.parse_form_document`** that emits a single `FormDocument` type with: title, optional intro paragraphs, optional form-fields table, optional notes table.
+3. **New `chunk.chunk_form_document`** — likely produces 1 item per form (forms are short enough to fit in budget) or splits at top-level section headings inside the form when present.
+4. **PDF-only forms** (附表十三, 附表十五): add a pdfplumber/pymupdf branch that extracts text + tables, then funnels into the same `FormDocument` type. PDF→DOCX via LibreOffice is unreliable for form layouts; native PDF text extraction is more controllable.
+5. **`render.py`**: forms map to a separate CSV per form (or one combined `forms.csv` with a `form_id` column). The 8-column schema may need an extra `form_id` field, or repurpose `section_path` to carry the form title.
+6. **`fetch.py`**: stop skipping 附表; download the best available format per form. ODT preferred (universal except for 2 PDF-only ones), DOCX where available.
+7. **Cross-linking:** the regulation chunker already preserves "附表二-D" mentions verbatim in `content`. No back-reference work needed on the regulation side — the form CSV's `item_id` (e.g. `form-2-D`) is recoverable from the prose mention.
+
+**Open design questions to resolve when picking this up:**
+
+- Do forms get their own CSV per form, or one `forms.csv` with `form_id` rows? (Probably per-form for parity with chapter CSVs.)
+- Should `item_id` for forms be `form-{N}{letter}` (e.g. `form-2-D`, `form-13`) — separate namespace from `sec{N}-*`?
+- Does the form's CSV `content` cell try to reproduce the form layout in markdown, or just list field labels? (Reproducing layout is brittle; field labels are good enough for RAG retrieval.)
+
+**Files this task would touch:** `parse.py`, `chunk.py`, `render.py`, `fetch.py`, `types.py`, `config.py` (add `FORM_TITLE_PATTERN`), plus tests per module and a new pain-case test for at least one PDF-only form.
+
+**Trigger to start:** when a downstream user reports they need form contents in RAG, or when chapter coverage is stable and we want completeness.

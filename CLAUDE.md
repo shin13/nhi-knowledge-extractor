@@ -46,6 +46,21 @@ CHANGELOG.md                     rolling release history (auto-maintained)
 - New stages get a new module + a new `tests/test_<module>.py`. One responsibility per file.
 - TDD: write the failing test first. The pain-case tests in `tests/test_chunk_pain_cases.py` are the regression net — never disable them.
 
+## What is and isn't committed to this repo
+
+This repo ships **the pipeline**, not the data. A weekly automated run regenerates everything downstream of the NHI website, so committing those artefacts only creates churn.
+
+**Commit:**
+- Source under `src/`, tests, docs, `pyproject.toml`/`uv.lock`, `CHANGELOG.md`
+- Small fixed `tests/fixtures/*.docx` — these are pinned regression inputs, never change
+- `MEMORY.md` / `CLAUDE.md` / `HANDOFF.md`
+
+**Do NOT commit (kept in `.gitignore`):**
+- `data/regulations/medication/chapters/` — downloaded NHI source documents. The NHI website is the source of truth; re-fetch when needed.
+- `data/regulations/medication/藥品給付規定_*/` and `.zip` — release outputs (CSVs, MANIFEST, CHANGES). They are pipeline output, not source.
+
+**Goal for new contributors:** `git clone` → `uv sync` → `uv run nhi-extract sync` → get the latest CSVs. No data files should be required from the repo to make that work.
+
 ## Pain cases the predecessor required manual fixes for (now automated)
 
 - `第8節 row 13` (Etanercept) — over-budget; was hand-split with `csv_splitter.py`. Now: `chunk._chunk_node` descent + `split_leaf` numbered-list split.
