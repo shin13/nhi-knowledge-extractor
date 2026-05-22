@@ -687,6 +687,39 @@ Commit any CHANGELOG.md updates from the smoke run.
 
 A → C → D → E → F. (Task B dropped — see above.) C, D, E touch chunker/parser code in sequence and should be done in order to avoid merge conflicts.
 
+Tasks A, C, D landed (commits `3866c08`, `e486be9`, `5981ab1`). Plus native ODT parser + 通則 single-row fix (`4721433`). Task H added 2026-05-22 — see below.
+
+---
+
+## Task H — packager: replace same-date CHANGELOG entry instead of prepending duplicate
+
+**Discovered 2026-05-22.** Surfaced when running `sync` twice for the same NHI release date — second run prepended a second `## [20260424]` heading instead of replacing the first. Result: CHANGELOG accumulates one duplicate dated header per re-run, and diff tools that key on `## [DATE]` start seeing phantom changes.
+
+### Root cause
+
+`package._prepend_changelog` finds the first `## [` heading and inserts the new section before it. No check for "is there already an entry with this date?".
+
+### Fix
+
+In `src/nhi_extractor/package.py` `_prepend_changelog`:
+
+1. After computing the new section header (e.g. `## [20260522] — ...`), `re.search` for `^## \[20260522\][ \t]*—` in `existing`.
+2. If found: replace the existing block (from that header up to but not including the next `^## \[` heading, or EOF) with the new section.
+3. If not found: fall through to the existing prepend logic.
+
+### Files
+
+- Modify: `src/nhi_extractor/package.py` — `_prepend_changelog`
+- Modify: `tests/test_package.py` — add a regression test: run `build_release` twice for the same date; assert exactly one `## [DATE]` header in the resulting CHANGELOG and that its body reflects the second run's items.
+
+### Why not just dedupe headers after the fact
+
+Two valid releases on the same calendar date are possible in theory (NHI republishes within a day to fix a typo). Replacing keeps the latest authoritative state. If we ever need history-of-same-date, that's a separate concern best handled by git on the CHANGELOG file itself.
+
+### Cleanup of existing duplicates
+
+The committed `CHANGELOG.md` is currently clean (only one `[20260424]` entry, from commit `49204cb`). Local working copies that ran `sync` post–Task D may have a second entry — `git checkout CHANGELOG.md` will discard it.
+
 ---
 
 ## Task G (future) — 附表 forms → structured CSV
