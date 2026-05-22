@@ -64,6 +64,41 @@ def format_section_path(node: Node, ancestors: list[Node]) -> list[str]:
 
 NUMBERED_LIST_RE = re.compile(r"^(\d+)\.\s", re.MULTILINE)
 
+# Top-level numbered item at the start of a paragraph: "1.X" or "1. X".
+# NHI writes "1.本類藥品..." (no space after the dot) — we must match that.
+# The negative lookahead `(?!\d)` excludes "4.1" cross-references and dotted
+# heading prefixes like "9.69." from being mistaken for top-level items.
+TOP_LEVEL_ITEM_RE = re.compile(r"^(\d+)\.(?!\d)")
+
+
+def _group_blocks_by_numbered_item(body: list) -> list[list] | None:
+    """Group body blocks by top-level numbered item.
+
+    Each Paragraph whose text matches `^N.\\s` opens a new group. Tables and
+    continuation paragraphs attach to whichever group is currently open. Any
+    blocks before the first numbered item form a preamble group that gets
+    merged into the first item group (so preamble context isn't orphaned).
+
+    Returns:
+      List of groups (each a list of blocks) when ≥2 numbered items found,
+      else None (caller should try another strategy).
+    """
+    groups: list[list] = [[]]  # index 0 = preamble bucket
+    item_starts = 0
+    for block in body:
+        if isinstance(block, Paragraph) and TOP_LEVEL_ITEM_RE.match(block.text):
+            groups.append([block])
+            item_starts += 1
+        else:
+            groups[-1].append(block)
+    if item_starts < 2:
+        return None
+    preamble, *item_groups = groups
+    if preamble:
+        # Prepend preamble blocks to the first item group so context is preserved.
+        item_groups[0] = preamble + item_groups[0]
+    return item_groups
+
 
 def _split_paragraph_by_numbered_list(paragraph: Paragraph) -> list[str] | None:
     """If the paragraph contains 2+ "N. " items at line start, return them as chunks.
@@ -146,6 +181,75 @@ def split_leaf(
             update_date_iso=date(1970, 1, 1),
         )
 
+    from .config import HARD_BUDGET
+
+    base_id = make_item_id(section_number, leaf.level)
+    section_path = format_section_path(leaf, ancestors)
+    heading_prefix = f"## {leaf.heading}\n\n"
+
+    # Strategy 0: multi-block leaf with top-level numbered items (e.g. 9.69.).
+    # Group blocks so each chunk holds one complete numbered item; tables and
+    # continuation paragraphs travel with whichever item they describe.
+    groups = _group_blocks_by_numbered_item(leaf.body)
+    if groups is not None:
+        items: list[Item] = []
+        for i, group in enumerate(groups, start=1):
+            rendered_blocks: list[str] = []
+            for b in group:
+                if isinstance(b, Paragraph):
+                    rendered_blocks.append(b.text)
+                else:
+                    rendered_blocks.append(table_to_markdown(b))
+            content = heading_prefix + "\n".join(rendered_blocks)
+            items.append(_make_chunk_item(
+                base_id=base_id, part_index=i, suffix="part",
+                heading=leaf.heading, section_path=section_path,
+                content_md=content, source=source,
+            ))
+        # If any chunk still exceeds HARD_BUDGET, recursively split that one
+        # group by recursing into split_leaf with a temp Node containing only
+        # those blocks. The numbered-item content itself is now atomic context.
+        out: list[Item] = []
+        for it, group in zip(items, groups):
+            if it.token_count <= HARD_BUDGET:
+                out.append(it)
+            else:
+                sub_leaf = Node(heading=leaf.heading, level=leaf.level, body=group)
+                sub_items = _split_leaf_without_strategy_0(
+                    sub_leaf,
+                    ancestors=ancestors,
+                    section_number=section_number,
+                    source=source,
+                    target_budget=target_budget,
+                )
+                # Re-id with the parent part index so ids remain stable.
+                for j, si in enumerate(sub_items, start=1):
+                    from dataclasses import replace
+                    out.append(replace(si, item_id=f"{it.item_id}-{j}"))
+        return out
+
+    return _split_leaf_without_strategy_0(
+        leaf,
+        ancestors=ancestors,
+        section_number=section_number,
+        source=source,
+        target_budget=target_budget,
+    )
+
+
+def _split_leaf_without_strategy_0(
+    leaf: Node,
+    *,
+    ancestors: list[Node],
+    section_number: int | None,
+    source: SourceDoc,
+    target_budget: int,
+) -> list[Item]:
+    """Strategies 1–3 of leaf splitting (the original split_leaf logic).
+
+    Extracted so Strategy 0 can recurse into it for over-budget groups."""
+    from .config import HARD_BUDGET
+
     base_id = make_item_id(section_number, leaf.level)
     section_path = format_section_path(leaf, ancestors)
     heading_prefix = f"## {leaf.heading}\n\n"
@@ -178,7 +282,6 @@ def split_leaf(
         return items
 
     # Strategy 3: paragraph-by-paragraph accumulation
-    from .config import HARD_BUDGET
     items = []
     current_parts: list[str] = []
     current_size = count_tokens(heading_prefix)
