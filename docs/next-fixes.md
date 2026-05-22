@@ -687,11 +687,11 @@ Commit any CHANGELOG.md updates from the smoke run.
 
 A → C → D → E → F. (Task B dropped — see above.) C, D, E touch chunker/parser code in sequence and should be done in order to avoid merge conflicts.
 
-Tasks A, C, D landed (commits `3866c08`, `e486be9`, `5981ab1`). Plus native ODT parser + 通則 single-row fix (`4721433`). Task H added 2026-05-22 — see below.
+Tasks A, C, D, E, F, H all landed. Native ODT parser + 通則 single-row fix landed as a bonus during the A→C transition (commit `4721433`).
 
 ---
 
-## Task H — packager: replace same-date CHANGELOG entry instead of prepending duplicate
+## Task H — packager: replace same-date CHANGELOG entry instead of prepending duplicate ✅ landed
 
 **Discovered 2026-05-22.** Surfaced when running `sync` twice for the same NHI release date — second run prepended a second `## [20260424]` heading instead of replacing the first. Result: CHANGELOG accumulates one duplicate dated header per re-run, and diff tools that key on `## [DATE]` start seeing phantom changes.
 

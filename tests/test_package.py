@@ -105,3 +105,71 @@ def test_build_release_diff_against_prior(tmp_path):
 
     log = changelog.read_text(encoding="utf-8")
     assert log.index("[20260522]") < log.index("[20260424]")
+
+
+# --- Task H: same-date re-run must replace, not duplicate --------------------
+
+def test_build_release_same_date_replaces_existing_changelog_entry(tmp_path):
+    """Running build_release twice for the SAME release_date must leave the
+    CHANGELOG with exactly one entry for that date, reflecting the SECOND run's
+    items. Previously _prepend_changelog blindly inserted before the first
+    '## [' heading, producing duplicate dated headers per re-run."""
+    data_dir = tmp_path / "data" / "regulations" / "medication"
+    changelog = tmp_path / "CHANGELOG.md"
+    sd = SourceDoc(
+        path=Path("第9節_抗癌瘤藥物.docx"), url="https://x/9.docx",
+        display_name="第9節抗癌瘤藥物", update_date_iso=date(2026, 4, 24),
+    )
+
+    # First run
+    build_release(
+        items=[_make_item(sd, "sec9-9.1", "9.1.", "first-run content")],
+        release_date=date(2026, 4, 24),
+        data_dir=data_dir, changelog_path=changelog,
+    )
+    # Second run, same date, different items
+    build_release(
+        items=[
+            _make_item(sd, "sec9-9.1", "9.1.", "second-run content (revised)"),
+            _make_item(sd, "sec9-9.2", "9.2.", "second-run added"),
+        ],
+        release_date=date(2026, 4, 24),
+        data_dir=data_dir, changelog_path=changelog,
+    )
+
+    text = changelog.read_text(encoding="utf-8")
+    # Exactly one header for the date.
+    assert text.count("## [20260424]") == 1, (
+        f"expected exactly one [20260424] header after same-date re-run, "
+        f"got {text.count('## [20260424]')}; CHANGELOG:\n{text}"
+    )
+    # And it carries the SECOND run's payload (sec9-9.2 only existed there).
+    assert "sec9-9.2" in text
+
+
+def test_build_release_different_dates_still_prepend(tmp_path):
+    """The same-date-replace fix must NOT regress the normal multi-date case —
+    newer dates should still be prepended in front of older ones."""
+    data_dir = tmp_path / "data" / "regulations" / "medication"
+    changelog = tmp_path / "CHANGELOG.md"
+    sd = SourceDoc(
+        path=Path("第9節_抗癌瘤藥物.docx"), url="https://x/9.docx",
+        display_name="第9節抗癌瘤藥物", update_date_iso=date(2026, 4, 24),
+    )
+
+    build_release(items=[_make_item(sd, "sec9-9.1", "9.1.", "april")],
+                  release_date=date(2026, 4, 24),
+                  data_dir=data_dir, changelog_path=changelog)
+    build_release(items=[_make_item(sd, "sec9-9.1", "9.1.", "may")],
+                  release_date=date(2026, 5, 22),
+                  data_dir=data_dir, changelog_path=changelog)
+    build_release(items=[_make_item(sd, "sec9-9.1", "9.1.", "june")],
+                  release_date=date(2026, 6, 24),
+                  data_dir=data_dir, changelog_path=changelog)
+
+    text = changelog.read_text(encoding="utf-8")
+    assert text.count("## [20260424]") == 1
+    assert text.count("## [20260522]") == 1
+    assert text.count("## [20260624]") == 1
+    # Newest first.
+    assert text.index("[20260624]") < text.index("[20260522]") < text.index("[20260424]")

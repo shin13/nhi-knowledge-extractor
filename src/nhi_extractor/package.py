@@ -93,16 +93,47 @@ def _zip_folder(folder: Path, zip_path: Path) -> None:
                 zf.write(path, arcname=path.relative_to(folder.parent))
 
 
+_DATE_HEADER_RE = re.compile(r"^## \[(\d+)\][ \t]*—", re.MULTILINE)
+
+
 def _prepend_changelog(changelog_path: Path, section_md: str) -> None:
-    if changelog_path.exists():
-        existing = changelog_path.read_text(encoding="utf-8")
+    """Add the new release entry to the CHANGELOG.
+
+    Semantics:
+      - If an entry with the SAME date label (`## [YYYYMMDD]`) already exists,
+        replace that entry's full block (from its header to just before the
+        next `## [` or EOF). Re-runs for the same NHI release date — common
+        during local pipeline development — must not stack duplicate headers.
+      - Otherwise prepend the new entry before the first existing date header,
+        i.e. newest-first ordering.
+    """
+    existing = changelog_path.read_text(encoding="utf-8") if changelog_path.exists() else "# Changelog\n\n"
+
+    m_new_header = _DATE_HEADER_RE.match(section_md)
+    if not m_new_header:
+        raise ValueError(
+            f"section_md missing leading '## [DATE] — ...' header: {section_md[:80]!r}"
+        )
+    new_label = m_new_header.group(1)
+
+    # Look for an existing entry with the same date label.
+    same_date_re = re.compile(rf"^## \[{re.escape(new_label)}\][ \t]*—", re.MULTILINE)
+    m_old = same_date_re.search(existing)
+
+    if m_old:
+        # Splice in place: replace from this header up to (but not including) the next.
+        start = m_old.start()
+        next_header = _DATE_HEADER_RE.search(existing, m_old.end())
+        end = next_header.start() if next_header else len(existing)
+        new = existing[:start] + section_md.rstrip() + "\n\n" + existing[end:]
     else:
-        existing = "# Changelog\n\n"
-    m = re.search(r"^## \[", existing, flags=re.MULTILINE)
-    if m:
-        new = existing[: m.start()] + section_md + "\n" + existing[m.start():]
-    else:
-        new = existing.rstrip() + "\n\n" + section_md
+        # New date — prepend before the first existing date header (or append if none).
+        m_first = _DATE_HEADER_RE.search(existing)
+        if m_first:
+            new = existing[:m_first.start()] + section_md.rstrip() + "\n\n" + existing[m_first.start():]
+        else:
+            new = existing.rstrip() + "\n\n" + section_md
+
     changelog_path.write_text(new, encoding="utf-8")
 
 
