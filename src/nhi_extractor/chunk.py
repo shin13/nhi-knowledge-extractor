@@ -443,8 +443,6 @@ def _chunk_node(
 
 def chunk_document(doc) -> list[Item]:
     """Public entry point: Document → list[Item], all within HARD_BUDGET."""
-    from collections import Counter
-
     from .config import HARD_BUDGET, TARGET_BUDGET
     items: list[Item] = []
     if doc.root.children:
@@ -469,21 +467,21 @@ def chunk_document(doc) -> list[Item]:
             target_budget=TARGET_BUDGET,
         ))
 
-    # Deduplicate item_ids that collide (e.g. the same numeric heading like "4.1"
-    # appearing in multiple drug subsections of a section DOCX).  The first
-    # occurrence keeps its original id; subsequent occurrences gain a "-dup{n}" suffix.
-    id_counts: Counter[str] = Counter()
-    deduped: list[Item] = []
+    # item_id uniqueness contract: every emitted item_id must be unique within
+    # a document. Historically a "-dup{N}" band-aid covered collisions caused
+    # by tilde cross-references ("4.1~3項規定") being misclassified as the
+    # 4.1 heading — that's fixed at the parser level now (parse.TILDE_REFERENCE_RE).
+    # If any collision still slips through, fail loud rather than emit unstable
+    # ids that would poison release-over-release diffs.
+    seen: dict[str, int] = {}
     for item in items:
-        id_counts[item.item_id] += 1
-        count = id_counts[item.item_id]
-        if count == 1:
-            deduped.append(item)
-        else:
-            # Replace the frozen dataclass with a new one bearing the suffixed id.
-            from dataclasses import replace
-            deduped.append(replace(item, item_id=f"{item.item_id}-dup{count}"))
-    items = deduped
+        seen[item.item_id] = seen.get(item.item_id, 0) + 1
+    collisions = {k: v for k, v in seen.items() if v > 1}
+    if collisions:
+        raise ValueError(
+            f"item_id collisions detected — parser likely missing a heading exception. "
+            f"Collisions: {collisions}"
+        )
 
     over = [i for i in items if i.token_count > HARD_BUDGET]
     if over:

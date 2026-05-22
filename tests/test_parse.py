@@ -87,3 +87,53 @@ def test_parse_document_unsupported_extension(tmp_path):
     bogus.write_bytes(b"")
     with pytest.raises(ValueError, match="Unsupported document extension"):
         parse_document(_make_source(bogus))
+
+
+# --- Tilde cross-references must NOT be parsed as headings (Task E) ----------
+
+def test_detect_heading_rejects_tilde_range_reference():
+    """Paragraphs that begin with cross-references like '4.1~3項規定' are NOT
+    section headings — they're inline references to items 4.1 through 4.3.
+
+    Before this fix, the regex ^\\d+(\\.\\d+)+ caught the leading '4.1' and
+    promoted the paragraph to a fake (4,1) heading. Two of these in one doc
+    (the genuine 4.1. heading + a body paragraph starting with 4.1~3項規定)
+    collided on item_id 'sec4-4.1' and forced the chunker's -dup band-aid.
+    """
+    from nhi_extractor.parse import _detect_heading_level_from_text
+
+    assert _detect_heading_level_from_text("4.1~3項規定，應符合下列條件") is None
+    assert _detect_heading_level_from_text("7.2~5") is None
+    assert _detect_heading_level_from_text("10.3~5項") is None
+    # Genuine headings must still be detected.
+    assert _detect_heading_level_from_text("4.1") == (4, 1)
+    assert _detect_heading_level_from_text("4.1.") == (4, 1)
+    assert _detect_heading_level_from_text("4.1. 療養劑") == (4, 1)
+    assert _detect_heading_level_from_text("9.69.1") == (9, 69, 1)
+
+
+def test_detect_heading_rejects_bare_numbered_item_with_cjk_continuation():
+    """NHI body paragraphs like '2.18歲以上非瓣膜性...' look like a (2,18)
+    heading to a naive regex but are list items whose content starts with
+    '18歲以上...'. The trailing-separator rule (heading must be followed by
+    `.`, whitespace, or end-of-string) keeps them as body paragraphs."""
+    from nhi_extractor.parse import _detect_heading_level_from_text
+
+    # Body paragraphs — number followed immediately by CJK = NOT a heading.
+    assert _detect_heading_level_from_text("2.18歲以上非瓣膜性心房纖維顫動病患") is None
+    assert _detect_heading_level_from_text("3.40週歲以下兒童") is None
+
+    # Genuine headings — number followed by `.`, whitespace, or end-of-string.
+    assert _detect_heading_level_from_text("2.18.Captopril內服液劑") == (2, 18)
+    assert _detect_heading_level_from_text("2.18. Captopril") == (2, 18)
+    assert _detect_heading_level_from_text("2.18 心臟血管藥物") == (2, 18)
+
+
+def test_parse_does_not_emit_dup_item_ids_on_real_fixtures(fixture_section_9):
+    """End-to-end: after the tilde-rejection fix, chunking real §9 should
+    produce no item_ids carrying the -dup band-aid suffix."""
+    from nhi_extractor.chunk import chunk_document
+    doc = parse_document(_make_source(fixture_section_9))
+    items = chunk_document(doc)
+    dup_ids = [it.item_id for it in items if "-dup" in it.item_id]
+    assert not dup_ids, f"unexpected -dup item_ids: {dup_ids}"

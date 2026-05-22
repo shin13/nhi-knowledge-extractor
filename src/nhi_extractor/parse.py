@@ -35,10 +35,22 @@ from .types import Block, Document, Node, Paragraph, SourceDoc, Table
 # Matches a numeric prefix with at least 2 components: "N.M.", "N.M.K.", etc.
 # Requires the first component to be followed by a dot and at least one more
 # digit group.  Single-digit list items ("1.", "2.") do NOT match.
-HEADING_PREFIX_RE = re.compile(r"^(\d+(?:\.\d+)+)\.?")
+#
+# The trailing lookahead `(?=\.|\s|$)` distinguishes a genuine heading prefix
+# from a body paragraph whose number happens to match. NHI examples:
+#   "2.18.Captopril..."  → heading (2,18)   — next char is `.`
+#   "2.18歲以上..."      → NOT a heading    — next char is CJK
+#   "4.1 療養劑"         → heading (4,1)    — next char is space
+#   "4.1"                → heading (4,1)    — end of string
+HEADING_PREFIX_RE = re.compile(r"^(\d+(?:\.\d+)+)(?=\.|\s|$)")
 
 SECTION_NUMBER_RE = re.compile(r"第(\d+)節")
 TONGZE_TITLE_RE = re.compile(r"通則")
+
+# Tilde cross-references like "4.1~3項規定", "7.2~5" are inline citations of
+# multiple items, NOT section headings. The predecessor parser learned this
+# the hard way (NHI's own writing convention); see CLAUDE.md "Lessons".
+TILDE_REFERENCE_RE = re.compile(r"^\d+\.\d+~\d+")
 
 # A unified block stream — both DOCX and ODT walkers feed into the same
 # tree-builder. "p" carries the paragraph text (already stripped); "tbl"
@@ -64,6 +76,11 @@ def _iter_body_blocks(doc: DocxDocument):
 def _detect_heading_level_from_text(text: str) -> tuple[int, ...] | None:
     """Text-only heading detection. Used by both DOCX (as fallback) and ODT paths."""
     text = (text or "").strip()
+    # Tilde cross-reference (e.g. "4.1~3項規定") — these look like a heading
+    # to the naive prefix regex but are inline citations in the body. Reject
+    # before the heading match so the paragraph stays as body content.
+    if TILDE_REFERENCE_RE.match(text):
+        return None
     m_prefix = HEADING_PREFIX_RE.match(text)
     if m_prefix:
         parts = m_prefix.group(1).split(".")
