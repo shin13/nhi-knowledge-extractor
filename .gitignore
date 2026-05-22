@@ -1,15 +1,37 @@
+# Python / packaging
 .venv/
 __pycache__/
 *.pyc
-.pytest_cache/
-.coverage
-htmlcov/
-.DS_Store
 *.egg-info/
 dist/
 build/
 
-# Data is gitignored — releases are produced fresh each run
+# Test / lint / coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+
+# Editor / IDE / OS noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*.log
+
+# Local env / secrets (no .env files in this repo today — defensive)
+.env
+.env.*
+!.env.example
+
+# Agent / AI-tooling per-project state
+.claude/
+
+# Data is gitignored — releases are produced fresh each run.
+# The NHI website is the source of truth; re-fetch with `nhi-extract sync`.
 data/regulations/medication/藥品給付規定_*/
 data/regulations/medication/藥品給付規定_*.zip
 data/regulations/medication/chapters/
