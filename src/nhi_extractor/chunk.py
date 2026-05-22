@@ -114,7 +114,7 @@ def _split_paragraph_by_numbered_list(paragraph: Paragraph) -> list[str] | None:
         end = matches[i + 1].start() if i + 1 < len(matches) else len(paragraph.text)
         piece = paragraph.text[m.start():end].strip()
         if preamble:
-            piece = f"{preamble}\n\n{piece}"
+            piece = f"{preamble}\n{piece}"
         chunks.append(piece)
     return chunks
 
@@ -185,7 +185,7 @@ def split_leaf(
 
     base_id = make_item_id(section_number, leaf.level)
     section_path = format_section_path(leaf, ancestors)
-    heading_prefix = f"## {leaf.heading}\n\n"
+    heading_prefix = f"## {leaf.heading}\n"
 
     # Strategy 0: multi-block leaf with top-level numbered items (e.g. 9.69.).
     # Group blocks so each chunk holds one complete numbered item; tables and
@@ -252,7 +252,7 @@ def _split_leaf_without_strategy_0(
 
     base_id = make_item_id(section_number, leaf.level)
     section_path = format_section_path(leaf, ancestors)
-    heading_prefix = f"## {leaf.heading}\n\n"
+    heading_prefix = f"## {leaf.heading}\n"
 
     # Strategy 1: numbered-list split (one big paragraph with a list)
     if len(leaf.body) == 1 and isinstance(leaf.body[0], Paragraph):
@@ -291,7 +291,7 @@ def _split_leaf_without_strategy_0(
         nonlocal current_parts, current_size, part_idx
         if not current_parts:
             return
-        content = heading_prefix + "\n\n".join(current_parts)
+        content = heading_prefix + "\n".join(current_parts)
         items.append(_make_chunk_item(
             base_id=base_id, part_index=part_idx, suffix="part",
             heading=leaf.heading, section_path=section_path,
@@ -391,7 +391,7 @@ def _emit_body_only(
             parts.append(block.text)
         else:
             parts.append(table_to_markdown(block))
-    content_md = "\n\n".join(parts)
+    content_md = "\n".join(parts)
     base_id = make_item_id(section_number, node.level)
     return Item(
         item_id=f"{base_id}-preamble",

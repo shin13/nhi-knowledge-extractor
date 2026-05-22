@@ -128,6 +128,50 @@ def test_split_leaf_multiblock_no_numbered_items_falls_back():
     # No chunk is the same as the input — proves the splitter ran.
 
 
+def test_split_leaf_outputs_have_no_blank_lines():
+    """No content_md emitted by any split_leaf strategy may contain "\\n\\n".
+    The CSV consumer surfaces those as visible empty rows. Task C fixed
+    render_node_to_markdown; F surfaced that split_leaf's own join sites
+    were still using "\\n\\n" between heading and body / between accumulated
+    paragraphs / in numbered-list preamble glue."""
+    # Strategy 0 (multi-block numbered items)
+    leaf0 = Node(
+        heading="9.69.",
+        level=(9, 69),
+        body=[
+            Paragraph(text="1.第一項。"),
+            Paragraph(text="補充說明。"),
+            Paragraph(text="2.第二項。"),
+        ],
+    )
+    for c in split_leaf(leaf0, ancestors=_ancestors(), section_number=9, target_budget=200):
+        assert "\n\n" not in c.content_md, f"strategy 0 leaked \\n\\n: {c.item_id}"
+
+    # Strategy 1 (single big paragraph with embedded numbered list)
+    leaf1 = Node(
+        heading="9.69.1.",
+        level=(9, 69, 1),
+        body=[Paragraph(text="前言。\n1. 第一項。\n2. 第二項。\n3. 第三項。")],
+    )
+    for c in split_leaf(leaf1, ancestors=_ancestors(), section_number=9, target_budget=20):
+        assert "\n\n" not in c.content_md, f"strategy 1 leaked \\n\\n: {c.item_id}"
+
+    # Strategy 2 (oversize table) — heading prefix join
+    big = Table(header=["a", "b"], rows=[[f"r{i}", f"v{i}"] for i in range(15)], caption=None)
+    leaf2 = Node(heading="9.69.2.", level=(9, 69, 2), body=[big])
+    for c in split_leaf(leaf2, ancestors=_ancestors(), section_number=9, target_budget=40):
+        assert "\n\n" not in c.content_md, f"strategy 2 leaked \\n\\n: {c.item_id}"
+
+    # Strategy 3 (greedy paragraph accumulation)
+    leaf3 = Node(
+        heading="9.99.",
+        level=(9, 99),
+        body=[Paragraph(text="段落甲。" * 30), Paragraph(text="段落乙。" * 30), Paragraph(text="段落丙。" * 30)],
+    )
+    for c in split_leaf(leaf3, ancestors=_ancestors(), section_number=9, target_budget=50):
+        assert "\n\n" not in c.content_md, f"strategy 3 leaked \\n\\n: {c.item_id}"
+
+
 def test_split_leaf_multiblock_single_numbered_item_falls_back():
     """If only ONE `^N.\\s` item is found in the body, that's not enough to split
     by — must fall through to other strategies."""
