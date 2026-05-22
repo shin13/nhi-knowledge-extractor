@@ -43,7 +43,10 @@ Source page `https://www.nhi.gov.tw/ch/cp-7593-ad2a9-3397-1.html` publishes **92
 
 ---
 
-## Task A — Multi-format fetch + 附表 filter (Issues 1 + 3, refined 2026-05-22)
+## Task A — Multi-format fetch + 附表 filter (Issues 1 + 3, refined 2026-05-22) ✅ landed `3866c08`
+
+> Recipe below was the plan; actual implementation diverged on one point — LibreOffice was dropped in favour of a native ODT parser (`4721433`). Treat the LibreOffice steps as historical.
+
 
 **Problem:** NHI publishes each document in `.doc`/`.docx`/`.odt`/`.pdf`. Our scraper filters `.docx` only, silently dropping 48/92 documents (including 通則, 第六節 呼吸道藥物, 第十一節, 第十二節, 第十五節, and most 附表).
 
@@ -234,7 +237,10 @@ Originally proposed committing `data/regulations/medication/chapters/` to repo. 
 
 ---
 
-## Task C — Fix blank lines in content (Issue 4)
+## Task C — Fix blank lines in content (Issue 4) ✅ landed `e486be9` + `ac694e0`
+
+> Initial fix (`e486be9`) only covered `render_node_to_markdown`. Task F's E2E caught leaks in `split_leaf`'s own joins; `ac694e0` swept all remaining `\n\n` join sites and added the strategy-coverage regression test.
+
 
 **Problem:** `render_node_to_markdown` joins blocks with `"\n\n"`, creating a blank line between every paragraph when viewed as CSV cell content.
 
@@ -296,7 +302,10 @@ git commit -m "fix(markdown): use single newline between blocks (no blank lines 
 
 ---
 
-## Task D — Numbered-item-aware multi-block splitter (Issue 5)
+## Task D — Numbered-item-aware multi-block splitter (Issue 5) ✅ landed `5981ab1`
+
+> Implementation diverged from the recipe: the original `^(\d+)\.\s` regex didn't match NHI's no-space-after-dot style. Final regex is `^(\d+)\.(?!\d)` — see commit message.
+
 
 **Problem:** Strategy 1 of `split_leaf` only fires for single-paragraph leaves. Real regulations like `9.69.` have multiple paragraphs + an embedded table. They fall through to Strategy 3 (greedy paragraph accumulation) which has no awareness of `1.`/`2.`/`3.` semantic boundaries — splitting mid-numbered-item and orphaning the table.
 
@@ -553,7 +562,10 @@ indication table was orphaned from its descriptive prose."
 
 ---
 
-## Task E — Bonus: clean up `-dup` band-aid
+## Task E — Bonus: clean up `-dup` band-aid ✅ landed `8b53f64`
+
+> Tilde rejection landed as planned. E2E also surfaced a second misclassification (`"2.18歲以上..."` as `(2,18)` heading) — fix was to tighten `HEADING_PREFIX_RE` to require `.`, whitespace, or end-of-string after the numeric prefix. The `-dup{N}` band-aid is replaced with a hard collision check that raises and points at `TILDE_REFERENCE_RE`.
+
 
 While we're touching `parse.py`, fix the tilde-reference misclassification surfaced in the original Task 9 (cross-references like `"4.1~3項規定..."` get parsed as headings, triggering `-dup` suffix logic in `chunk_document`).
 
@@ -656,7 +668,10 @@ git commit -m "fix(parse): reject tilde cross-references as headings; remove -du
 
 ---
 
-## Task F — Full E2E smoke + sanity checks
+## Task F — Full E2E smoke + sanity checks ✅ landed (verification only — no separate commit)
+
+> Live `nhi-extract sync` against the NHI page: 16 regulations / 513 items / max 5992 tokens; 8 quality gates all green (no -dup, no collisions, no blank lines, 通則 single-row, §9.69 self-contained per item, max < HARD_BUDGET). Task F surfaced the blank-line leak in `split_leaf` → `ac694e0`.
+
 
 After Tasks A–E are committed, do a final end-to-end against the live NHI site to confirm everything works.
 
