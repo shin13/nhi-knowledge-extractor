@@ -1,19 +1,19 @@
 """Download NHI medication-regulation source documents.
 
-Strategy (see docs/next-fixes.md Task A):
+Strategy:
 
 1. Group listing-page links by document title (extension stripped), not by href.
 2. Classify each title: `regulation` (通則 + 第N節) → in-scope; `appendix_form` (附表)
    → recorded but not downloaded; anything else → recorded as `unrecognized_title`.
-3. For regulations, prefer `.docx`; fall back to `.odt` + LibreOffice headless conversion.
-4. LibreOffice (`libreoffice`/`soffice` on PATH) is a hard dependency.
+3. For regulations, prefer `.docx`; fall back to `.odt` (parsed natively, no
+   external conversion needed — see parse.parse_odt).
+
+No external binary dependencies — `uv sync` is sufficient.
 """
 
 from __future__ import annotations
 
 import re
-import shutil
-import subprocess
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -108,46 +108,6 @@ def classify_document(title: str) -> str:
     return "unrecognized_title"
 
 
-# --- LibreOffice conversion --------------------------------------------------
-
-def _find_soffice() -> str:
-    """Locate the LibreOffice headless binary. Returns its absolute path or raises."""
-    for name in ("soffice", "libreoffice"):
-        path = shutil.which(name)
-        if path:
-            return path
-    # macOS standard install location
-    mac_app = Path("/Applications/LibreOffice.app/Contents/MacOS/soffice")
-    if mac_app.exists():
-        return str(mac_app)
-    raise RuntimeError(
-        "LibreOffice not found on PATH. Some NHI regulation documents are published "
-        "only as .odt and require LibreOffice for conversion.\n"
-        "Install: brew install --cask libreoffice  (macOS)\n"
-        "Or: sudo apt-get install libreoffice  (Debian/Ubuntu)"
-    )
-
-
-def _convert_odt_to_docx(odt_path: Path) -> Path:
-    """Convert .odt → .docx via LibreOffice headless. Returns the new .docx path."""
-    soffice = _find_soffice()
-    result = subprocess.run(
-        [soffice, "--headless", "--convert-to", "docx",
-         "--outdir", str(odt_path.parent), str(odt_path)],
-        capture_output=True, text=True, timeout=180,
-    )
-    if result.returncode != 0:
-        raise RuntimeError(
-            f"LibreOffice conversion failed for {odt_path.name}: {result.stderr.strip()}"
-        )
-    new_path = odt_path.with_suffix(".docx")
-    if not new_path.exists():
-        raise RuntimeError(
-            f"Expected {new_path} after LibreOffice conversion, file not produced"
-        )
-    return new_path
-
-
 # --- Filename + download -----------------------------------------------------
 
 def _safe_filename(title: str, update_date: date, ext: str) -> str:
@@ -184,15 +144,6 @@ def fetch_all(
     resp = session.get(source_url)
     resp.raise_for_status()
     docs, update_date = parse_listing(resp.text, base_url=source_url)
-
-    # Pre-flight: if any regulation needs ODT conversion, require LibreOffice now.
-    needs_libreoffice = any(
-        classify_document(d.title) == "regulation"
-        and not d.docx_url and d.odt_url
-        for d in docs
-    )
-    if needs_libreoffice:
-        _find_soffice()  # raises with install hint if missing
 
     sources: list[SourceDoc] = []
     skipped: list[SkippedDoc] = []
@@ -232,9 +183,6 @@ def fetch_all(
         fname = _safe_filename(d.title, update_date, ext)
         out_path = download_dir / fname
         _download(session, url, out_path)
-
-        if ext == "odt":
-            out_path = _convert_odt_to_docx(out_path)
 
         sources.append(SourceDoc(
             path=out_path,

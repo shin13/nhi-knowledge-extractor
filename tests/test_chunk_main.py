@@ -66,6 +66,28 @@ def test_chunk_document_budget_contract():
         assert item.token_count <= HARD_BUDGET, f"{item.item_id} = {item.token_count} tokens"
 
 
+def test_chunk_document_root_only_emits_single_item():
+    """When the root has body content but no detected children (e.g. 通則 which
+    uses Chinese-numeral headings), the whole document should emit as one item
+    if it fits within budget — not be silently dropped."""
+    root = Node(
+        heading="藥品給付規定通則",
+        level=(),
+        body=[
+            Paragraph(text="一、本保險醫事服務機構申報之藥品..."),
+            Paragraph(text="二、本保險醫療用藥..."),
+            Paragraph(text="三、本保險處方用藥..."),
+        ],
+        children=[],
+    )
+    doc = Document(source=_source(), title="藥品給付規定通則", section_number=0, root=root)
+    items = chunk_document(doc)
+    assert len(items) == 1
+    assert items[0].item_id == "sec0"
+    assert "一、" in items[0].content_md
+    assert "三、" in items[0].content_md
+
+
 def test_chunk_document_skip_node_with_no_body_only_children():
     """A pure section heading (no body, has children) emits no item itself."""
     root = Node(

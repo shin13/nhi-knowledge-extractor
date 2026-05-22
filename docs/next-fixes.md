@@ -26,7 +26,7 @@ Source page `https://www.nhi.gov.tw/ch/cp-7593-ad2a9-3397-1.html` publishes **92
 
 **Coverage target after Task A:** all 規定 documents (通則 + 第N節, ~17 docs), regardless of source format. 附表 explicitly skipped with a title-prefix filter and recorded in `Manifest.skipped_documents` with reason `"appendix_form"`.
 
-**Format strategy:** prefer native `.docx`; fall back to `.odt` + LibreOffice headless convert. Ignore `.doc` (every `.doc` doc also has `.odt`, ODT is cleaner). LibreOffice (`libreoffice`/`soffice` on PATH) is a hard dependency — fail fast with install hint.
+**Format strategy:** prefer native `.docx`; fall back to `.odt` parsed **natively** via zipfile + lxml (no external binary). Ignore `.doc` (every `.doc` doc also has `.odt`, ODT is cleaner). **Updated 2026-05-22:** the originally-planned LibreOffice route was abandoned — adds 795MB to the install footprint and a subprocess step. ODT is just zipped XML; we walk `office:body > office:text` children directly and emit the same `Document` tree as the DOCX path.
 
 ---
 

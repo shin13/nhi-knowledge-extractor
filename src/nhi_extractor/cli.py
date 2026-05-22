@@ -15,7 +15,7 @@ from .chunk import chunk_document
 from .diff import compute_diff
 from .fetch import fetch_all
 from .package import build_release
-from .parse import parse_docx
+from .parse import parse_document
 from .types import Manifest, SourceDoc
 
 app = typer.Typer(no_args_is_help=True, add_completion=False)
@@ -53,7 +53,7 @@ def sync(
 
     all_items = []
     for source in manifest.documents:
-        doc = parse_docx(source)
+        doc = parse_document(source)
         items = chunk_document(doc)
         all_items.extend(items)
         console.print(f"  {source.path.name}: {len(items)} items")
@@ -82,7 +82,7 @@ def sync(
 def cmd_parse(docx_path: Path) -> None:
     """Debug: parse one DOCX and print the Document tree."""
     sd = SourceDoc(path=docx_path, url="", display_name=docx_path.stem, update_date_iso=date.today())
-    doc = parse_docx(sd)
+    doc = parse_document(sd)
     console.print(f"[bold]Title:[/bold] {doc.title}")
     console.print(f"[bold]Section:[/bold] {doc.section_number}")
 
@@ -98,7 +98,7 @@ def cmd_parse(docx_path: Path) -> None:
 def cmd_chunk(docx_path: Path) -> None:
     """Debug: parse + chunk one DOCX and print all emitted items."""
     sd = SourceDoc(path=docx_path, url="", display_name=docx_path.stem, update_date_iso=date.today())
-    doc = parse_docx(sd)
+    doc = parse_document(sd)
     items = chunk_document(doc)
     table = RichTable(title=f"{doc.title} -- {len(items)} items")
     table.add_column("item_id")

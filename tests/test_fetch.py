@@ -1,12 +1,10 @@
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
 
 from nhi_extractor.fetch import (
     DocLinks,
-    _convert_odt_to_docx,
-    _find_soffice,
     classify_document,
     parse_listing,
 )
@@ -76,81 +74,37 @@ def test_classify_document(title, expected):
     assert classify_document(title) == expected
 
 
-# --- LibreOffice integration -------------------------------------------------
-
-def test_find_soffice_raises_with_install_hint(monkeypatch):
-    """When LibreOffice is missing, error must tell the user how to install it."""
-    monkeypatch.setattr("nhi_extractor.fetch.shutil.which", lambda _name: None)
-    monkeypatch.setattr("nhi_extractor.fetch.Path.exists", lambda _self: False)
-    with pytest.raises(RuntimeError, match="brew install --cask libreoffice"):
-        _find_soffice()
-
-
-def test_convert_odt_to_docx_invokes_libreoffice(tmp_path, monkeypatch):
-    odt = tmp_path / "doc.odt"
-    odt.write_bytes(b"fake odt")
-    expected_docx = tmp_path / "doc.docx"
-
-    monkeypatch.setattr("nhi_extractor.fetch._find_soffice", lambda: "/fake/soffice")
-
-    def fake_run(cmd, **kwargs):
-        # Simulate LibreOffice creating the .docx
-        expected_docx.write_bytes(b"fake converted docx")
-        return MagicMock(returncode=0, stderr="")
-
-    monkeypatch.setattr("nhi_extractor.fetch.subprocess.run", fake_run)
-    result = _convert_odt_to_docx(odt)
-    assert result == expected_docx
-    assert result.exists()
-
+# --- fetch_all orchestration -------------------------------------------------
 
 def test_fetch_all_records_skipped_appendix_forms(tmp_path, monkeypatch):
-    """Appendix forms must be in skipped_documents, not silently dropped."""
+    """Appendix forms must be in skipped_documents, not silently dropped.
+    Regulations are downloaded as either .docx or .odt — no external conversion."""
     html = FIXTURE.read_text(encoding="utf-8")
 
-    # Fake cloudscraper session: returns the fixture HTML for the listing,
-    # arbitrary bytes for any downloaded file.
     fake_session = MagicMock()
     listing_resp = MagicMock(text=html)
     listing_resp.raise_for_status = MagicMock()
     download_resp = MagicMock()
     download_resp.raise_for_status = MagicMock()
-    download_resp.iter_content = lambda _n: [b"fake docx bytes"]
-    fake_session.get = MagicMock(side_effect=lambda url, **kw: listing_resp if url.endswith(".html") else download_resp)
+    download_resp.iter_content = lambda _n: [b"fake file bytes"]
+    fake_session.get = MagicMock(
+        side_effect=lambda url, **kw: listing_resp if url.endswith(".html") else download_resp
+    )
     monkeypatch.setattr("nhi_extractor.fetch.cloudscraper.create_scraper", lambda: fake_session)
-
-    # Fake LibreOffice: pretend it's there and just rename .odt → .docx
-    monkeypatch.setattr("nhi_extractor.fetch._find_soffice", lambda: "/fake/soffice")
-
-    def fake_run(cmd, **kwargs):
-        odt_path = Path(cmd[-1])
-        odt_path.with_suffix(".docx").write_bytes(b"fake converted")
-        return MagicMock(returncode=0, stderr="")
-    monkeypatch.setattr("nhi_extractor.fetch.subprocess.run", fake_run)
 
     from nhi_extractor.fetch import fetch_all
     manifest = fetch_all(download_dir=tmp_path)
 
-    # 通則 + 第N節 must be downloaded
     titles = {d.display_name for d in manifest.documents}
     assert any(t.startswith("通則") for t in titles), f"通則 not in documents: {sorted(titles)[:5]}"
     assert any(t.startswith("第六節") for t in titles), "第六節 not in documents"
 
-    # 附表 must be in skipped, with reason
+    # ODT-only regulations keep their .odt extension — parser dispatches on it.
+    sixth = next(d for d in manifest.documents if d.display_name.startswith("第六節"))
+    assert sixth.path.suffix == ".odt"
+
     appendix_skipped = [s for s in manifest.skipped_documents if s.reason == "appendix_form"]
     assert len(appendix_skipped) >= 20, f"expected many appendix forms skipped, got {len(appendix_skipped)}"
     for s in appendix_skipped:
         assert s.title.startswith("附表")
         assert s.url
-
-
-def test_convert_odt_to_docx_raises_when_libreoffice_fails(tmp_path, monkeypatch):
-    odt = tmp_path / "doc.odt"
-    odt.write_bytes(b"fake")
-    monkeypatch.setattr("nhi_extractor.fetch._find_soffice", lambda: "/fake/soffice")
-    monkeypatch.setattr(
-        "nhi_extractor.fetch.subprocess.run",
-        lambda *a, **kw: MagicMock(returncode=1, stderr="conversion broken"),
-    )
-    with pytest.raises(RuntimeError, match="LibreOffice conversion failed"):
-        _convert_odt_to_docx(odt)

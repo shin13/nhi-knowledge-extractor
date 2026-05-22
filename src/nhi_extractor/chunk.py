@@ -42,10 +42,14 @@ def make_item_id(section_number: int | None, level: tuple[int, ...]) -> str:
     Examples:
       section_number=9, level=(9, 69, 1)  → "sec9-9.69.1"
       section_number=9, level=(9,)        → "sec9-9"
+      section_number=0, level=()          → "sec0"          (通則, whole doc)
+      section_number=N, level=()          → "secN"          (whole doc as one item)
       section_number=None, level=()       → "appendix-doc"
     """
     if section_number is None:
         return "appendix-doc"
+    if not level:
+        return f"sec{section_number}"
     return f"sec{section_number}-{_level_to_str(level)}"
 
 
@@ -340,10 +344,23 @@ def chunk_document(doc) -> list[Item]:
 
     from .config import HARD_BUDGET, TARGET_BUDGET
     items: list[Item] = []
-    for child in doc.root.children:
+    if doc.root.children:
+        for child in doc.root.children:
+            items.extend(_chunk_node(
+                child,
+                ancestors=[doc.root],
+                section_number=doc.section_number,
+                source=doc.source,
+                target_budget=TARGET_BUDGET,
+            ))
+    elif doc.root.body:
+        # Document with body content but no detected headings (e.g. 通則, which
+        # uses Chinese numerals 一、二、三 that don't match the Arabic heading
+        # regex). Treat the root itself as a single chunkable unit — emit as
+        # one item if it fits, otherwise split via the leaf splitter.
         items.extend(_chunk_node(
-            child,
-            ancestors=[doc.root],
+            doc.root,
+            ancestors=[],
             section_number=doc.section_number,
             source=doc.source,
             target_budget=TARGET_BUDGET,
