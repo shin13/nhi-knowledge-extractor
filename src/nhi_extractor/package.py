@@ -112,6 +112,7 @@ def build_release(
     release_date: date,
     data_dir: Path,
     changelog_path: Path,
+    skipped_documents: tuple = (),
 ) -> BuildResult:
     label = _release_label(release_date)
     folder = data_dir / f"藥品給付規定_{label}"
@@ -126,6 +127,10 @@ def build_release(
         "release_date": release_date.isoformat(),
         "item_count": len(new_entries),
         "items": new_entries,
+        "skipped_documents": [
+            {"title": s.title, "url": s.url, "reason": s.reason}
+            for s in skipped_documents
+        ],
     }
     (folder / "MANIFEST.json").write_text(
         json.dumps(manifest_obj, ensure_ascii=False, indent=2), encoding="utf-8",

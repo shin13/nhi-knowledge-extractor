@@ -18,10 +18,23 @@ class SourceDoc:
 
 
 @dataclass(frozen=True)
+class SkippedDoc:
+    """A document the fetcher saw on the listing but deliberately did not download.
+
+    `reason` is a short machine-readable tag, e.g. "appendix_form", "unrecognized_title",
+    "pdf_only". `url` is the best-available source URL so a human can still grab it.
+    """
+    title: str
+    url: str
+    reason: str
+
+
+@dataclass(frozen=True)
 class Manifest:
     """The full set of source documents for one release."""
     update_date_iso: date
     documents: tuple[SourceDoc, ...]
+    skipped_documents: tuple[SkippedDoc, ...] = ()
 
 
 @dataclass

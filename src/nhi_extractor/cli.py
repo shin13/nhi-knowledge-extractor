@@ -44,6 +44,12 @@ def sync(
     """Full pipeline: fetch -> parse -> chunk -> render -> package."""
     manifest = _build_manifest_from_chapters(cfg.CHAPTERS_DIR) if skip_fetch else fetch_all()
     console.print(f"[bold]Fetched:[/bold] {len(manifest.documents)} documents, release date {manifest.update_date_iso}")
+    if manifest.skipped_documents:
+        by_reason: dict[str, int] = {}
+        for s in manifest.skipped_documents:
+            by_reason[s.reason] = by_reason.get(s.reason, 0) + 1
+        summary = ", ".join(f"{n} {r}" for r, n in sorted(by_reason.items()))
+        console.print(f"[dim]Skipped {len(manifest.skipped_documents)} ({summary}) — see MANIFEST.json[/dim]")
 
     all_items = []
     for source in manifest.documents:
@@ -64,6 +70,7 @@ def sync(
         release_date=manifest.update_date_iso,
         data_dir=cfg.DATA_DIR,
         changelog_path=cfg.CHANGELOG_PATH,
+        skipped_documents=manifest.skipped_documents,
     )
     console.print(f"[green]Wrote:[/green] {result.zip_path}")
     console.print(

@@ -6,6 +6,13 @@ from pathlib import Path
 SOURCE_URL = "https://www.nhi.gov.tw/ch/cp-7593-ad2a9-3397-1.html"
 UPDATE_DATE_SELECTOR = "body > main > div.contentbox > section.pubInfo > dl > div:nth-child(2) > dd > time"
 DOCX_LINK_PATTERN = r".*\.docx$"
+ODT_LINK_PATTERN = r".*\.odt$"
+
+# Title-based classification of NHI source documents.
+# 規定 (in-scope): 通則 + 第N節 chapters. These get downloaded + chunked.
+# 附表 (out-of-scope for now, see docs/next-fixes.md Task G): application forms.
+REGULATION_TITLE_PATTERN = r"^(通則|第[一二三四五六七八九十百零]+節)"
+APPENDIX_FORM_TITLE_PATTERN = r"^附表"
 
 # --- Output ---
 TOPIC_PREFIX = "臺灣全民健康保險藥品給付規定/藥品健保給付/健保規定 (Taiwan NHI) \n"

@@ -6,6 +6,10 @@ Convert Taiwan NHI medication regulation DOCX documents into RAG-ingestion-ready
 
 - Python 3.13+, managed with `uv`
 - Install: `uv sync`
+- **LibreOffice (hard dep)**: required to convert `.odt` source documents that NHI doesn't publish as `.docx` (通則, 第六節, 第十一節, 第十二節, 第十五節). Install once:
+  - macOS: `brew install --cask libreoffice`
+  - Debian/Ubuntu: `sudo apt-get install libreoffice`
+  - `soffice` or `libreoffice` must be on `PATH` (macOS app bundle path also detected). `fetch_all` fails fast with the install hint if missing.
 
 ## Commands
 
