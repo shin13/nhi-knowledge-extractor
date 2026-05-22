@@ -55,6 +55,20 @@ def test_render_node_to_markdown_with_table():
     assert "| X |" in md
 
 
+def test_render_node_to_markdown_no_blank_lines_between_blocks():
+    """CSV `content` cells must not contain blank lines between paragraphs —
+    those become visible empty rows when the RAG renders the CSV.
+    Adjacent blocks separated by a single \n only."""
+    n = Node(
+        heading="9.1.",
+        level=(9, 1),
+        body=[Paragraph(text="段落一"), Paragraph(text="段落二"), Paragraph(text="段落三")],
+    )
+    md = render_node_to_markdown(n)
+    assert "段落一\n段落二\n段落三" in md
+    assert "\n\n" not in md, f"unexpected blank line in rendered markdown: {md!r}"
+
+
 def test_render_node_to_markdown_recurses_into_children():
     child = Node(heading="9.69.1.", level=(9, 69, 1), body=[Paragraph(text="child text")])
     parent = Node(

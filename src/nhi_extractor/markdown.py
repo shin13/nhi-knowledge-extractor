@@ -64,4 +64,4 @@ def render_node_to_markdown(node: Node) -> str:
         parts.append(_block_to_markdown(block))
     for child in node.children:
         parts.append(render_node_to_markdown(child))
-    return "\n\n".join(p for p in parts if p)
+    return "\n".join(p for p in parts if p)
