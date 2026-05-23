@@ -209,23 +209,49 @@ def split_leaf(
         # If any chunk still exceeds HARD_BUDGET, recursively split that one
         # group by recursing into split_leaf with a temp Node containing only
         # those blocks. The numbered-item content itself is now atomic context.
+        #
+        # Task K: when a group is recursively sub-split, the second+ sub-parts
+        # would otherwise start mid-list (e.g. at `II. ...`) with no link to
+        # the parent numbered item (`3. 使用條件：`). Inject the group's
+        # opener line + `（續）：` so each continuation row is self-contained
+        # for RAG retrieval.
+        from dataclasses import replace
         out: list[Item] = []
         for it, group in zip(items, groups):
             if it.token_count <= HARD_BUDGET:
                 out.append(it)
-            else:
-                sub_leaf = Node(heading=leaf.heading, level=leaf.level, body=group)
-                sub_items = _split_leaf_without_strategy_0(
-                    sub_leaf,
-                    ancestors=ancestors,
-                    section_number=section_number,
-                    source=source,
-                    target_budget=target_budget,
-                )
-                # Re-id with the parent part index so ids remain stable.
-                for j, si in enumerate(sub_items, start=1):
-                    from dataclasses import replace
-                    out.append(replace(si, item_id=f"{it.item_id}-{j}"))
+                continue
+
+            # Find the group opener (the `N.` paragraph that started this group).
+            anchor: str | None = None
+            for b in group:
+                if isinstance(b, Paragraph) and TOP_LEVEL_ITEM_RE.match(b.text):
+                    # First line only; strip trailing ':' / '：' to avoid doubling.
+                    anchor = b.text.split("\n")[0].rstrip("：:")
+                    break
+
+            sub_leaf = Node(heading=leaf.heading, level=leaf.level, body=group)
+            sub_items = _split_leaf_without_strategy_0(
+                sub_leaf,
+                ancestors=ancestors,
+                section_number=section_number,
+                source=source,
+                target_budget=target_budget,
+            )
+            for j, si in enumerate(sub_items, start=1):
+                new_id = f"{it.item_id}-{j}"
+                if j == 1 or not anchor:
+                    # First sub-part naturally contains the opener; no anchor
+                    # injection needed. Also a no-op if anchor couldn't be found.
+                    out.append(replace(si, item_id=new_id))
+                else:
+                    # Inject `{anchor}（續）：` after the `## heading` line.
+                    heading_line, _, rest = si.content_md.partition("\n")
+                    new_content = f"{heading_line}\n{anchor}（續）：\n{rest}"
+                    out.append(replace(
+                        si, item_id=new_id, content_md=new_content,
+                        token_count=count_tokens(new_content),
+                    ))
         return out
 
     return _split_leaf_without_strategy_0(

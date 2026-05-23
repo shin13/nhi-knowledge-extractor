@@ -98,16 +98,22 @@ def test_recursive_subsplit_flat_numbering():
     """When part3 is itself sub-split (recursive Strategy 0), the resulting
     sub-rows share parent_id with their siblings and use FLAT part_index
     numbering across the whole 9.69 group — not hierarchical 3.1/3.2."""
-    # Need part 3 to exceed HARD_BUDGET (7000 tokens) on its own. Chinese
-    # tokenizes ~1:1 — 8000 chars of meaningful Chinese ≈ 7000-8000 tokens.
-    huge = "本條規定內容應依據本辦法第三項規定辦理並符合下列各款要件。" * 600
+    # Use multiple medium paragraphs in group 3 (matches real NHI shape) so
+    # Strategy 3 can flush at paragraph boundaries instead of relying on the
+    # brittle char-split fallback. ~1500 tokens per paragraph × 6 = ~9000.
+    para = "本條規定內容應依據本辦法第三項規定辦理並符合下列各款要件之規定不得違反相關法令。" * 35
     leaf = Node(
         heading="9.69.",
         level=(9, 69),
         body=[
             Paragraph(text="1. 第一項"),
             Paragraph(text="2. 第二項"),
-            Paragraph(text=f"3. 第三項 {huge}"),  # over HARD_BUDGET → sub-split
+            Paragraph(text="3. 第三項："),  # group-3 opener
+            Paragraph(text=f"(1) {para}"),
+            Paragraph(text=f"(2) {para}"),
+            Paragraph(text=f"(3) {para}"),
+            Paragraph(text=f"(4) {para}"),
+            Paragraph(text=f"(5) {para}"),
             Paragraph(text="4. 第四項"),
         ],
     )
