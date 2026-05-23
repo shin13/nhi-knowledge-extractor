@@ -20,7 +20,7 @@ Convert Taiwan NHI medication regulation DOCX documents into a RAG-ingestion–r
 - Plus `MANIFEST.json` and `CHANGES_YYYYMMDD.md` inside the zip
 - Plus a rolling `CHANGELOG.md` at the **repo root** (not in the zip), prepended with each release's diff section
 
-### 2.2 CSV schema (8 columns)
+### 2.2 CSV schema (11 columns)
 
 | Column         | Notes                                                                   |
 | -------------- | ----------------------------------------------------------------------- |
@@ -29,6 +29,9 @@ Convert Taiwan NHI medication regulation DOCX documents into a RAG-ingestion–r
 | `heading`      | Numeric heading of this knowledge item (e.g. `9.69.1.`).                |
 | `section_path` | Human-readable ancestor chain without the prefix (e.g. `第9節 抗癌瘤藥物 > 9.69. > 9.69.1.`). |
 | `item_id`      | Stable across releases; the diff key (e.g. `sec9-9.69.1`).              |
+| `parent_id`    | Logical-unit id (Task J). Equals `item_id` when not split; siblings of a budget-split share this. RAG should hydrate same-`parent_id` rows. |
+| `part_index`   | 1-based position within `parent_id` group. Non-split rows = 1. |
+| `total_parts`  | Count of rows sharing this `parent_id`. Non-split rows = 1. |
 | `source_file`  | Traceability (e.g. `第9節_抗癌瘤藥物_Antineoplastics_drugs_1150324.docx`). |
 | `source_url`   | Traceability (e.g. `https://www.nhi.gov.tw/.../9.docx`).                |
 | `update_date`  | Dual calendar (e.g. `2026/03/24 (民國115年3月24日)`).                   |
@@ -119,12 +122,15 @@ class Table:
 
 @dataclass(frozen=True)
 class Item:
-    item_id: str                   # e.g. "sec9-9.69.1"
+    item_id: str                   # e.g. "sec9-9.69.1" or "sec9-9.69-part3-2"
     section_path: list[str]        # ["第9節 抗癌瘤藥物", "9.69.", "9.69.1."]
     heading: str
     content_md: str                # Markdown: prose + inline tables
     source: SourceDoc
     token_count: int
+    parent_id: str = ""            # Logical unit id; equals item_id when not split
+    part_index: int = 1            # 1-based position within parent_id group
+    total_parts: int = 1           # Count of rows sharing parent_id
 ```
 
 Hierarchy lives only in the tree. Downstream stages read from it; nothing reaches back.
@@ -136,17 +142,47 @@ Hierarchy lives only in the tree. Downstream stages read from it; nothing reache
 - Regular node: `sec{N}-{numeric_heading}` → `sec9-9.69.1`
 - Appendix: `appendix-{slug}` → `appendix-表14_DMARDs`
 - Leaf split into parts: original ID + `-part1`, `-part2`, ...
+- Recursive sub-split (a part itself exceeds budget): original ID + `-part{N}-{M}`, e.g. `sec9-9.69-part3-2`
 - Preamble (node's own body emitted separately from its children): original ID + `-preamble`
 - Oversize table split by rows: original ID + `-tbl1`, `-tbl2`, ...
 
 IDs are **deterministic** — same input always produces the same ID. This is what lets the differ align items across releases.
+
+### 3.4 `parent_id` derivation
+
+`parent_id` is derived from `item_id` by iteratively stripping chunker-added suffixes (`-partN[-M]`, `-tblN`, `-preamble`) until none remain. It is **syntactic** — it identifies sibling rows produced by the same split operation, not heading siblings.
+
+Examples:
+- `sec9-9.69-part3-2` → `parent_id = sec9-9.69` (same as `part1`/`part2`/`part3-1`/`part4`)
+- `sec9-9.50-tbl2` → `parent_id = sec9-9.50`
+- `sec3-3.2-preamble` → `parent_id = sec3-3.2`
+- `sec9-9.70` → `parent_id = sec9-9.70` (unchanged — no suffix)
+
+Crucially, heading-hierarchy siblings (`sec5-5.1.1` and `sec5-5.1.2`) do NOT share `parent_id`; they are independent logical units that just happen to live under the same parent in the tree. Hydration is only semantically correct within a split family.
+
+### 3.5 `EMIT_DEPTH` — minimum emit depth
+
+Decouples editorial granularity from token budget. A node at depth `< EMIT_DEPTH` with children MUST descend, even if its full subtree fits `TARGET_BUDGET`. Default 5 (NHI source tree max depth). See `docs/emit-depth-plan.md` for rationale.
+
+This makes the editorial decision ("what is a row?") an explicit knob rather than an implicit consequence of `TARGET_BUDGET` value matching NHI content size by luck.
 
 ## 4. Chunker algorithm (the heart of the design)
 
 ### 4.1 Main descent
 
 ```python
-def chunk(node: Node, ancestors: list[Node]) -> list[Item]:
+def chunk(node: Node, ancestors: list[Node], emit_depth: int = EMIT_DEPTH) -> list[Item]:
+    depth = len(node.level)
+
+    # Depth gate: force descent if shallower than emit_depth (Task I)
+    if depth < emit_depth and node.children:
+        items = []
+        if has_significant_body(node):
+            items.append(emit_item_for_body_only(node, ancestors))
+        for child in node.children:
+            items.extend(chunk(child, ancestors + [node], emit_depth))
+        return items
+
     rendered = render_subtree_to_markdown(node)
     if count_tokens(rendered) <= TARGET_BUDGET:
         return [emit_item(node, ancestors, rendered)]
@@ -157,7 +193,7 @@ def chunk(node: Node, ancestors: list[Node]) -> list[Item]:
         if has_significant_body(node):
             items.append(emit_item_for_body_only(node, ancestors))
         for child in node.children:
-            items.extend(chunk(child, ancestors + [node]))
+            items.extend(chunk(child, ancestors + [node], emit_depth))
         return items
 
     # Leaf still over budget → semantic split
@@ -172,6 +208,7 @@ When a leaf node alone exceeds the budget:
 2. **Split by paragraph.** Accumulate paragraphs until close to budget, then break.
 3. **Tables are atomic.** Steps 1 and 2 treat any `Table` block as an indivisible unit. A table travels in one chunk with surrounding prose if it fits, or alone if not.
 4. **Oversize-table split (last resort).** If a single table exceeds the target budget, split by rows: each chunk keeps the header + N data rows. ID suffix `-tbl1`, `-tbl2`, ...
+5. **Anchor preamble on recursive sub-split (Task K).** If a numbered-item group from step 1 itself exceeds `HARD_BUDGET` and must be sub-split, the chunker extracts the group's opener line (e.g. `3. 使用條件`) as an anchor. The first sub-part naturally contains the opener; sub-parts 2..N have `{anchor}（續）：` injected after the heading line so retrieval gets self-contained context. Trailing `:` / `：` on the anchor is stripped to avoid doubled colons.
 
 ### 4.3 `has_significant_body` rule
 
