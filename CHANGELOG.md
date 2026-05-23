@@ -1,9 +1,11 @@
 # Changelog
 
 ## [20260424] — 2026/04/24（民國115年4月24日）
-**Source manifest:** 11 documents, 498 items emitted, max token count 5977.
+**Initial release.**
+**Source manifest:** 16 documents, 543 items emitted, max token count 5992.
 
 ### Added
+- `sec0` — 藥品給付規定通則
 - `sec1-1.1.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.1.疼痛解除劑 Drugs used for pain relief > 1.1.1.非類固醇抗發炎劑外用製劑：(88/9/1、92/2/1、94/9/1、109/2/1)
 - `sec1-1.1.10` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.1.疼痛解除劑 Drugs used for pain relief > 1.1.10. Acetaminophen 80mg一般錠劑膠囊劑：(112/6/1) 限用於6歲以下病人。
 - `sec1-1.1.2` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.1.疼痛解除劑 Drugs used for pain relief > 1.1.2.非類固醇抗發炎劑 (NSAIDs) 之注射劑：(88/12/1、97/7/1)
@@ -14,7 +16,7 @@
 - `sec1-1.1.7` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.1.疼痛解除劑 Drugs used for pain relief > 1.1.7.Pregabalin（101/2/1、102/2/1、105/1/1、106/3/1、109/5/1、113/12/1）
 - `sec1-1.1.8` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.1.疼痛解除劑 Drugs used for pain relief > 1.1.8.Duloxetine（如Cymbalta）：(102/8/1、105/2/1、113/12/1)
 - `sec1-1.1.9` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.1.疼痛解除劑 Drugs used for pain relief > 1.1.9. Fentanyl citrate口頰溶片或口頰錠(108/10/1、111/2/1)
-- `sec1-1.2.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.2.精神治療劑  Psychotherapeutic drugs > 1.2.1.選擇性血清促進素再吸收抑制劑 (SSRI)、血清促進素及正腎上腺素再吸收抑制劑 (SNRI)及其他抗憂鬱劑（fluvoxamine maleate、fluoxetine、paroxetine、sertraline、venlafaxine、milnacipran、mirtazapine、citalopram、escitalopram、duloxetine、agomelatine、vortioxetine等製劑）：(88/12/1、89/10/1、91/5/1、92/6/1、93/5/1、94/2/1、94/12/1、99/10/1、101/7/1、107/3/1)
+- `sec1-1.2.1.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.2.精神治療劑  Psychotherapeutic drugs > 1.2.1.選擇性血清促進素再吸收抑制劑 (SSRI)、血清促進素及正腎上腺素再吸收抑制劑 (SNRI)及其他抗憂鬱劑（fluvoxamine maleate、fluoxetine、paroxetine、sertraline、venlafaxine、milnacipran、mirtazapine、citalopram、escitalopram、duloxetine、agomelatine、vortioxetine等製劑）：(88/12/1、89/10/1、91/5/1、92/6/1、93/5/1、94/2/1、94/12/1、99/10/1、101/7/1、107/3/1) > 1.2.1.1.Bupropion HCL：(92/1/1、99/10/1)
 - `sec1-1.2.2.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.2.精神治療劑  Psychotherapeutic drugs > 1.2.2.抗精神病劑Antipsychotics > 1.2.2.1.Clozapine（如Clozaril）
 - `sec1-1.2.2.2` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.2.精神治療劑  Psychotherapeutic drugs > 1.2.2.抗精神病劑Antipsychotics > 1.2.2.2.Second generation antipsychotics(簡稱第二代抗精神病藥品，如clozapine、olanzapine、risperidone、quetiapine、amisulpride、ziprasidone、aripiprazole、paliperidone、lurasidone、brexpiprazole等)：(91/9/1、92/1/1、92/7/1、94/1/1、95/10/1、97/5/1、99/10/1、106/1/1、109/1/1、109/6/1、112/7/1)
 - `sec1-1.2.3` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.2.精神治療劑  Psychotherapeutic drugs > 1.2.3.Zaleplon、zolpidem、zopiclone及eszopiclone（98/1/1、98/5/1、98/10/1、102/11/1）
@@ -35,6 +37,8 @@
 - `sec1-1.3.3` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.3.神經藥物  Neurologic drugs > 1.3.3.失智症治療藥品
 - `sec1-1.3.4` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.3.神經藥物  Neurologic drugs > 1.3.4.帕金森氏症治療藥品：(91/11/1、93/2/1、95/9/1、96/9/1、97/7/1、100/6/1、101/6/1、108/10/1、110/11/1、111/3/1)
 - `sec1-1.3.5` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.3.神經藥物  Neurologic drugs > 1.3.5. Methylphenidate HCl緩釋劑型（如Concerta Extended Release Tablets、Methydur Sustained Release Capsules）；atomoxetine HCl（如Strattera Hard capsules、Atotine oral Solution）(93/9/1、96/5/1、96/9/1、97/5/1、106/3/1、109/9/1、111/2/1、111/8/1、113/11/1、114/10/1)
+- `sec1-1.3.6.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.3.神經藥物  Neurologic drugs > 1.3.6.Modafinil(如Provigil)、pitolisant (如Wakix)：(96/2/1、109/12/1、110/12/1、112/3/1) > 1.3.6.1.Modafinil(如Provigil)：(96/2/1、109/12/1、110/12/1、112/3/1)
+- `sec1-1.3.6.2` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.3.神經藥物  Neurologic drugs > 1.3.6.Modafinil(如Provigil)、pitolisant (如Wakix)：(96/2/1、109/12/1、110/12/1、112/3/1) > 1.3.6.2.Pitolisant (如Wakix)：（112/3/1)
 - `sec1-1.4.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.4.麻醉劑 Drugs used in anesthesia > 1.4.1.Propofol：(91/2/1、100/7/1、109/2/1)
 - `sec1-1.4.2` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.4.麻醉劑 Drugs used in anesthesia > 1.4.2.Cis-atracurium、atracurium：(91/2/1、100/7/1)
 - `sec1-1.4.3` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.4.麻醉劑 Drugs used in anesthesia > 1.4.3.Vecuronium、rocuronium：(91/2/1、100/7/1)
@@ -43,14 +47,14 @@
 - `sec1-1.5.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.5.Parasympathomimetic (Cholinergic) Agents（93/8/1、94/2/1、96/7/1、97/5/1、102/2/1） > 1.5.1.Pilocarpine hydrochloride口服劑型
 - `sec1-1.5.2` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.5.Parasympathomimetic (Cholinergic) Agents（93/8/1、94/2/1、96/7/1、97/5/1、102/2/1） > 1.5.2.Cevimeline hydrochloride（如Evoxac Capsules）（97/5/1、102/2/1)
 - `sec1-1.6.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.1.Riluzole (如Rilutek、Teglutik) (87/4/1、92/11/1、95/4/1、112/7/1)
-- `sec1-1.6.2` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.2. Botulinum toxin type A
+- `sec1-1.6.2.1` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.2. Botulinum toxin type A > 1.6.2.1.Botox(90/1/1、93/1/1、94/6/1、98/3/1、98/5/1、100/8/1、104/5/1、104/9/1、107/2/1、109/2/1、109/12/1、110/3/1、111/3/1、115/2/1)
+- `sec1-1.6.2.2` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.2. Botulinum toxin type A > 1.6.2.2.Dysport (91/2/1、93/1/1、94/6/1、98/3/1、98/5/1、100/8/1、107/2/1、109/2/1、109/12/1、112/11/1)
 - `sec1-1.6.3` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.3.Tolterodine L-tartrate  (如Detrusitol) ; solifenacin succinate  (如Vesicare)；mirabegron (如Betmiga):(90/7/1、93/10/1、96/4/1、104/2/1)
 - `sec1-1.6.4` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.4. Nusinersen(如 Spinraza)、risdiplam（如Evrysdi）：（109/7/1、109/10/1、112/4/1、112/6/1、112/8/1、113/8/1）
 - `sec1-1.6.5` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.5.Galcanezumab(如Emgality) 、fremanezumab(如Ajovy)：(110/3/1、111/3/1)
 - `sec1-1.6.6` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.6.Patisiran（如Onpattro）、vutrisiran（如Amvuttra）：（112/5/1、114/5/1）
 - `sec1-1.6.7` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.7.Onasemnogene abeparvovec (如Zolgensma suspension for Intravenous Infusion)：（112/8/1、112/10/1、113/4/1）
 - `sec1-1.6.8` — 第1節 神經系統藥物 Drugs acting on the nervous system > 1.6.其他  Miscellaneous > 1.6.8.Eladocagene exuparvovec(如Upstaza)：（114/12/1)
-- `sec1-3.19` — 第1節 神經系統藥物 Drugs acting on the nervous system > 3.19歲以上至未滿41歲才第一次診斷者，須符合下列條件並檢附詳細病歷紀錄及相關資料，經事前審查核准後使用(限用含atomoxetine HCl成分一般錠劑膠囊劑藥品)：（111/8/1、114/10/1）
 - `sec10-10.1` — 第10節 抗微生物劑 Antimicrobial agents > 10.1.抗微生物劑用藥給付規定通則：
 - `sec10-10.2.1` — 第10節 抗微生物劑 Antimicrobial agents > 10.2.盤尼西林類  Penicillins > 10.2.1.Amoxicillin + clavulanic acid（如Augmentin tab）：(85/1/1、109/10/1)
 - `sec10-10.2.2` — 第10節 抗微生物劑 Antimicrobial agents > 10.2.盤尼西林類  Penicillins > 10.2.2.Ampicillin + sulbactam 注射劑（如Unasyn注射劑、Ansullina注射劑）：(91/7/1)
@@ -99,7 +103,10 @@
 - `sec10-10.8.1.1` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.1.Teicoplanin及vancomycin：（88/3/1、110/7/1） > 10.8.1.1.Teicoplanin及vancomycin注射劑：(88/3/1、110/7/1)
 - `sec10-10.8.1.2` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.1.Teicoplanin及vancomycin：（88/3/1、110/7/1） > 10.8.1.2.Vancomycin口服製劑(110/7/1)
 - `sec10-10.8.10` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.10.Polymyxin B sulfate靜脈注射劑：(113/12/1)
-- `sec10-10.8.2` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.2. Quinolone類：（96/9/1、97/9/1、107/1/1、108/12/1）
+- `sec10-10.8.2.1` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.2. Quinolone類：（96/9/1、97/9/1、107/1/1、108/12/1） > 10.8.2.1.Moxifloxacin (如Avelox)：(91/2/1、92/11/1、94/3/1、97/9/1、105/8/1)
+- `sec10-10.8.2.2` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.2. Quinolone類：（96/9/1、97/9/1、107/1/1、108/12/1） > 10.8.2.2.Gemifloxacin (如Factive)：(96/6/1、97/9/1)
+- `sec10-10.8.2.3` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.2. Quinolone類：（96/9/1、97/9/1、107/1/1、108/12/1） > 10.8.2.3.Levofloxacin（如Cravit）（97/9/1）
+- `sec10-10.8.2.4` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.2. Quinolone類：（96/9/1、97/9/1、107/1/1、108/12/1） > 10.8.2.4.Nemonoxacin膠囊劑及注射劑(如Taigexyn)：(107/1/1、111/3/1)
 - `sec10-10.8.3` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.3.Linezolid（如Zyvox Injection及Tablets）：（91/4/1、100/7/1、105/2/1、108/4/1）
 - `sec10-10.8.4` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.4. (本項刪除)
 - `sec10-10.8.5` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.5.Tigecycline（如Tygacil）：(95/12/1、100/7/1)
@@ -108,6 +115,16 @@
 - `sec10-10.8.8` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.8.Fidaxomicin(如Dificid)：(103/9/1)
 - `sec10-10.8.9` — 第10節 抗微生物劑 Antimicrobial agents > 10.8.其他  Miscellaneous > 10.8.9.Minocycline注射劑：(112/4/1、114/1/1)
 - `sec10-10.9` — 第10節 抗微生物劑 Antimicrobial agents > 10.9.抗人類免疫缺乏病毒藥品使用規定(106/2/4)
+- `sec11-11.1.1` — 第11節解毒劑 Antidotes in poisoning > 11.1.一般解毒劑 General antidotes > 11.1.1.Carbomix限藥物中毒急救使用。
+- `sec11-11.2.1` — 第11節解毒劑 Antidotes in poisoning > 11.2.特定解毒劑 Specific antidotes > 11.2.1.Flumazenil (如Anexate inj )限使用於：
+- `sec11-11.2.2` — 第11節解毒劑 Antidotes in poisoning > 11.2.特定解毒劑 Specific antidotes > 11.2.2.Edrophonium chloride（如Enlon）：
+- `sec11-11.2.3` — 第11節解毒劑 Antidotes in poisoning > 11.2.特定解毒劑 Specific antidotes > 11.2.3.Mesna（如Uromitexan inj）：
+- `sec11-11.2.4` — 第11節解毒劑 Antidotes in poisoning > 11.2.特定解毒劑 Specific antidotes > 11.2.4.Trientine dihydrochloride (104/1/1）
+- `sec11-11.2.5` — 第11節解毒劑 Antidotes in poisoning > 11.2.特定解毒劑 Specific antidotes > 11.2.5.Fomepizole (如Fomeject)：（107/11/1）
+- `sec12-12.1` — 第12節耳鼻喉科製劑 ENT and dental preparations > 12.1.Beclomethasone cap. for spray (如Salcoat)（87/10/1）：
+- `sec12-12.2` — 第12節耳鼻喉科製劑 ENT and dental preparations > 12.2.Sod. monofluorophosphate, sod. fluoride gel (如Fluocaril gel)：
+- `sec12-12.3` — 第12節耳鼻喉科製劑 ENT and dental preparations > 12.3.Ofloxacin (如Tarivid Otic Solution)：(88/8/1)
+- `sec12-12.4` — 第12節耳鼻喉科製劑 ENT and dental preparations > 12.4.Ciprofloxacin +hydrocortisone (如Siproxan Otic Drops)(97/4/1)
 - `sec13-13.1` — 第13節 皮膚科製劑 Dermatological preparations > 13.1.(刪除)(104/6/1)
 - `sec13-13.10` — 第13節 皮膚科製劑 Dermatological preparations > 13.10.Tacrolimus (如Protopic Ointment )：(91/12/1、93/8/1、95/7/1、99/12/1、111/2/1)
 - `sec13-13.11` — 第13節 皮膚科製劑 Dermatological preparations > 13.11.Pimecrolimus (Elidel 1% )：(92/11/1、93/8/1、94/3/1、95/7/1、99/12/1、110/12/1、111/2/1)
@@ -121,16 +138,18 @@
 - `sec13-13.18` — 第13節 皮膚科製劑 Dermatological preparations > 13.18.Nadifloxacin外用製劑(如Nadixa) (110/6/1)
 - `sec13-13.19` — 第13節 皮膚科製劑 Dermatological preparations > 13.19.Centella asiatica extract, plectranthus amboinicus extract外用製劑(如Fespixon cream)：(112/8/1)
 - `sec13-13.2` — 第13節 皮膚科製劑 Dermatological preparations > 13.2.Cadexomer iodine（如Iodosorb powder）：（87/4/1）
+- `sec13-13.3` — 第13節 皮膚科製劑 Dermatological preparations > 13.3.3與tazarotene併用，兩者合計總量每星期不超過30gm或30mL，若因病情需要兩者合併使用量需超過每星期30gm 者，應於病歷詳細記錄理由。(99/12/1)
 - `sec13-13.3.1` — 第13節 皮膚科製劑 Dermatological preparations > 13.3.Calcipotriol外用製劑：（87/4/1、89/2/1、94/3/1、94/5/1、99/12/1、109/10/1） > 13.3.1.Calcipotriol外用單方製劑（87/4/1、89/2/1、94/3/1、99/12/1）
 - `sec13-13.3.2` — 第13節 皮膚科製劑 Dermatological preparations > 13.3.Calcipotriol外用製劑：（87/4/1、89/2/1、94/3/1、94/5/1、99/12/1、109/10/1） > 13.3.2.含calcipotriol及類固醇之外用複方製劑（如Daivobet、Enstilar）（94/5/1、99/12/1、109/10/1、115/1/1）
-- `sec13-13.3.3` — 第13節 皮膚科製劑 Dermatological preparations > 13.3.Calcipotriol外用製劑：（87/4/1、89/2/1、94/3/1、94/5/1、99/12/1、109/10/1） > 13.3.3與tazarotene併用，兩者合計總量每星期不超過30gm或30mL，若因病情需要兩者合併使用量需超過每星期30gm 者，應於病歷詳細記錄理由。(99/12/1)
 - `sec13-13.4` — 第13節 皮膚科製劑 Dermatological preparations > 13.4.Isotretinoin口服製劑 (如Roaccutane)：（86/9/1、87/4/1、94/3/1）
 - `sec13-13.5` — 第13節 皮膚科製劑 Dermatological preparations > 13.5.Acitretin（如Neotigason）：(87/11/1)
 - `sec13-13.6` — 第13節 皮膚科製劑 Dermatological preparations > 13.6.Methoxsalen製劑：(87/11/1)
 - `sec13-13.7` — 第13節 皮膚科製劑 Dermatological preparations > 13.7.Doxepin HCl cream (如Ichderm)：(88/6/1)
 - `sec13-13.8` — 第13節 皮膚科製劑 Dermatological preparations > 13.8.Tazarotene外用製劑：(91/4/1、99/12/1、101/2/1)
 - `sec13-13.9` — 第13節 皮膚科製劑 Dermatological preparations > 13.9.Calcitriol (如Silkis ointment)：(92/11/1、93/9/1、99/12/1)
-- `sec14-14.1` — 第14節 眼科製劑 Ophthalmic preparations > 14.1.高眼壓及青光眼眼用製劑(101/12/1、102/8/1、104/4/1、106/2/1、110/5/1、111/7/1、114/6/1)
+- `sec14-14.1-preamble` — 第14節 眼科製劑 Ophthalmic preparations > 14.1.高眼壓及青光眼眼用製劑(101/12/1、102/8/1、104/4/1、106/2/1、110/5/1、111/7/1、114/6/1)
+- `sec14-14.1.1` — 第14節 眼科製劑 Ophthalmic preparations > 14.1.高眼壓及青光眼眼用製劑(101/12/1、102/8/1、104/4/1、106/2/1、110/5/1、111/7/1、114/6/1) > 14.1.1.單方製劑(90/10/1、101/12/1、104/4/1、106/2/1、111/7/1):
+- `sec14-14.1.2` — 第14節 眼科製劑 Ophthalmic preparations > 14.1.高眼壓及青光眼眼用製劑(101/12/1、102/8/1、104/4/1、106/2/1、110/5/1、111/7/1、114/6/1) > 14.1.2.複方製劑：(92/2/1、101/12/1、104/4/1、106/2/1)
 - `sec14-14.2` — 第14節 眼科製劑 Ophthalmic preparations > 14.2.Acyclovir眼用製劑：限下列病例使用
 - `sec14-14.3` — 第14節 眼科製劑 Ophthalmic preparations > 14.3.Maxitrol oph oint；pimafucin oint：
 - `sec14-14.4.1` — 第14節 眼科製劑 Ophthalmic preparations > 14.4.Quinolone類眼用製劑：（87/4/1、90/12/1、93/2/1、94/7/1） > 14.4.1.Ofloxacin, norfloxacin, ciprofloxacin, moxifloxacin, levofloxacin眼用製劑：（87/4/1、93/2/1、94/7/1、96/5/1）
@@ -148,6 +167,8 @@
 - `sec14-14.9.7` — 第14節 眼科製劑 Ophthalmic preparations > 14.9.其他  Miscellaneous > 14.9.7.新生血管抑制劑 (Anti-angiogenic agents) : ranibizumab (如Lucentis)、aflibercept (如Eylea)、bevacizumab (如Avastin) (114/3/1)：
 - `sec14-14.9.8` — 第14節 眼科製劑 Ophthalmic preparations > 14.9.其他  Miscellaneous > 14.9.8.Idebenone(如Raxone)：（114/6/1）
 - `sec14-14.9.9` — 第14節 眼科製劑 Ophthalmic preparations > 14.9.其他  Miscellaneous > 14.9.9.Cysteamine（如Cystadrops）：（114/7/1）
+- `sec15-15.1` — 第15節婦科製劑 Gynecological preparations > 15.1.Prostaglandin E 栓劑 (如Prostin E VT )：
+- `sec15-15.2` — 第15節婦科製劑 Gynecological preparations > 15.2.Atosiban(如Betosiban、Tractocile)：(111/9/1、114/2/1、114/8/1)
 - `sec2-2.1.1.1` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.1.血小板凝集抑制劑  Platelet aggregation inhibitors（100/7/1） > 2.1.1.1.Acetylsalicylic acid (Aspirin) 製劑（89/2/1）
 - `sec2-2.1.1.10` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.1.血小板凝集抑制劑  Platelet aggregation inhibitors（100/7/1） > 2.1.1.10. Prasugrel（如Efient）：(107/11/1)
 - `sec2-2.1.1.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.1.血小板凝集抑制劑  Platelet aggregation inhibitors（100/7/1） > 2.1.1.2.Ticlopidine (原ticlopidine與acetylsalicylic acid合併使用之情況條文修訂)：(87/4/1、88/9/1、90/1/1、100/7/1)
@@ -165,6 +186,9 @@
 - `sec2-2.1.3.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.3.肝素類Heparin group > 2.1.3.2.Enoxaparin 注射劑（如Clexane）：(108/2/1)
 - `sec2-2.1.4.1` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.4.其他抗血栓劑 Other antithrombotic agents：(100/7/1) > 2.1.4.1. Fondaparinux（如Arixtra）： (100/4/1、100/7/1、103/2/1、111/2/1、111/3/1)
 - `sec2-2.1.4.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.4.其他抗血栓劑 Other antithrombotic agents：(100/7/1) > 2.1.4.2.Rivaroxaban(如Xarelto)（101/1/1、102/2/1、103/5/1、104/12/1、105/5/1、110/7/1、111/2/1、112/3/1）
+- `sec2-2.1.4.3` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.4.其他抗血栓劑 Other antithrombotic agents：(100/7/1) > 2.1.4.3.Apixaban（如Eliquis）(103/6/1、106/4/1、111/2/1)
+- `sec2-2.1.4.4` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.4.其他抗血栓劑 Other antithrombotic agents：(100/7/1) > 2.1.4.4.Edoxaban(如Lixiana)：(105/9/1、111/2/1)
+- `sec2-2.1.5` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.1.抗血栓劑Antithrombotic agents > 2.1.5.直接凝血酶抑制劑(Direct thrombin inhibitors) ：Dabigatran(如Pradaxa)（101/6/1、104/12/1、107/9/1、111/2/1、112/3/1）
 - `sec2-2.10.1` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.10.抗心律不整劑Antiarrhythmics（100/8/1、111/2/1、112/12/1） > 2.10.1.Dronedarone (如Multaq) (100/8/1、111/2/1、112/12/1)
 - `sec2-2.11.1` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.11.抗痛風劑 Antigout agents > 2.11.1.Febuxostat（如Feburic）：（101/4/1、103/3/1、105/8/1、108/12/1）
 - `sec2-2.11.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.11.抗痛風劑 Antigout agents > 2.11.2.含allopurinol成分製劑(105/2/1)
@@ -175,8 +199,7 @@
 - `sec2-2.15` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.15.Digoxin口服液劑(如Cardiacin elixir)：(110/1/1)
 - `sec2-2.16` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.16.Dapagliflozin(如Forxiga)、empagliflozin (如Jardiance 10mg)：（111/5/1、111/8/1、114/3/1）
 - `sec2-2.17` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.17.Tafamidis（如Vyndamax）：(113/2/1)
-- `sec2-2.18` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.18歲以上非瓣膜性心房纖維顫動病患，須符合下列條件之一：(102/2/1、103/5/1、105/5/1、111/2/1、112/3/1)
-- `sec2-2.18-dup2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.18.Captopril內服液劑（如Cen-Capto Oral Solution）：（114/8/1）
+- `sec2-2.18` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.18.Captopril內服液劑（如Cen-Capto Oral Solution）：（114/8/1）
 - `sec2-2.19` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.19.Mavacamten（如Camzyos）：(115/4/1)
 - `sec2-2.2.1` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.2.血管擴張劑  Vasodilators > 2.2.1.(刪除)（101/9/1）
 - `sec2-2.2.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.2.血管擴張劑  Vasodilators > 2.2.2.Nimodipine inj（如Nimotop）：(87/4/1、93/2/1)
@@ -193,11 +216,55 @@
 - `sec2-2.6.4.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.6.降血脂藥物  Drugs used for dyslipidemia > 2.6.4. PCSK9 血脂調節劑 > 2.6.4.2 Alirocumab (如Praluent) (109/1/1、114/9/1)：
 - `sec2-2.7` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.7.乙型擬交感神經阻斷劑Beta blocking agents：metoprolol succinate 23.75mg（如Betaloc ZOK 25mg）(93/5/1)
 - `sec2-2.8.1` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.1.腦循環改善劑、腦代謝改善劑及血球流變改善劑：(87/4/1)
-- `sec2-2.8.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)：
+- `sec2-2.8.2-preamble` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)：
+- `sec2-2.8.2.1` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.1.Iloprost (如Ventavis、 Ilomedin-20)：(95/1/1、99/11/1、100/4/1)
+- `sec2-2.8.2.10` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.10.含macitentan及tadalafil之複方製劑(如Opsynvi)：(115/5/1)
+- `sec2-2.8.2.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.2.Sildenafil (如Revatio)：(97/6/1、100/4/1、102/8/1)
+- `sec2-2.8.2.3` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.3.Ambrisentan（如Volibris）（98/12/1、103/7/1、104/8/1、107/12/1)：
+- `sec2-2.8.2.4` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.4.Riociguat（如Adempas）(104/6/1）：
+- `sec2-2.8.2.5` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.5.Bosentan（如Tracleer）（98/12/1、103/7/1、104/8/1）：
+- `sec2-2.8.2.6` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.6.Macitentan（如Opsumit）（107/12/1、114/6/1、115/5/1)：
+- `sec2-2.8.2.7` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.7.Selexipag (如UPTRAVI)：(108/5/1、114/6/1)
+- `sec2-2.8.2.8` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.8.Treprostinil (如Remodulin inj.、Tyvaso)：(109/1/1、112/3/1、113/1/1)
+- `sec2-2.8.2.9` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.8.其他  Miscellaneous > 2.8.2.肺動脈高血壓治療劑(95/1/1、97/6/1、98/12/1、99/11/1、100/4/1、103/7/1、104/6/1、104/8/1、108/5/1、109/1/1、112/3/1、113/1/1、114/6/1)： > 2.8.2.9.Tadalafil（如Adcirca）：（114/6/1）
 - `sec2-2.9.1` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.9.利尿劑 Diuretics（100/1/1） > 2.9.1. Eplerenone (如Inspra)：（100/1/1、104/12/1）
 - `sec2-2.9.2` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.9.利尿劑 Diuretics（100/1/1） > 2.9.2. Amiloride單方口服製劑（109/9/1）
 - `sec2-2.9.3` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 2.9.利尿劑 Diuretics（100/1/1） > 2.9.3. Furosemide口服液劑(如Fumide oral solution)：（110/7/1）
-- `sec2-5.111` — 第2節 心臟血管及腎臟藥物 Cardiovascular-renal drugs > 5.111年5月1日前已依修訂前之給付規定使用本藥品之病人，得繼續使用本藥品至醫師更新其處方內容。(111/5/1)
+- `sec3-3.1.1` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.1.靜脈營養輸液  Parenteral nutritions > 3.1.1. Fat emulsion：或含Fat emulsion之靜脈營養輸液(如含glucose、lipid、amino acid及electrolytes三合一靜脈營養輸液)：(97/11/1、98/7/1、98/12/1)限
+- `sec3-3.1.2` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.1.靜脈營養輸液  Parenteral nutritions > 3.1.2.Sodium glycerophosphate(如Glycophos)：（111/1/1）
+- `sec3-3.2.1` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.2.維生素 Vitamins > 3.2.1.Mecobalamin製劑：(85/4/1、100/8/1)
+- `sec3-3.2.2` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.2.維生素 Vitamins > 3.2.2.活性維生素D3製劑 (如alfacalcidol；calcitriol) 限下列病例使用：（86/1/1、91/7/1、100/1/1、109/10/1、110/12/1）
+- `sec3-3.3.1` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.1.肝庇護劑：(85/1/1、88/3/1、94/7/1、108/11/1、114/6/1)
+- `sec3-3.3.10` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.10.Laronidase (如Aldurazyme)：(97/7/1、106/10/1)
+- `sec3-3.3.11` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.11.Miglustat（如Zavesca）(98/8/1、108/5/1)
+- `sec3-3.3.12` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.12.Sodium phenylacetate＋Sodium benzoate（如Ammonul inj）： (99/2 /1)
+- `sec3-3.3.13` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.13.Agalsidase alfa(如Replagal)、agalsidase beta(如Fabrazyme)及pegunigalsidase alfa (如Elfabrio)：(102/1/1、103/9/1、108/5/1、112/8/1、114/2/1)
+- `sec3-3.3.14` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.14.Carglumic acid (如Carbaglu Tablets)：（102/9/1、106/7/1）
+- `sec3-3.3.15` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.15.Galsulfase (如Naglazyme)：(106/10/1、107/12/1)
+- `sec3-3.3.16` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.16.(刪除)(107/3/1、107/9/1、108/5/1、111/5/1)。
+- `sec3-3.3.17` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.17. Elosulfase alfa (如Vimizim) Elosulfase alfa (如Vimizim) (107/4/1、112/7/1)
+- `sec3-3.3.18` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.18.Eliglustat Capsules (如Cerdelga ) (108/5/1)
+- `sec3-3.3.19` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.19.先天性代謝異常之罕見疾病藥品(108/9/1、108/12/1、111/9/1、113/11/1)
+- `sec3-3.3.2` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.2.α-Keto acid-amino acid製劑(如Ketosteril)：限
+- `sec3-3.3.20` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.20.Polysaccharides of Astragalus membranaceus(如PG2 Lyo. Injection)：(110/3/1)
+- `sec3-3.3.21` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.21.alpha-glucosidase(如Myozyme)(110/12/1)
+- `sec3-3.3.22` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.22. CRRT non Ca dialysate：（111/4/1）
+- `sec3-3.3.23` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.23. 4%檸檬酸鈉溶液(如A.C.D.-4 Solution "S.T.")：（111/4/1）
+- `sec3-3.3.24` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.24. Support Cal 1.47% CaCl2：（111/4/1）
+- `sec3-3.3.25` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.25.Chenodeoxycholic acid (111/6/1)
+- `sec3-3.3.26` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.26.Alfa-avalglucosidase（如 Nexviazyme）（112/4/1）
+- `sec3-3.3.27` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.27.KH2PO4+Na2HPO4+NaH2PO4．H2O（如PhosAdd Tab.）：（112/5/1）
+- `sec3-3.3.28` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.28.Migalastat hydrochloride (如Galafold)：(112/8/1、114/2/1)
+- `sec3-3.3.29` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.29. Burosumab(如Crysvita)：(113/5/1)
+- `sec3-3.3.3` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.3.(刪除)：（88/9/1、93/8/1、107/10/1）
+- `sec3-3.3.30` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.30. Glycerol phenylbutyrate (如Ravicti)：(113/11/1)
+- `sec3-3.3.31` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.31.Givosiran(如Givlaari)：(114/1/1)
+- `sec3-3.3.4` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.4.口服鈣質補充劑oral calcium salt：（89/2/1）
+- `sec3-3.3.5` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.5.Nutrineal PD4 with 1.1% Amino Acid：(91/2/1、92/10/1、99/5/1)
+- `sec3-3.3.6` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.6."Baxter" Extraneal Peritoneal Dialysis Solution With 7.5% Icodextrin (93/12 /1、96/1/1、99/9/1、100/2/1、108/8/1）
+- `sec3-3.3.7` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.7.Sodium bicarbonate成分之口服製劑給付規定：(95/8/1、96/12/1)
+- `sec3-3.3.8` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.8.Idursulfase(如Elaprase)：(96/7/1、99/8/1、106/10/1)
+- `sec3-3.3.9` — 第3節 代謝及營養劑 Metabolic & nutrient agents > 3.3.其他  Miscellaneous > 3.3.9.Imiglucerase(如Cerezyme inj.)、taliglucerase alfa(如Elelyso注射劑)、velaglucerase alfa(如VPRIV凍晶注射劑)（97/7/1、107/3/1、107/9/1、108/5/1、111/5/1）
 - `sec4-4.1.1` — 第4節 血液治療藥物 Hematological drugs > 4.1.造血功能治療藥物  Hematopoietic agents > 4.1.1.紅血球生成素(簡稱EPO) hu-erythropoietin (如Eprex、Recormon)、darbepoetin alfa（如Aranesp ）、methoxy polyethylene glycol-epoetin beta（如 Mircera solution for injection in pre-filled syringe）：(93/5/1、95/11/1、96/10/1、98/1/1、98/9/1、104/12/1、105/9/1）
 - `sec4-4.1.2.1` — 第4節 血液治療藥物 Hematological drugs > 4.1.造血功能治療藥物  Hematopoietic agents > 4.1.2.白血球生長激素(G-CSF)(101/6/1)： > 4.1.2.1.短效型注射劑（如filgrastim、lenograstim）：(85/10/1、93/4/1、96/1/1、101/6/1)
 - `sec4-4.1.2.2` — 第4節 血液治療藥物 Hematological drugs > 4.1.造血功能治療藥物  Hematopoietic agents > 4.1.2.白血球生長激素(G-CSF)(101/6/1)： > 4.1.2.2. 長效型注射劑(如pegfilgrastim)：(101/6/1、112/10/1、113/11/1、114/9/1)
@@ -213,14 +280,20 @@
 - `sec4-4.3.2.2` — 第4節 血液治療藥物 Hematological drugs > 4.3.其他 > 4.3.2.Eltrombopag(如Revolade)、romiplostim(如Romiplate) （100/8/1、101/9/1、102/8/1、102/9/1、105/8/1、106/4/1、108/6/1、109/2/1、115/3/1) > 4.3.2.2.Romiplostim (如Romiplate) (108/6/1、112/1/1)
 - `sec4-4.3.3` — 第4節 血液治療藥物 Hematological drugs > 4.3.其他 > 4.3.3.Anagrelide (如Agrylin)：(107/6/1）
 - `sec4-4.3.4` — 第4節 血液治療藥物 Hematological drugs > 4.3.其他 > 4.3.4.Icatibant（如Firazyr）、C1 esterase inhibitor（如Berinert）：（109/6/1、111/2/1、111/6/1）
-- `sec4-6.24` — 第4節 血液治療藥物 Hematological drugs > 6.24小時內限用：
-- `sec5-5.1` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes
-- `sec5-5.1.3.3` — 第5節 激素及影響內分泌機轉藥物 > 5.109年5月1日前已依生效前之給付規定使用本類藥物之病人，得繼續使用原藥物至醫師更新其處方內容（109/8/1）。 > 5.1.3.3.含lixisenatide及insulin glargine之複方製劑(如Soliqua)(108/7/1、110/7/1)
-- `sec5-5.1.4` — 第5節 激素及影響內分泌機轉藥物 > 5.109年5月1日前已依生效前之給付規定使用本類藥物之病人，得繼續使用原藥物至醫師更新其處方內容（109/8/1）。 > 5.1.4.(刪除)(100/8/1、107/10/1)
-- `sec5-5.1.5` — 第5節 激素及影響內分泌機轉藥物 > 5.109年5月1日前已依生效前之給付規定使用本類藥物之病人，得繼續使用原藥物至醫師更新其處方內容（109/8/1）。 > 5.1.5.SGLT-2抑制劑及其複方：
-- `sec5-5.1.6` — 第5節 激素及影響內分泌機轉藥物 > 5.109年5月1日前已依生效前之給付規定使用本類藥物之病人，得繼續使用原藥物至醫師更新其處方內容（109/8/1）。 > 5.1.6.含empagliflozin及linagliptin之複方製劑(如Glyxambi)(108/1/1、109/5/1)
-- `sec5-5.1.7` — 第5節 激素及影響內分泌機轉藥物 > 5.109年5月1日前已依生效前之給付規定使用本類藥物之病人，得繼續使用原藥物至醫師更新其處方內容（109/8/1）。 > 5.1.7.含dapagliflozin及saxagliptin之複方製劑(如Qtern)(108/11/1、109/5/1)
-- `sec5-5.1.8` — 第5節 激素及影響內分泌機轉藥物 > 5.109年5月1日前已依生效前之給付規定使用本類藥物之病人，得繼續使用原藥物至醫師更新其處方內容（109/8/1）。 > 5.1.8.含ertugliflozin及sitagliptin之複方製劑(如Steglujan)(109/5/1)
+- `sec4-4.3.5` — 第4節 血液治療藥物 Hematological drugs > 4.3.其他 > 4.3.5.Ropeginterferon alfa-2b（如Besremi）：(111/9/1、114/2/1)
+- `sec4-4.3.6` — 第4節 血液治療藥物 Hematological drugs > 4.3.其他 > 4.3.6.Luspatercept（如Reblozyl)：(113/1/1)
+- `sec4-4.3.7` — 第4節 血液治療藥物 Hematological drugs > 4.3.其他 > 4.3.7.Lanadelumab(如Takhzyro)：(113/3/1)
+- `sec5-5.1-preamble` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes
+- `sec5-5.1.1` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.1.Acarbose (如Glucobay)；miglitol (如Diaban)（86/1/1、87/4/1、89/6/1、91/7/1、98/12/1）
+- `sec5-5.1.2` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.2.Guar gum (如Guarina；Guarem )限糖尿病治療使用。
+- `sec5-5.1.3.1` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.3.GLP-1受體促效劑(105/8/1、107/4/1、108/7/1) > 5.1.3.1.Exenatide(如Byetta)(100/5/1、105/5/1、107/4/1)
+- `sec5-5.1.3.2` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.3.GLP-1受體促效劑(105/8/1、107/4/1、108/7/1) > 5.1.3.2. Liraglutide (如Victoza)、dulaglutide (如Trulicity)、lixisenatide(如Lyxumia) 、semaglutide（如Ozempic）(101/10/1、105/5/1、105/8/1、107/4/1、107/7/1、109/5/1、109/8/1、109/9/1、109/12/1)
+- `sec5-5.1.3.3` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.3.GLP-1受體促效劑(105/8/1、107/4/1、108/7/1) > 5.1.3.3.含lixisenatide及insulin glargine之複方製劑(如Soliqua)(108/7/1、110/7/1)
+- `sec5-5.1.4` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.4.(刪除)(100/8/1、107/10/1)
+- `sec5-5.1.5` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.5.SGLT-2抑制劑及其複方：
+- `sec5-5.1.6` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.6.含empagliflozin及linagliptin之複方製劑(如Glyxambi)(108/1/1、109/5/1)
+- `sec5-5.1.7` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.7.含dapagliflozin及saxagliptin之複方製劑(如Qtern)(108/11/1、109/5/1)
+- `sec5-5.1.8` — 第5節 激素及影響內分泌機轉藥物 > 5.1.糖尿病用藥 Drugs used in diabetes > 5.1.8.含ertugliflozin及sitagliptin之複方製劑(如Steglujan)(109/5/1)
 - `sec5-5.2.1` — 第5節 激素及影響內分泌機轉藥物 > 5.2.雄性激素類製劑與同化作用類固醇及其拮抗劑  Androgens and anabolic steroids and antagonists > 5.2.1.Danazol限下列病例使用（86/1/1）
 - `sec5-5.2.2.1` — 第5節 激素及影響內分泌機轉藥物 > 5.2.雄性激素類製劑與同化作用類固醇及其拮抗劑  Androgens and anabolic steroids and antagonists > 5.2.2.含testosterone 5-alpha reductase inhibitor製劑（101/3/1） > 5.2.2.1 Finasteride（如Proscar）; dutasteride (如Avodart) (86/1/1、87/4/1、93/10/1、101/3/1、102/12/1、106/10/1、108/12/1)：
 - `sec5-5.2.2.2` — 第5節 激素及影響內分泌機轉藥物 > 5.2.雄性激素類製劑與同化作用類固醇及其拮抗劑  Androgens and anabolic steroids and antagonists > 5.2.2.含testosterone 5-alpha reductase inhibitor製劑（101/3/1） > 5.2.2.2. Dutasteride + tamsulosin (如Duodart) (101/3/1、102/12/1、106/10/1、108/12/1)：
@@ -241,7 +314,8 @@
 - `sec5-5.4.7` — 第5節 激素及影響內分泌機轉藥物 > 5.4.作用於腦下腺前葉與下視丘的藥物  Drugs related to anterior pituitary & hypothalamic function > 5.4.7.Cabergoline (如 Dostinex Tab.)：(91/6/1)
 - `sec5-5.4.8` — 第5節 激素及影響內分泌機轉藥物 > 5.4.作用於腦下腺前葉與下視丘的藥物  Drugs related to anterior pituitary & hypothalamic function > 5.4.8. Pasireotide：(如Signifor) (103/7/1、106/10/1）
 - `sec5-5.4.9` — 第5節 激素及影響內分泌機轉藥物 > 5.4.作用於腦下腺前葉與下視丘的藥物  Drugs related to anterior pituitary & hypothalamic function > 5.4.9.Pasireotide長效緩釋注射劑 (如Signifor LAR)：(108/12/1）
-- `sec5-5.5.1` — 第5節 激素及影響內分泌機轉藥物 > 5.5.其他  Miscellaneous > 5.5.1.Gn-RH analogue （如Buserelin；Goserelin；Leuprorelin；Triptorelin；Nafarelin(acetate)等製劑）(92/1/1、93/4/1、95/4/1、98/5/1、99/2/1、99/10/1、100/2/1、106/2/1、109/2/1、110/12/1、111/2/1、113/6/1)
+- `sec5-5.5.1-preamble` — 第5節 激素及影響內分泌機轉藥物 > 5.5.其他  Miscellaneous > 5.5.1.Gn-RH analogue （如Buserelin；Goserelin；Leuprorelin；Triptorelin；Nafarelin(acetate)等製劑）(92/1/1、93/4/1、95/4/1、98/5/1、99/2/1、99/10/1、100/2/1、106/2/1、109/2/1、110/12/1、111/2/1、113/6/1)
+- `sec5-5.5.1.1` — 第5節 激素及影響內分泌機轉藥物 > 5.5.其他  Miscellaneous > 5.5.1.Gn-RH analogue （如Buserelin；Goserelin；Leuprorelin；Triptorelin；Nafarelin(acetate)等製劑）(92/1/1、93/4/1、95/4/1、98/5/1、99/2/1、99/10/1、100/2/1、106/2/1、109/2/1、110/12/1、111/2/1、113/6/1) > 5.5.1.1.Degarelix（如Firmagon）：（103/9/1）
 - `sec5-5.5.2` — 第5節 激素及影響內分泌機轉藥物 > 5.5.其他  Miscellaneous > 5.5.2.抑鈣激素製劑 (Salmon calcitonin injection)
 - `sec5-5.5.3.1` — 第5節 激素及影響內分泌機轉藥物 > 5.5.其他  Miscellaneous > 5.5.3.Bisphosphonate > 5.5.3.1.Clodronate；pamidronate：（85/1/1、87/4/1、93/2/1、96/1/1、100/1/1）
 - `sec5-5.5.3.2.1` — 第5節 激素及影響內分泌機轉藥物 > 5.5.其他  Miscellaneous > 5.5.3.Bisphosphonate > 5.5.3.2.Zoledronic acid：(93/6/1、93/12/1、96/1/1、98/6/1) > 5.5.3.2.1.Zoledronic acid 4mg/vial (如Zometa Powder For Solution For Infusion 4mg)( 98/6/1、100/1/1)
@@ -255,8 +329,22 @@
 - `sec5-5.6.1` — 第5節 激素及影響內分泌機轉藥物 > 5.6.骨質疏鬆症治療藥物(100/1/1) > 5.6.1.抗骨質再吸收劑（anti- resorptive）(101/3/1、101/5/1、102/2/1、102/8/1、103/2/1、103/10/1、104/8/1、106/12/1、114/3/1)
 - `sec5-5.6.2` — 第5節 激素及影響內分泌機轉藥物 > 5.6.骨質疏鬆症治療藥物(100/1/1) > 5.6.2.Parathyroid hormones and analogues （副甲狀腺素及類似劑）：teriparatide注射劑(101/7/1、110/5/1)
 - `sec5-5.6.3` — 第5節 激素及影響內分泌機轉藥物 > 5.6.骨質疏鬆症治療藥物(100/1/1) > 5.6.3.Romosozumab(如Evenity)：(110/5/1、114/3/1)
+- `sec6-6.1` — 第6節呼吸道藥物 Respiratory tract drugs > 6.1. 吸入劑 Inhalants(91/8/1、108/7/1、109/3/1、109/11/1、111/3/1、111/4/1、112/2/1、113/8/1、115/3/1)
+- `sec6-6.2.1` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.1.Surfactant (如Survanta、Curosurf)：(85/1/1、113/9/1)
+- `sec6-6.2.10` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.10. Tezepelumab (如Tezspire)：(113/6/1)
+- `sec6-6.2.11` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.11.Caffeine citrate (如Peyona)：(115/1/1)
+- `sec6-6.2.2` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.2.Loratadine syrup（如Clarityne）：(88/6/1、97/ 12/ 1)
+- `sec6-6.2.3` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.3.Zafirlukast (如Accolate tabs）：(88/8/1、90/1/1、113/8/1)(刪除)
+- `sec6-6.2.4` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.4.Montelukast sodium (如Singulair Coated Tab、Singulair Chewable Tabs)：(90/7/1、107/2/1、111/2/1、113/8/1)
+- `sec6-6.2.5` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.5.Montelukast sodium 4mg(如Singulair Chewable Tab. 4mg、Singulair oral granules 4mg)：(92/1/1、100/7/1、107/2/1、111/2/1、113/8/1)
+- `sec6-6.2.6` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.6.Omalizumab (如Xolair)：（97/6/1、100/6/1、103/10/1、111/2/1）
+- `sec6-6.2.7` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.7.Nintedanib(如Ofev)、pirfenidone（如Pirespa）：(106/3/1、106/7/1、108/12/1、109/9/1、110/6/1、112/7/1、112/12/1）
+- `sec6-6.2.8` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.8.Mepolizumab (如Nucala) 、Benralizumab (如Fasenra)（107/11/1、109/3/1、109/11/1、115/4/1）：
+- `sec6-6.2.9` — 第6節呼吸道藥物 Respiratory tract drugs > 6.2.其他Miscellaneous > 6.2.9.Dupilumab (如Dupixent)：(113/2/1)
 - `sec7-7.1` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.1	.消化性潰瘍用藥：
-- `sec7-7.2` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.2.止吐劑  Antiemetic drugs
+- `sec7-7.2.1` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.2.止吐劑  Antiemetic drugs > 7.2.1.Serotonin antagonists（如ondansetron、granisetron、tropisetron、ramosetron、palonosetron等）(93/2/1、93/9/1、98/9/1、99/5/1、101/4/1、102/9/1)
+- `sec7-7.2.2` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.2.止吐劑  Antiemetic drugs > 7.2.2. Neurokinin-1 receptor antagonist （如aprepitant、fosaprepitant）(94/10/1、101/02/1、101/4/1、101/12/1、102/8/1)
+- `sec7-7.2.3` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.2.止吐劑  Antiemetic drugs > 7.2.3. 含palonosetron及netupitant之複方製劑(如Akynzeo)(108/1/1、114/8/1)
 - `sec7-7.3.1` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.3.其他  Miscellaneous > 7.3.1.Mesalazine（如Asacol）、balsalazide (如Basazyde)(94/5/1)：
 - `sec7-7.3.2` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.3.其他  Miscellaneous > 7.3.2.益生菌類藥物Antidiarrheal microorganisms：
 - `sec7-7.3.3` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.3.其他  Miscellaneous > 7.3.3. Racecadotril (如Hidrasec)(106/3/1)
@@ -265,6 +353,202 @@
 - `sec7-7.3.6` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.3.其他  Miscellaneous > 7.3.6. 含amylase+lipase+protease複方製劑(如Protase、Creon)：(110/1/1)
 - `sec7-7.3.7` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.3.其他  Miscellaneous > 7.3.7. Dioctahedral smectite口服懸液劑(如Smectite oral suspension)：(113/4/1)
 - `sec7-7.3.8` — 第7節 腸胃藥物 Gastrointestinal drugs > 7.3.其他  Miscellaneous > 7.3.8.Teduglutide (如Revestive)：(114/8/1)
+- `sec8-8.1.1` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.1.Hepatitis B immune globulin：
+- `sec8-8.1.2` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.2.(刪除)
+- `sec8-8.1.3` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.3.高單位免疫球蛋白(111/2/1、113/11/1、114/10/1)：
+- `sec8-8.1.4` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.4.Immunoglobulin（如：Thymoglobuline inj）(90/11/1、96/2/1、97/8/1、99/2/1、109/4/1)：
+- `sec8-8.1.5` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.5.人用狂犬病疫苗及免疫球蛋白(如Rabipur)：(103/1/1、103/5/1、106/3/1)
+- `sec8-8.1.6` — 第8節 免疫製劑 Immunologic agents > 8.1.疫苗及免疫球蛋白  Vaccines and Immunoglobulins > 8.1.6.破傷風類毒素Tetanus toxoid：(112/11/12)
+- `sec8-8.2.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.1.Cyclosporin（如Sandimmun）：（86/1/1、86/9/1、89/7/1、101/10/1、111/5/1）限
+- `sec8-8.2.10` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.10.Eculizumab（如Soliris）、ravulizumab (如Ultomiris)、crovalimab(如Piasky) ：（101/4/1、102/10/1、108/6/1、108/9/1、114/2/1、114/10/1、115/3/1)
+- `sec8-8.2.11` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.11.Plerixafor (如Mozobil)：(102/12/1、106/10/1)
+- `sec8-8.2.12` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.12.Canakinumab（如Ilaris）：(104/8/1)
+- `sec8-8.2.13` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.13.Belimumab(如Benlysta)：(111/10/1、114/2/1)
+- `sec8-8.2.14` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.14.Satralizumab(如Enspryng)、inebilizumab(如Uplizna)：(112/10/1、115/1/1、115/2/1)
+- `sec8-8.2.15` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.15.Siltuximab (如Sylvant):(113/2/1)
+- `sec8-8.2.16` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.16. Apremilast（如Otezla）、deucravacitinib（如Sotyktu）：（113/3/1、113/10/1、114/6/1）
+- `sec8-8.2.17` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.17. Mepolizumab (如Nucala)、Benralizumab (如Fasenra)：(113/4/1、115/4/1)
+- `sec8-8.2.18` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.18.Anifrolumab（如Saphnelo）：(113/10/1)：
+- `sec8-8.2.19` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.19.Danicopan (如Voydeya)：（115/3/1）
+- `sec8-8.2.2.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.2.Tacrolimus > 8.2.2.1.Tacrolimus持續性口服製劑：(98/8/1)
+- `sec8-8.2.2.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.2.Tacrolimus > 8.2.2.2.Tacrolimus 注射劑及其他非持續性口服製劑： (88/8/1、93/12/1、102/7/1)
+- `sec8-8.2.3.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.1.Interferon beta-la (如Rebif) 、teriflunomide 14mg (如Aubagio)、 dimethyl fumarate (如Tecfidera)、peginterferon beta-1a (如Plegridy)、ozanimod (如Zeposia)、cladribine(如Mavenclad)：(91/4/1、97/8/1、100/10/1、106/10/1、107/7/1、107/10/1、109/11/1、112/3/1、115/3/1)
+- `sec8-8.2.3.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.2.Interferon beta-1b (如Betaferon 8MIU)：(92/3/1、92/12/1、93/3/1、97/8/1、99/10/1、100/10/1、106/10/1)
+- `sec8-8.2.3.3` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.3.Glatiramer acetate (如Copaxone injection)：(94/10/1、97/8/1)
+- `sec8-8.2.3.4` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.4.Natalizumab (如Tysabri) （100/5/1）:
+- `sec8-8.2.3.5` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.5.Fingolimod(如Gilenya)：(101/9/1、102/10/1、109/1/1、109/10/1、115/3/1)
+- `sec8-8.2.3.6` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.6.Alemtuzumab（如Lemtrada）：（108/7/1）
+- `sec8-8.2.3.7` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.3.多發性硬化症治療藥品 (91/4/1、92/3/1、92/12/1、93/3/1、94/10/1、96/7/1、97/8/1、99/10/1、100/5/1、100/10/1、101/9/1、102/10/1、107/7/1、107/10/1、108/7/1、109/1/1、109/11/1、112/3/1、115/3/1) > 8.2.3.7.Siponimod(如Mayzent)：(110/3/1)
+- `sec8-8.2.4.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.1. Etanercept(如Enbrel)；adalimumab(如Humira)；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；secukinumab（如Cosentyx）(94/3/1、101/12/1、102/1/1、102/10/1、105/10/1、108/1/1、111/2/1、113/10/1、114/7/1、114/10/1)：兒童治療部分
+- `sec8-8.2.4.10` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.10.Adalimumab（如Humira）(109/9/1) 用於小兒葡萄膜炎治療部分
+- `sec8-8.2.4.11` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.11.Guselkumab (如Tremfya) (111/9/1)：用於掌蹠膿皰症治療部分
+- `sec8-8.2.4.12` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.12.Tocilizumab(如Actemra)：(113/1/1)
+- `sec8-8.2.4.13` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.13.Baricitinib (Olumiant)：(113/1/1)
+- `sec8-8.2.4.14` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.14.Secukinumab（如Cosentyx）：用於化膿性汗腺炎（114/7/1）
+- `sec8-8.2.4.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.2. Etanercept(如Enbrel)； adalimumab（如Humira）；golimumab（如Simponi）； abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；certolizumab (Cimzia) ；baricitinib（如Olumiant）；opinercept (如Tunex)； infliximab(如Remicade)；peficitinib (如Smyraf)；upadacitinib(如Rinvoq)；filgotinib(如Jyseleca) (92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、102/1/1、102/4/1、102/10/1、103/12/1、106/4/1、106/11/1、107/9/1、108/3/1、108/5/1、109/8/1、109/9/1、109/12/1、110/3/1、110/5/1、110/6/1、112/5/1、114/9/1)：成人治療部分
+- `sec8-8.2.4.3` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.3. Adalimumab（如Humira）; etanercept (如Enbrel) ；golimumab（如Simponi）；secukinumab（如Cosentyx）；infliximab（如Remicade靜脈注射）；certolizumab (如Cimzia)；ixekizumab(如Taltz) ；upadacitinib(如Rinvoq)；tofacitinib (如Xeljanz)；brodalumab (如Lumicef)；bimekizumab（如Bimzelx） (98/8/1、98/11/1、101/1/1、102/1/1、107/1/1、109/9/1、109/12/1、110/7/1、111/5/1、112/3/1、112/4/1、112/12/1、114/9/1、115/5/1)：用於僵直性脊椎炎治療部分
+- `sec8-8.2.4.4` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.4.Adalimumab（如Humira）； etanercept (如Enbrel)；golimumab（如Simponi）；ustekinumab（如Stelara）；secukinumab（如Cosentyx）；ixekizumab (如Taltz)；tofacitinib（如Xeljanz）；certolizumab(如Cimzia)；brodalumab(如Lumicef)；guselkumab(如Tremfya)；upadacitinib(如Rinvoq) ；risankizumab (如Skyrizi)；bimekizumab（如Bimzelx）（98/8/1、98/11/1、99/1/1、102/1/1、102/2/1、105/10/1、107/1/1、109/3/1、109/6/1、109/8/1、109/9/1、110/7/1、111/3/1、111/5/1、111/9/1、112/3/1、112/4/1、112/12/1、114/2/1、115/5/1)：用於活動性乾癬性關節炎－乾癬性周邊關節炎治療部分
+- `sec8-8.2.4.5` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.5.Adalimumab（如Humira）;etanercept(如Enbrel)；golimumab（如Simponi）；secukinumab(如Cosentyx)；ixekizumab(如Taltz)；tofacitinib(如Xeljanz)；certolizumab(如Cimzia)；guselkumab(如Tremfya)；upadacitinib(如Rinvoq)；brodalumab (如Lumicef) ；risankizumab (如Skyrizi)；bimekizumab（如Bimzelx） (98/8/1、98/11/1、99/1/1、102/1/1、102/2/1、107/1/1、109/3/1、109/6/1、110/7/1、111/9/1、112/3/1、112/4/1、112/12/1、114/2/1、115/5/1)：用於活動性乾癬性關節炎－乾癬性脊椎病變治療部分
+- `sec8-8.2.4.6.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.6. Etanercept（如Enbrel）；adalimumab（如Humira）；ustekinumab（如Stelara）；secukinumab（如Cosentyx）；ixekizumab（如Taltz）；guselkumab（如Tremfya）；brodalumab（如Lumicef）；risankizumab（如Skyrizi）；certolizumab（如Cimzia）；spesolimab（如Spevigo)；bimekizumab（如Bimzelx）(98/11/1、100/7/1、101/5/1、101/12/1、102/1/1、104/4/1、105/9/1、107/8/1、108/3/1、108/4/1、109/9/1、109/12/1、110/5/1、110/7/1、113/3/1、113/7/1、114/6/1、115/5/1)：用於乾癬治療部分 > 8.2.4.6.1. Etanercept（如Enbrel）；adalimumab（如Humira）；ustekinumab（如Stelara）；secukinumab（如Cosentyx）；ixekizumab(如Taltz) ； guselkumab (如Tremfya) ；brodalumab (如Lumicef)；risankizumab(如Skyrizi) ；certolizumab (如Cimzia) ；bimekizumab（如Bimzelx）(98/11/1、100/7/1、101/5/1、101/12/1、102/1/1、104/4/1、105/9/1、107/8/1、108/3/1、108/4/1、109/9/1、109/12/1、110/5/1、110/7/1、113/3/1、114/6/1、115/5/1)：用於乾癬治療部分
+- `sec8-8.2.4.6.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.6. Etanercept（如Enbrel）；adalimumab（如Humira）；ustekinumab（如Stelara）；secukinumab（如Cosentyx）；ixekizumab（如Taltz）；guselkumab（如Tremfya）；brodalumab（如Lumicef）；risankizumab（如Skyrizi）；certolizumab（如Cimzia）；spesolimab（如Spevigo)；bimekizumab（如Bimzelx）(98/11/1、100/7/1、101/5/1、101/12/1、102/1/1、104/4/1、105/9/1、107/8/1、108/3/1、108/4/1、109/9/1、109/12/1、110/5/1、110/7/1、113/3/1、113/7/1、114/6/1、115/5/1)：用於乾癬治療部分 > 8.2.4.6.2.Spesolimab (如 Spevigo) (113/7/1)：用於全身型急性發作膿疱性乾癬治療部分
+- `sec8-8.2.4.7.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.7. Adalimumab（如Humira）、infliximab（如Remicade）、vedolizumab(如Entyvio)、ustekinumab（如Stelara）、risankizumab（如Skyrizi）、upadacitinib(如Rinvoq) (100/7/1、102/1/1、105/10/1、106/5/1、106/10/1、108/10/1、109/9/1、112/8/1、113/7/1、113/9/1、113/11/1、114/8/1、114/9/1)：用於克隆氏症治療部分 > 8.2.4.7.1. Adalimumab（如Humira）、infliximab（如Remicade）、vedolizumab(如Entyvio)、ustekinumab（如Stelara）、risankizumab（如Skyrizi）、upadacitinib(如Rinvoq）(105/10/1、106/5/1、106/10/1、108/10/1、109/9/1、112/8/1、113/7/1、113/9/1、113/11/1、114/8/1、114/9/1)：成人治療部分
+- `sec8-8.2.4.7.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.7. Adalimumab（如Humira）、infliximab（如Remicade）、vedolizumab(如Entyvio)、ustekinumab（如Stelara）、risankizumab（如Skyrizi）、upadacitinib(如Rinvoq) (100/7/1、102/1/1、105/10/1、106/5/1、106/10/1、108/10/1、109/9/1、112/8/1、113/7/1、113/9/1、113/11/1、114/8/1、114/9/1)：用於克隆氏症治療部分 > 8.2.4.7.2. Adalimumab（如Humira）、infliximab （如Remicade靜脈注射）、risankizumab（如Skyrizi）(105/10/1、106/5/1、108/10/1、111/2/1、113/7/1、113/9/1、114/9/1)：兒童治療部分
+- `sec8-8.2.4.8` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.8.Abatacept靜脈注射劑（如Orencia IV）（101/10/1、102/1/1、104/8/1、108/1/1、111/2/1）：用於幼年型慢性關節炎治療部分
+- `sec8-8.2.4.9.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.9. Golimumab(如Simponi)、Adalimumab（如Humira）、Vedolizumab（如Entyvio）、infliximab（如Remicade）、tofacitinib(如Xeljanz)、ustekinumab(如Stelara)、upadacitinib(如Rinvoq) (105/9/1、105/10/1、106/10/1、107/8/1、108/10/1、111/3/1、111/6/1、112/8/1、113/7/1、113/11/1、114/8/1、114/9/1)：用於潰瘍性結腸炎治療部分 > 8.2.4.9.1. Golimumab(如Simponi)、Adalimumab（如Humira）、Vedolizumab（如Entyvio）、infliximab（如Remicade）、tofacitinib(如Xeljanz) ustekinumab(如Stelara)、upadacitinib(如Rinvoq)(105/9/1、105/10/1、106/10/1、107/8/1、108/10/1、111/3/1、111/6/1、112/8/1、113/7/1、113/11/1、114/8/1、114/9/1)：成人治療部分
+- `sec8-8.2.4.9.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.4. Etanercept(如Enbrel); adalimumab（如Humira）;golimumab（如Simponi）；abatacept（如Orencia）；tocilizumab（如Actemra）；tofacitinib（如Xeljanz）；infliximab ；certolizumab (如Cimzia)；ixekizumab(如Taltz)；brodalumab(如Lumicef)；filgotinib(如Jyseleca)；secukinumab（如Cosentyx）(92/3/1、93/8/1、93/9/1、98/3/1、99/2/1、100/12/1、101/1/1、101/6/1、101/10/1、102/1/1、102/2/1、102/4/1、102/10/1、103/9/1、103/12/1、105/9/1、105/10/1、109/12/1、111/5/1、112/5/1、113/10/1、114/7/1、114/10/1) > 8.2.4.9. Golimumab(如Simponi)、Adalimumab（如Humira）、Vedolizumab（如Entyvio）、infliximab（如Remicade）、tofacitinib(如Xeljanz)、ustekinumab(如Stelara)、upadacitinib(如Rinvoq) (105/9/1、105/10/1、106/10/1、107/8/1、108/10/1、111/3/1、111/6/1、112/8/1、113/7/1、113/11/1、114/8/1、114/9/1)：用於潰瘍性結腸炎治療部分 > 8.2.4.9.2. Infliximab（如Remicade靜脈注射）、adalimumab（如Humira） (107/8/1、108/10/1、111/2/1、111/5/1、113/7/1、114/9/1）：兒童治療部分
+- `sec8-8.2.5` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.5.Leflunomide (如Arava、Arheuma )：(92/9/1、93/5/1、97/9/1)
+- `sec8-8.2.6.1` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.6.短效干擾素、長效干擾素： > 8.2.6.1.Interferon alpha-2a （如Roferon-A）及interferon alpha-2b（如Intron A）（92/10/1、109/7/1）; peginterferon alfa-2a（如Pegasys）（92/11/1-C肝、94/11/1-B肝、96/10/1、98/11/1、99/5/1-B肝、100/6/1-B肝、102/2/1、105/10/1、106/1/1、106/4/1、109/7/1、110/3/1、111/2/1、111/3/1)：
+- `sec8-8.2.6.2` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.6.短效干擾素、長效干擾素： > 8.2.6.2.Peginterferon alpha-2b（如Peg-Intron）（92/10/1、94/10/1、109/7/1）；interferon alfacon-1（如Infergen）（93/7/1、94/10/1、98/11/1、109/7/1）
+- `sec8-8.2.7` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.7.Rituximab注射劑（如Mabthera，不同劑型之適用範圍需符合藥品許可證登載之適應症)：用於類風濕性關節炎之成人治療部分（97/11/1、99/2/1、101/7/1、102/1/1、102/4/1、106/9/1、109/11/1）
+- `sec8-8.2.8` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.8.Palivizumab (如Synagis)(99/12/1、102/7/1、106/4/1、111/2/1、111/4/1、114/6/1)
+- `sec8-8.2.9` — 第8節 免疫製劑 Immunologic agents > 8.2.免疫調節劑  Immunomodulators > 8.2.9.Thalidomide（如Thado）(100/2/1)
+- `sec9-9.1.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.1.Aromatase Inhibitors > 9.1.1.Exemestane(如Aromasin Sugar Coated Tablets)：（88/11/1、90/10/1、99/6/1、105/8/1)
+- `sec9-9.1.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.1.Aromatase Inhibitors > 9.1.2.Anastrozole(如Arimidex)：（88/6/1、92/3/1、93/6/1）
+- `sec9-9.1.3` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.1.Aromatase Inhibitors > 9.1.3.Letrozole：（88/11/1、90/10/1、92/3/1、97/11/1、98/11/1、99/9/1、102/8/1)
+- `sec9-9.10` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.10.Oxaliplatin：（需符合藥品許可證登載之適應症）（89/7/1、91/10/1、93/8/1、98/2/1、98/3/1、98/7/1、102/9/1、102/12/1、109/12/1、110/5/1、110/6/1、110/7/1、111/11/1、113/4/1、113/6/1、115/2/1)
+- `sec9-9.100` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.100.Acalabrutinib(如Calquence)：(112/7/1、112/12/1、114/10/1、115/5/1)
+- `sec9-9.101` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.101.Tepotinib (如Tepmetko):(112/7/1、113/6/1)
+- `sec9-9.102` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.102.Dinutuximab beta (如Qarziba)：(112/8/1)
+- `sec9-9.103` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.103.Tisagenlecleucel(如Kymriah)：(112/11/1、113/2/1、114/8/1)
+- `sec9-9.104` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.104.Zanubrutinib(如Brukinsa)：(112/12/1、114/8/1、114/10/1、115/5/1)
+- `sec9-9.105` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.105.Polatuzumab vedotin (如Polivy)：(113/2/1、114/8/1)
+- `sec9-9.106` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.106.Sacituzumab govitecan (如Trodelvy）：(113/2/1、114/2/1、114/10/1)
+- `sec9-9.107` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.107.Abemaciclib (如Verzenio)：(113/3/1、113/6/1)
+- `sec9-9.108` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.108. Isatuximab(如Sarclisa)：(113/4/1、114/9/1)
+- `sec9-9.109` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.109.Enfortumab vedotin(如Padcev）：(113/5/1)
+- `sec9-9.11` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.11.Uracil-Tegafur：(如Ufur)(100/1/1)
+- `sec9-9.110` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.110.Tirabrutinib (如Velexbru）：(113/6/1)
+- `sec9-9.111` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.111.Elotuzumab (如Empliciti)：(113/9/1)
+- `sec9-9.112` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.112.Pertuzumab與trastuzumab皮下注射複方製劑(如Phesgo):(113/12/1、114/5/1)
+- `sec9-9.113` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.113.Gemtuzumab ozogamicin(如Mylotarg)：(114/1/1)
+- `sec9-9.114` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.114.Fedratinib (如Inrebic)：(114/1/1、114/10/1)
+- `sec9-9.115` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.115.Trastuzumab deruxtecan (如Enhertu)：(114/2/1)
+- `sec9-9.116` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.116.Selumetinib (如Koselugo)：(114/2/1)
+- `sec9-9.117` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.117.Selinexor(如Xpovio)：(114/3/1)
+- `sec9-9.118` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.118.Elranatamab (如Elrexfio)：(114/5/1、114/8/1)
+- `sec9-9.119` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.119. Teclistamab (如Tecvayli) ：(114/5/1、114/8/1)
+- `sec9-9.12.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.12.Irinotecan(90/10/1、107/8/1、110/5/1、110/7/1、110/8/1、112/2/1、114/12/1) > 9.12.1.Irinotecan(如Campto injection)：（需符合藥品許可證登載之適應症）(90/10/1、93/8/1、110/5/1、110/7/1、110/8/1、112/2/1)
+- `sec9-9.12.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.12.Irinotecan(90/10/1、107/8/1、110/5/1、110/7/1、110/8/1、112/2/1、114/12/1) > 9.12.2.Irinotecan微脂體注射劑(如Onivyde)：(107/8/1、114/12/1)
+- `sec9-9.120` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.120.Glofitamab（如Columvi）：（114/8/1)
+- `sec9-9.121` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.121.Epcoritamab (如Epkinly)：(114/8/1)
+- `sec9-9.122` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.122.Asciminib (如Scemblix)：(114/9/1)
+- `sec9-9.123` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.123.Ripretinib(如Qinlock）：(114/9/1)
+- `sec9-9.124` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.124.Tafasitamab（如Minjuvi）：（114/10/1、115/3/1、115/4/1）
+- `sec9-9.125` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.125.Quizartinib（如Vanflyta）：（114/10/1)
+- `sec9-9.126` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.126.Amivantamab(如Rybrevant)：(114/10/1)
+- `sec9-9.127` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.127.Momelotinib (如Omjjara)：(114/10/1)
+- `sec9-9.128` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.128.Tucidinostat (如Kepida)：(114/12/1)
+- `sec9-9.129` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.129.Alpelisib (如Piqray）：(115/1/1)
+- `sec9-9.13` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.13.Aldesleukin(如Proleukin for Injection)：(90/10/1、93/8/1)
+- `sec9-9.130` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.130.Fulvestrant(如 Fustron)：(115/1/1)
+- `sec9-9.131` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.131.Repotrectinib(如Augtyro)：(115/2/1)
+- `sec9-9.132` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.132.Bosutinib(如Bostini)：(115/2/1)
+- `sec9-9.133` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.133.Zolbetuximab (如Vyloy)：(115/4/1)
+- `sec9-9.134` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.134.Encorafenib (如Braftovi):(115/5/1)
+- `sec9-9.14` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.14.Doxorubicin hydrochloride liposome injection(如Lipo-Dox、Caelyx)：(91/3/1、93/8/1、93/11/1、99/10/1)
+- `sec9-9.15` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.15.Tretinoin（如Vesanoid Soft Gelatin）：（88/10/1）
+- `sec9-9.16.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.16.Topotecan（如Hycamtin）：（88/10/1、93/8/1、98/11/1、100/6/1） > 9.16.1.Topotecan注射劑（88/10/1、93/8/1、98/11/1）
+- `sec9-9.16.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.16.Topotecan（如Hycamtin）：（88/10/1、93/8/1、98/11/1、100/6/1） > 9.16.2.Topotecan口服劑型（100/6/1）
+- `sec9-9.17` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.17.Capecitabine（如Xeloda）：（88/10/1、91/4/1、92/6/1、93/8/1、96/9/1、97/12/1、110/2/1、113/4/1、113/6/1、115/2/1）
+- `sec9-9.18` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.18. Trastuzumab (如Herceptin)：(91/4/1、93/8/1、95/2/1、99/1/1、99/8/1、99/10/1、101/1/1、105/11/1、108/5/1、109/2/1、111/12/1、112/10/1、113/8/1、113/12/1、114/1/1、114/5/1、114/12/1)
+- `sec9-9.19` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.19.Estramustine sod. phosphate monohydrate(如Estracyt)：(91/4/1)
+- `sec9-9.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.2.Carboplatin(如Paraplatin；Carboplatin inj)：(112/12/1、114/2/1、114/6/1、114/8/1、114/10/1)
+- `sec9-9.20` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.20.Rituximab注射劑(如Mabthera，不同劑型之適用範圍需符合藥品許可證登載之適應症)：用於抗癌瘤部分(91/4/1、93/1/1、95/3/1、97/2/1、102/1/1、103/2/1、103/9/1、104/6/1、106/9/1、111/6/1、113/2/1、113/12/1、115/5/1)
+- `sec9-9.21` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.21.Fludarabine(如Fludara Oral, Film-Coated Tablet及Fludara Lyophilized IV Injection)：(92/12/1、93/3/1、94/10/1、99/10/1、106/11/1)
+- `sec9-9.22` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.22.Imatinib(如Glivec)：(91/5/1、93/7/1、97/8/1、99/6/1、100/2/1、102/9/1、113/6/1)附表九之八
+- `sec9-9.23` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.23.Arsenic trioxide(如Asadin Inj.)：(91/8/1、92/9/1)
+- `sec9-9.24` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.24.Gefitinib(如Iressa):(93/11/1、96/8/1、96/11/1、100/6/1、101/5/1、101/10/1、103/5/1、106/11/1、 108/6/1、108/11/1、109/4/1、109/6/1、109/10/1、111/2/1、111/4/1、113/3/1、113/6/1、113/10/1)
+- `sec9-9.25` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.25.Temozolomide(如Temodal)：(94/3/1、97/1/1、98/9/1、111/9/1)附表八之二
+- `sec9-9.26` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.26.Pemetrexed(如Alimta)：(95/3/1、95/7/1、97/11/1、98/9/1、103/4/1、103/9/1、106/11/1、111/2/1、114/6/1、114/8/1、114/10/1)
+- `sec9-9.27` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.27.Cetuximab(如Erbitux)：(96/3/1、98/7/1、98/8/1、99/10/1、101/12/1、104/11/1、106/1/1、106/4/1、107/6/1、110/6/1、111/2/1、112/12/1、113/6/1、115/2/1、115/5/1)
+- `sec9-9.28` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.28.Bortezomib（如Velcade）：（96/6/1、98/2/1、99/3/1、99/9/1、100/10/1、101/6/1、105/5/1、109/4/1、109/6/1、111/1/1、112/4/1）附表九之三
+- `sec9-9.29` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.29. Erlotinib（如Tarceva）：（96/6/1、96/8/1、97/6/1、101/5/1、101/10/1、102/4/1、102/11/1、103/5/1、106/11/1、108/6/1、108/11/1、109/4/1、109/6/1、109/10/1、111/2/1、111/4/1、113/3/1、113/6/1、113/9/1、113/10/1、114/3/1、114/4/1）
+- `sec9-9.3` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.3.Docetaxel：（87/7/1、92/11/1、93/8/1、95/8/1、96/1/1、99/6/1、100/1/1、101/9/1、108/1/1、113/5/1）
+- `sec9-9.30` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.30.Dasatinib(如Sprycel)：(98/1/1、102/4/1、104/12/1、110/5/1、113/6/1、115/2/1)
+- `sec9-9.31` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.31. Sunitinib（如Sutent）：（98/2/1、98/5/1、99/1/1、99/2/1、101/5/1、102/1/1、104/12/1、110/12/1、112/3/1）
+- `sec9-9.32.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.32. Nilotinib：（98/6/1、99/1/1、101/7/1、113/6/1、115/2/1）附表九之六 > 9.32.1.Nilotinib 200mg(如Tasigna 200mg)（98/6/1、99/1/1、104/12/1、113/6/1、115/2/1）
+- `sec9-9.32.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.32. Nilotinib：（98/6/1、99/1/1、101/7/1、113/6/1、115/2/1）附表九之六 > 9.32.2.Nilotinib 150mg(如Tasigna 150mg)：(101/7/1、104/12/1、113/6/1)
+- `sec9-9.33` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.33.Thalidomide（如Thado）：(98/7/1)
+- `sec9-9.34` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.34.Sorafenib(如Nexavar)：(98/10/1、100/6/1、101/8/1、104/12/1、105/11/1、106/1/1、107/7/1、108/6/1、108/12/1、109/1/1、112/8/1、114/2/1、114/6/1)
+- `sec9-9.35` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.35.carmustine植入劑(如Gliadel Wafer)：(100/2/1)附表八之四
+- `sec9-9.36.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.36.Everolimus：（100/2/1、102/1/1）附表九之九 > 9.36.1.Everolimus 5mg及10mg(如Afinitor 5mg及10mg)：（100/2/1、102/1/1、104/9/1、104/12/1、106/3/1、108/10/1、109/4/1、114/12/1）
+- `sec9-9.36.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.36.Everolimus：（100/2/1、102/1/1）附表九之九 > 9.36.2.Everolimus 2.5mg及5mg(如Votubia)：（102/1/1、106/4/1、111/2/1）
+- `sec9-9.37` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.37. Bevacizumab(如Avastin)：（100/6/1、101/05/1、106/4/1、108/3/1、109/6/1、112/8/1、113/3/1、113/6/1、113/9/1、114/3/1、114/6/1、114/8/1、114/10/1)
+- `sec9-9.38` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.38.Temsirolimus(如Torisel)：（101/1/1）附表九之十一
+- `sec9-9.39` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.39.Flutamide；buserelin：（90/8/1、101/7/1）
+- `sec9-9.4` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.4.Gemcitabine（如Gemzar）：（92/12/1、93/8/1、94/10/1、96/5/1、99/10/1、105/2/1、114/2/1、115/2/1）
+- `sec9-9.40` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.40.Bicalutamide：（89/10/1、101/7/1）
+- `sec9-9.41` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.41.Pazopanib（如Votrient）：（101/8/1、104/4/1、106/3/1、110/12/1、112/10/1）附表九之十三
+- `sec9-9.42` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.42.Bendamustine（如Innomustine）：(101/10/1、103/2/1、108/10/1、113/2/1)
+- `sec9-9.43` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.43.Lenalidomide(如Revlimid)：（101/12/1、106/10/1、109/2/1、109/8/1、112/4/1、114/10/1、115/3/1、115/4/1、115/5/1）
+- `sec9-9.44.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.44.Azacitidine：（102/1/1、111/5/1、111/8/1、112/2/1、112/8/1、114/3/1、114/5/1、114/8/1、114/10/1、114/12/1） > 9.44.1.Azacitidine 注射劑（如Vidaza）：（102/1/1、111/5/1、111/8/1、112/2/1、112/8/1、114/3/1、114/8/1、114/12/1）
+- `sec9-9.44.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.44.Azacitidine：（102/1/1、111/5/1、111/8/1、112/2/1、112/8/1、114/3/1、114/5/1、114/8/1、114/10/1、114/12/1） > 9.44.2.Azacitidine 口服製劑（如Onureg）：(114/5/1、114/10/1）
+- `sec9-9.45` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.45.Afatinib（如Giotrif）：(103/5/1、106/11/1、108/6/1、108/11/1、109/4/1、109/6/1、109/10/1、111/4/1、113/3/1、113/6/1、113/10/1)
+- `sec9-9.46` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.46.Tegafur/gimeracil/oteracil複方製劑(如TS-1）：(103/6/1、105/12/1、109/2/1、113/2/1)
+- `sec9-9.47` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.47.Lapatinib（如Tykerb）：（103/9/1、106/11/1、110/2/1、114/2/1）
+- `sec9-9.48` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.48.Eribulin（如Halaven）：（103/12/1、106/11/1、108/12/1、110/2/1）
+- `sec9-9.49` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.49. Abiraterone(如Zytiga）：（103/12/1、105/9/1、106/9/1、108/3/1、109/5/1、109/10/1、110/2/1、110/3/1、110/11/1、111/3/1、112/9/1、113/8/1、113/9/1、114/6/1）
+- `sec9-9.5.1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.5.Paclitaxel成分劑：（88/8/1、88/11/1、89/6/1、89/10/1、91/4/1、91/8/1、93/8/1、94/1/1、98/8/1、108/11/1、112/12/1、114/6/1、114/8/1） > 9.5.1.Paclitaxel成分注射劑：(108/11/1、112/12/1、114/6/1、114/8/1)
+- `sec9-9.5.2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.5.Paclitaxel成分劑：（88/8/1、88/11/1、89/6/1、89/10/1、91/4/1、91/8/1、93/8/1、94/1/1、98/8/1、108/11/1、112/12/1、114/6/1、114/8/1） > 9.5.2.Albumin-based paclitaxel（如Abraxane）：(108/11/1)
+- `sec9-9.50` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.50.Crizotinib (如Xalkori)：(104/9/1、106/11/1、107/5/1、108/7/1、108/9/1、108/12/1、110/7/1、111/2/1、111/8/1、112/11/1、113/6/1、113/9/1)
+- `sec9-9.51` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.51.Regorafenib（如Stivarga）：（104/9/1、105/8/1、107/12/1、108/6/1、110/5/1、110/6/1、113/6/1）
+- `sec9-9.52` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.52.Vemurafenib(如Zelboraf)：(104/11/1、110/3/1、113/6/1）
+- `sec9-9.53` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.53.Panitumumab（如Vectibix）：(105/4/1、107/6/1、110/6/1、113/6/1、115/2/1)
+- `sec9-9.54` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.54. Enzalutamide（如Xtandi）：（105/9/1、106/9/1、108/3/1、109/10/1、110/3/1、110/11/1、111/3/1、112/9/1、113/8/1、114/6/1、114/10/1）
+- `sec9-9.55` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.55.Ruxolitinib(如Jakavi)：(105/10/1、113/3/1、113/6/1、114/1/1、114/10/1)
+- `sec9-9.56` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.56. Brentuximab vedotin(如Adcetris)：(105/10/1、106/4/1、109/2/1、111/2/1、114/12/1)
+- `sec9-9.57` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.57.Clofarabine（如Evoltra）：（106/1/1、109/12/1）
+- `sec9-9.58` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.58.Axitinib(如Inlyta)：（106/1/1、108/12/1）
+- `sec9-9.59` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.59.Ceritinib(如Zykadia)：(106/9/1、106/11/1、108/7/1、108/12/1、111/2/1、111/8/1、112/11/1、113/6/1)
+- `sec9-9.6` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.6.Streptococcus pyrogene(如Picibanil)：
+- `sec9-9.60` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.60.Alectinib(如Alecensa)：(106/11/1、108/12/1、111/2/1、111/8/1、112/11/1、113/6/1)
+- `sec9-9.61` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.61.Ibrutinib (如Imbruvica)：(106/11/1、108/9/1、111/1/1、112/7/1、112/12/1、113/2/1、114/10/1、115/5/1)
+- `sec9-9.62` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.62. Pomalidomide(如Pomalyst):(107/1/1、109/2/1、112/4/1、113/9/1)
+- `sec9-9.63` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.63. Lenvatinib(如Lenvima)：(107/7/1、109/1/1、109/8/1、112/8/1、114/2/1、114/6/1)
+1.用於放射性碘治療無效之局部晚期或轉移性的進行性(progressive)分化型甲狀腺癌(RAI-RDTC)：
+- `sec9-9.64` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.64.Blinatumomab(如Blincyto)：(107/9/1、109/12/1、112/12/1)
+- `sec9-9.65` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.65.Pralatrexate(如Folotyn)：(107/10/1、110/5/1)
+- `sec9-9.66` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.66.Trifluridine/tipiracil(如Lonsurf)：(107/12/1、109/12/1、110/6/1、113/6/1、115/2/1)
+- `sec9-9.67` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.67.Ponatinib(如Iclusig)：(107/12/1、113/6/1、115/2/1)
+- `sec9-9.68` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.68.Radium-223(如Xofigo)：(108/3/1)
+- `sec9-9.69-part1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.69.免疫檢查點抑制劑(如atezolizumab；nivolumab；pembrolizumab；avelumab；ipilimumab；durvalumab；tremelimumab；cemiplimab製劑)：(108/4/1、108/6/1、109/4/1、109/6/1、109/11/1、110/5/1、110/10/1、111/4/1、111/6/1、112/8/1、112/10/1、112/12/1、113/2/1、113/4/1、113/5/1、113/6/1、113/8/1、114/1/1、114/2/1、114/6/1、114/8/1、114/10/1、115/2/1、115/4/1、115/5/1)
+- `sec9-9.69-part2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.69.免疫檢查點抑制劑(如atezolizumab；nivolumab；pembrolizumab；avelumab；ipilimumab；durvalumab；tremelimumab；cemiplimab製劑)：(108/4/1、108/6/1、109/4/1、109/6/1、109/11/1、110/5/1、110/10/1、111/4/1、111/6/1、112/8/1、112/10/1、112/12/1、113/2/1、113/4/1、113/5/1、113/6/1、113/8/1、114/1/1、114/2/1、114/6/1、114/8/1、114/10/1、115/2/1、115/4/1、115/5/1)
+- `sec9-9.69-part3-1` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.69.免疫檢查點抑制劑(如atezolizumab；nivolumab；pembrolizumab；avelumab；ipilimumab；durvalumab；tremelimumab；cemiplimab製劑)：(108/4/1、108/6/1、109/4/1、109/6/1、109/11/1、110/5/1、110/10/1、111/4/1、111/6/1、112/8/1、112/10/1、112/12/1、113/2/1、113/4/1、113/5/1、113/6/1、113/8/1、114/1/1、114/2/1、114/6/1、114/8/1、114/10/1、115/2/1、115/4/1、115/5/1)
+- `sec9-9.69-part3-2` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.69.免疫檢查點抑制劑(如atezolizumab；nivolumab；pembrolizumab；avelumab；ipilimumab；durvalumab；tremelimumab；cemiplimab製劑)：(108/4/1、108/6/1、109/4/1、109/6/1、109/11/1、110/5/1、110/10/1、111/4/1、111/6/1、112/8/1、112/10/1、112/12/1、113/2/1、113/4/1、113/5/1、113/6/1、113/8/1、114/1/1、114/2/1、114/6/1、114/8/1、114/10/1、115/2/1、115/4/1、115/5/1)
+- `sec9-9.69-part4` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.69.免疫檢查點抑制劑(如atezolizumab；nivolumab；pembrolizumab；avelumab；ipilimumab；durvalumab；tremelimumab；cemiplimab製劑)：(108/4/1、108/6/1、109/4/1、109/6/1、109/11/1、110/5/1、110/10/1、111/4/1、111/6/1、112/8/1、112/10/1、112/12/1、113/2/1、113/4/1、113/5/1、113/6/1、113/8/1、114/1/1、114/2/1、114/6/1、114/8/1、114/10/1、115/2/1、115/4/1、115/5/1)
+- `sec9-9.7` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.7.（刪除）（87/7/1、94/1/1、109/10/1）
+- `sec9-9.70` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.70. Pertuzumab(如Perjeta)：(108/5/1、108/12/1、112/8/1、113/12/1、114/1/1、114/5/1、114/12/1)
+- `sec9-9.71` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.71. Venetoclax (如Venclexta)：(108/9/1、110/7/1、112/7/1、114/8/1、114/10/1)
+- `sec9-9.72` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.72. CDK4/6抑制劑 (如 ribociclib；palbociclib)：(108/10/1、108/12/1、109/4/1、109/10/1、110/5/1、110/10/1、113/1/1、113/3/1、114/7/1、115/1/1)
+- `sec9-9.73` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.73.Inotuzumab ozogamicin (如Besponsa)：(108/11/1、112/12/1)
+- `sec9-9.74` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.74.Cabozantinib (如Cabometyx)： (108/12/1、110/12/1、114/8/1)
+- `sec9-9.75` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.75. Carfilzomib (如Kyprolis)：(109/2/1、112/4/1、113/4/1)
+- `sec9-9.76` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.76.Midostaurin (如Rydapt)：(109/2/1、113/6/1、114/10/1)
+- `sec9-9.77` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.77. Ixazomib (如Ninlaro)：(109/3/1、112/4/1)
+- `sec9-9.78` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.78. Daratumumab(如Darzalex靜脈注射劑與皮下注射劑)：(109/4/1、112/4/1、113/4/1、114/9/1)
+- `sec9-9.79` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.79.Obinutuzumab(如Gazyva)：（109/4/1、113/2/1、114/8/1）
+- `sec9-9.8` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.8.Toremifene（如Fareston）：（88/6/1）
+- `sec9-9.80` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.80.Osimertinib (如Tagrisso)：(109/4/1、109/6/1、109/10/1、111/4/1、113/6/1、113/10/1)
+- `sec9-9.81` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.81.Lorlatinib (如Lorviqua)：(109/6/1、112/11/1、113/4/1、113/6/1)
+- `sec9-9.82` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.82.Brigatinib (如Alunbrig)：(109/8/1、111/8/1、112/11/1、113/6/1)
+- `sec9-9.83` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.83.Dacomitinib (如Vizimpro)：(109/10/1、111/9/1、113/6/1)
+- `sec9-9.84` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.84.Copanlisib (如Aliqopa）(刪除)：(109/11/1、113/6/1)
+- `sec9-9.85` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.85.PARP抑制劑(如olaparib、niraparib、talazoparib)：(109/11/1、111/6/1、111/8/1、112/1/1、112/11/1、113/3/1、113/6/1、113/9/1、114/3/1、114/6/1、114/8/1、114/10/1)
+- `sec9-9.86` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.86.Vandetanib (如Caprelsa)：(109/11/1)
+- `sec9-9.87` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.87.Trastuzumab emtansine (如Kadcyla)：(110/2/1、113/8/1、114/2/1、114/5/1)
+- `sec9-9.88` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.88.Ixabepilone (如Ixempra)：(110/2/1)
+- `sec9-9.89` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.89.(刪除)：(110/3/1、111/6/1、111/8/1、112/1/1)
+- `sec9-9.9` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.9.Vinorelbine：(91/1/1、95/6/1、96/9/1、101/3/1、106/11/1)
+- `sec9-9.90` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.90. Apalutamide (如Erleada)：(110/3/1、110/11/1、111/3/1、112/9/1、113/8/1、114/6/1)
+- `sec9-9.91` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.91.Dabrafenib (如Tafinlar)、Trametinib (如Mekinist)：(110/3/1、113/3/1、113/6/1)
+- `sec9-9.92` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.92. Ramucirumab (如Cyramza)：(110/5/1)
+- `sec9-9.93` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.93.Entrectinib (如Rozlytrek)：(110/7/1、113/6/1)
+- `sec9-9.94` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.94. Darolutamide(如Nubeqa)：(110/11/1、112/9/1、113/5/1、113/8/1、115/4/1)
+- `sec9-9.95` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.95.Larotrectinib (如Vitrakvi)：(111/3/1、111/6/1、112/12/1、113/6/1)
+- `sec9-9.96` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.96.Decitabine：(111/5/1)
+- `sec9-9.97` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.97.Avapritinib (如Ayvakit)：(111/6/1、113/6/1)
+- `sec9-9.98` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.98.Pemigatinib (如Pemazyre)：(112/5/1、113/6/1)
+- `sec9-9.99` — 第9節抗癌瘤藥物Antineoplastics drugs > 9.99.Gilteritinib(如Xospata)：(112/6/1、113/6/1)
 
 ## [20260522] — 2026/05/22（民國115年5月22日）
 **Initial release.**
