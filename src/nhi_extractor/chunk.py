@@ -409,13 +409,30 @@ def _chunk_node(
     section_number: int | None,
     source: SourceDoc,
     target_budget: int,
+    emit_depth: int,
 ) -> list[Item]:
     # Pure-heading nodes (no body, has children) always descend — never emit as a single item.
     if node.children and not node.body:
         out: list[Item] = []
         new_ancestors = ancestors + [node]
         for child in node.children:
-            out.extend(_chunk_node(child, new_ancestors, section_number, source, target_budget))
+            out.extend(_chunk_node(child, new_ancestors, section_number, source,
+                                   target_budget, emit_depth))
+        return out
+
+    # Task I: depth gate. A node with children that's shallower than emit_depth
+    # MUST descend, even if its whole subtree would fit budget. This is what
+    # prevents "整節一筆" collapse when budget is large relative to NHI content.
+    # Leaves (no children) are exempt — there's nowhere to go.
+    depth = len(node.level)
+    if depth < emit_depth and node.children:
+        out = []
+        if has_significant_body(node):
+            out.append(_emit_body_only(node, ancestors, section_number, source))
+        new_ancestors = ancestors + [node]
+        for child in node.children:
+            out.extend(_chunk_node(child, new_ancestors, section_number, source,
+                                   target_budget, emit_depth))
         return out
 
     rendered = render_node_to_markdown(node)
@@ -428,7 +445,8 @@ def _chunk_node(
             out.append(_emit_body_only(node, ancestors, section_number, source))
         new_ancestors = ancestors + [node]
         for child in node.children:
-            out.extend(_chunk_node(child, new_ancestors, section_number, source, target_budget))
+            out.extend(_chunk_node(child, new_ancestors, section_number, source,
+                                   target_budget, emit_depth))
         return out
 
     # Leaf, over budget → semantic split.
@@ -441,9 +459,20 @@ def _chunk_node(
     )
 
 
-def chunk_document(doc) -> list[Item]:
-    """Public entry point: Document → list[Item], all within HARD_BUDGET."""
-    from .config import HARD_BUDGET, TARGET_BUDGET
+def chunk_document(doc, *, emit_depth: int | None = None) -> list[Item]:
+    """Public entry point: Document → list[Item], all within HARD_BUDGET.
+
+    Args:
+        doc: parsed Document tree.
+        emit_depth: minimum tree depth at which a node may emit as a single
+            row. Defaults to `config.EMIT_DEPTH` (5). Must be ≥ 1.
+    """
+    from .config import EMIT_DEPTH, HARD_BUDGET, TARGET_BUDGET
+    if emit_depth is None:
+        emit_depth = EMIT_DEPTH
+    if not isinstance(emit_depth, int) or emit_depth < 1:
+        raise ValueError(f"emit_depth must be a positive integer, got {emit_depth!r}")
+
     items: list[Item] = []
     if doc.root.children:
         for child in doc.root.children:
@@ -453,6 +482,7 @@ def chunk_document(doc) -> list[Item]:
                 section_number=doc.section_number,
                 source=doc.source,
                 target_budget=TARGET_BUDGET,
+                emit_depth=emit_depth,
             ))
     elif doc.root.body:
         # Document with body content but no detected headings (e.g. 通則, which
@@ -465,6 +495,7 @@ def chunk_document(doc) -> list[Item]:
             section_number=doc.section_number,
             source=doc.source,
             target_budget=TARGET_BUDGET,
+            emit_depth=emit_depth,
         ))
 
     # item_id uniqueness contract: every emitted item_id must be unique within

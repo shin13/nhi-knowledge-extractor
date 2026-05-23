@@ -40,8 +40,14 @@ def _build_manifest_from_chapters(chapters_dir: Path) -> Manifest:
 def sync(
     skip_fetch: bool = typer.Option(False, "--skip-fetch", help="Use already-downloaded DOCX."),
     dry_run: bool = typer.Option(False, "--dry-run", help="Build but don't write the zip."),
+    emit_depth: int = typer.Option(
+        cfg.EMIT_DEPTH, "--emit-depth",
+        help="Minimum tree depth at which a node may emit as a single row (default 5).",
+    ),
 ) -> None:
     """Full pipeline: fetch -> parse -> chunk -> render -> package."""
+    if emit_depth < 1:
+        raise typer.BadParameter("--emit-depth must be a positive integer (≥ 1)")
     manifest = _build_manifest_from_chapters(cfg.CHAPTERS_DIR) if skip_fetch else fetch_all()
     console.print(f"[bold]Fetched:[/bold] {len(manifest.documents)} documents, release date {manifest.update_date_iso}")
     if manifest.skipped_documents:
@@ -54,7 +60,7 @@ def sync(
     all_items = []
     for source in manifest.documents:
         doc = parse_document(source)
-        items = chunk_document(doc)
+        items = chunk_document(doc, emit_depth=emit_depth)
         all_items.extend(items)
         console.print(f"  {source.path.name}: {len(items)} items")
 
@@ -95,11 +101,19 @@ def cmd_parse(docx_path: Path) -> None:
 
 
 @app.command("chunk")
-def cmd_chunk(docx_path: Path) -> None:
+def cmd_chunk(
+    docx_path: Path,
+    emit_depth: int = typer.Option(
+        cfg.EMIT_DEPTH, "--emit-depth",
+        help="Minimum tree depth at which a node may emit as a single row (default 5).",
+    ),
+) -> None:
     """Debug: parse + chunk one DOCX and print all emitted items."""
+    if emit_depth < 1:
+        raise typer.BadParameter("--emit-depth must be a positive integer (≥ 1)")
     sd = SourceDoc(path=docx_path, url="", display_name=docx_path.stem, update_date_iso=date.today())
     doc = parse_document(sd)
-    items = chunk_document(doc)
+    items = chunk_document(doc, emit_depth=emit_depth)
     table = RichTable(title=f"{doc.title} -- {len(items)} items")
     table.add_column("item_id")
     table.add_column("tokens", justify="right")

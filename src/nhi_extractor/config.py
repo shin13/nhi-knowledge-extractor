@@ -23,6 +23,18 @@ TARGET_BUDGET = 6000   # aim for this; chunker descends past it
 HARD_BUDGET = 7000     # never exceed this; pipeline fails loudly if any item does
 TIKTOKEN_ENCODING = "cl100k_base"
 
+# --- Emit depth (Task I) ---
+# Minimum tree depth at which a node may emit as a single row. Below this depth,
+# the chunker MUST descend (ignoring whether the subtree fits TARGET_BUDGET).
+# This decouples "editorial granularity" from "embedding ceiling" — see
+# docs/emit-depth-plan.md for the design rationale.
+#
+# NHI source tree max depth is 5 (款 layer in 第五節 / 第八節). Setting >5 has
+# no effect (no nodes that deep exist); setting <3 merges multiple drugs into
+# the same row in some sections (verified pollution audit found 9/512 such rows
+# under the pre-EMIT_DEPTH behavior).
+EMIT_DEPTH = 5
+
 # --- has_significant_body threshold (spec §4.3) ---
 TRIVIAL_BODY_TOKEN_THRESHOLD = 200
 
