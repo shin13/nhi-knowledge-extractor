@@ -19,7 +19,8 @@ from .types import Item
 
 CSV_FIELDS = [
     "topic", "content", "heading", "section_path",
-    "item_id", "source_file", "source_url", "update_date",
+    "item_id", "parent_id", "part_index", "total_parts",
+    "source_file", "source_url", "update_date",
 ]
 
 

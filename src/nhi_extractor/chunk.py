@@ -459,6 +459,50 @@ def _chunk_node(
     )
 
 
+# ---------------------------------------------------------------------------
+# Item metadata: parent_id / part_index / total_parts (Task J)
+# ---------------------------------------------------------------------------
+
+# Suffixes added by the chunker when splitting: -part{N}, -part{N}-{M}
+# (recursive sub-split), -tbl{N} (table-row split), -preamble (body-only
+# emission from a node that also has children). Strip them iteratively to
+# get back to the logical parent_id.
+_SUFFIX_RE = re.compile(r"-(part\d+(?:-\d+)?|tbl\d+|preamble)$")
+
+
+def _derive_parent_id(item_id: str) -> str:
+    """Strip chunker-added suffixes (-partN[-M], -tblN, -preamble) iteratively.
+
+    Examples:
+      sec9-9.69-part1     → sec9-9.69
+      sec9-9.69-part3-2   → sec9-9.69
+      sec9-9.50-tbl2      → sec9-9.50
+      sec3-3.2-preamble   → sec3-3.2
+      sec9-9.70           → sec9-9.70 (unchanged — no suffix)
+    """
+    while True:
+        m = _SUFFIX_RE.search(item_id)
+        if not m:
+            return item_id
+        item_id = item_id[:m.start()]
+
+
+def _assign_metadata(items: list[Item]) -> list[Item]:
+    """Fill parent_id / part_index / total_parts on every item, in emission order."""
+    from collections import defaultdict
+    from dataclasses import replace
+    groups: dict[str, list[Item]] = defaultdict(list)
+    for it in items:
+        groups[_derive_parent_id(it.item_id)].append(it)
+    out: list[Item] = []
+    for it in items:
+        pid = _derive_parent_id(it.item_id)
+        siblings = groups[pid]
+        idx = siblings.index(it) + 1
+        out.append(replace(it, parent_id=pid, part_index=idx, total_parts=len(siblings)))
+    return out
+
+
 def chunk_document(doc, *, emit_depth: int | None = None) -> list[Item]:
     """Public entry point: Document → list[Item], all within HARD_BUDGET.
 
@@ -521,4 +565,6 @@ def chunk_document(doc, *, emit_depth: int | None = None) -> list[Item]:
             f"Budget contract violated — {len(over)} items exceed HARD_BUDGET={HARD_BUDGET}: {ids}"
         )
 
-    return items
+    # Fill parent_id / part_index / total_parts so downstream RAG can hydrate
+    # split siblings. Done last so it sees the final emission order.
+    return _assign_metadata(items)

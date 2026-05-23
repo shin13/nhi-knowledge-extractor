@@ -49,7 +49,8 @@ def test_build_release_creates_csv_manifest_changes_and_zip(tmp_path):
         reader = csv.DictReader(f)
         assert set(reader.fieldnames) == {
             "topic", "content", "heading", "section_path",
-            "item_id", "source_file", "source_url", "update_date",
+            "item_id", "parent_id", "part_index", "total_parts",
+            "source_file", "source_url", "update_date",
         }
         rows = list(reader)
         assert len(rows) == 2

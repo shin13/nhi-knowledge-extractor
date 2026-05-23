@@ -25,6 +25,9 @@ def render(item: Item) -> dict[str, str]:
         "heading": item.heading,
         "section_path": breadcrumb,
         "item_id": item.item_id,
+        "parent_id": item.parent_id or item.item_id,  # safe fallback if not assigned
+        "part_index": str(item.part_index),
+        "total_parts": str(item.total_parts),
         "source_file": item.source.path.name,
         "source_url": item.source.url,
         "update_date": format_dual_calendar(item.source.update_date_iso),

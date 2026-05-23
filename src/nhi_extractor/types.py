@@ -79,10 +79,26 @@ class Document:
 
 @dataclass(frozen=True)
 class Item:
-    """One emitted knowledge item — sized to fit the token budget."""
+    """One emitted knowledge item — sized to fit the token budget.
+
+    Metadata fields (parent_id / part_index / total_parts) let downstream RAG
+    consumers know that a row is one of several parts of a larger logical unit.
+    When a row is emitted as a complete subtree (not split), parent_id equals
+    item_id and total_parts is 1. When the chunker had to split a leaf (e.g.
+    sec9-9.69 → 5 rows part1..part4 with part3 sub-split), all 5 rows share
+    parent_id `sec9-9.69` and carry part_index 1..5, total_parts=5. See
+    docs/emit-depth-plan.md for the RAG hydration pattern.
+
+    The metadata fields default to placeholder values that get filled in by
+    `chunk._assign_metadata` post-process. Direct constructors (e.g. tests
+    that don't run through chunk_document) can omit them.
+    """
     item_id: str
     section_path: list[str]
     heading: str
     content_md: str
     source: SourceDoc
     token_count: int
+    parent_id: str = ""
+    part_index: int = 1
+    total_parts: int = 1
