@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
 
+# Least-privilege: this CI only reads code and runs tests; it does not write
+# to the repo, push images, or call external services with credentials.
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
