@@ -47,21 +47,9 @@ uv run nhi-extract diff <dir_a> <dir_b>    # diff two release folders
 
 ## Output schema
 
-11 columns per CSV row. Each row is one RAG-ingestion-ready chunk.
+11 columns per CSV row. Full schema reference: [`docs/spec.md`](docs/spec.md) §2.2 (canonical).
 
-| Column | Description |
-|---|---|
-| `topic` | Fixed prefix + breadcrumb (`臺灣全民健康保險藥品給付規定/…`) |
-| `content` | Markdown body (prose + inline tables) |
-| `heading` | This chunk's heading with numbering |
-| `section_path` | Title chain from doc root, ` > `-joined |
-| `item_id` | Unique stable id (diff key) — `sec{N}-{level}[-partK[-M]]` |
-| `parent_id` | Logical-unit id; equals `item_id` when not split, shared across split siblings |
-| `part_index` | 1-based position within `parent_id` group |
-| `total_parts` | Row count sharing this `parent_id` |
-| `source_file` | NHI source filename |
-| `source_url` | NHI download URL |
-| `update_date` | Dual calendar (`2026/04/24 (民國115年4月24日)`) |
+At a glance, each row carries: identifiers (`item_id`, `parent_id`, `part_index`, `total_parts`), content (`content`, `heading`, `topic`, `section_path`), and traceability (`source_file`, `source_url`, `update_date`).
 
 ### Worked example — split row family
 
@@ -99,6 +87,12 @@ Default 5 covers the deepest natural NHI level (款 in 第五節/第八節). Hig
 - [`docs/roadmap.md`](docs/roadmap.md) — future plan (P0–P6)
 - [`docs/next-fixes.md`](docs/next-fixes.md) — open issues (Task G — 附表 forms)
 - [`CLAUDE.md`](CLAUDE.md) — commands, layout, conventions, lessons
+
+## Issues & Feedback
+
+Bug reports, questions about output behaviour, or schema-related discussion: **[open an issue](https://github.com/shin13/nhi-knowledge-extractor/issues/new/choose)**. A bug-report template guides you through the fields that help reproduce the problem (NHI release date, pipeline version, the source filename involved).
+
+For private matters (commercial use, security disclosure), reach the maintainer through their GitHub profile: <https://github.com/shin13>.
 
 ## License
 
@@ -172,3 +166,9 @@ Removed:  1
 `EMIT_DEPTH`（預設 5）控制「一個 row 應該切到第幾層」。預設值對應 NHI 文件最深的「款」層，確保每條藥品規定獨立成列、不會跟相鄰藥物的規定混在同一列。
 
 若想要較粗粒度（例如以節為單位）可改用 `--emit-depth 3` 或 `4`，但要注意：合併後一列會包含多個藥物的規定，RAG 檢索時的相關性會跟著下降。
+
+### 問題回報
+
+遇到 bug、輸出結果不如預期、或對 schema 有疑問：請到 **[GitHub Issues](https://github.com/shin13/nhi-knowledge-extractor/issues/new/choose)** 開單。會有 bug 回報範本引導你填關鍵欄位（NHI release 日期、工具版本、出問題的檔名），這些資訊對重現問題很關鍵。
+
+不適合公開的事項（商用授權詢問、資安通報等）：可透過維護者的 GitHub profile 聯絡：<https://github.com/shin13>。

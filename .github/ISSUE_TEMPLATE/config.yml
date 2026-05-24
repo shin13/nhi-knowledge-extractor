@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private contact (commercial use, security disclosure)
+    url: https://github.com/shin13
+    about: Reach the maintainer through their GitHub profile. Public Issues is preferred for everything else so others can search prior reports.
