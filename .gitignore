@@ -38,3 +38,6 @@ data/regulations/medication/chapters/
 
 # Pipeline-generated NHI release log (data lineage, not project history)
 data/regulations/medication/CHANGELOG_data.md
+
+# Local-only dev notes (HANDOFF, session state). Tracked by separate git repo inside.
+.private/
