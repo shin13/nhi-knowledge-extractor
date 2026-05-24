@@ -35,3 +35,6 @@ Thumbs.db
 data/regulations/medication/藥品給付規定_*/
 data/regulations/medication/藥品給付規定_*.zip
 data/regulations/medication/chapters/
+
+# Pipeline-generated NHI release log (data lineage, not project history)
+data/regulations/medication/CHANGELOG_data.md

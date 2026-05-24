@@ -42,4 +42,4 @@ TRIVIAL_BODY_TOKEN_THRESHOLD = 200
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = PROJECT_ROOT / "data" / "regulations" / "medication"
 CHAPTERS_DIR = DATA_DIR / "chapters"      # downloaded DOCX
-CHANGELOG_PATH = PROJECT_ROOT / "CHANGELOG.md"
+CHANGELOG_PATH = DATA_DIR / "CHANGELOG_data.md"   # pipeline-generated NHI release log (gitignored)

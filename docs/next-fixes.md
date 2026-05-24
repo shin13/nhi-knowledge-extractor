@@ -2,7 +2,7 @@
 
 > Five issues surfaced after the first real production run. Each issue has a self-contained task with a test.
 
-**Repo:** `/Users/shin/Projects/nhi-knowledge-extractor`
+**Repo:** `.`
 
 **Baseline commit:** `49204cb` (working tree clean after first production run)
 
@@ -223,7 +223,6 @@ If neither: `brew install --cask libreoffice` (one-time setup). Document in CLAU
 **A6. Run tests, commit**
 
 ```bash
-cd /Users/shin/Projects/nhi-knowledge-extractor
 uv run pytest tests/test_fetch.py -v
 git add src/nhi_extractor/config.py src/nhi_extractor/fetch.py tests/test_fetch.py
 git commit -m "fix(fetch): support ODT-only documents (通則, 第六節) via LibreOffice conversion"
@@ -287,7 +286,6 @@ def test_render_node_to_markdown_no_blank_lines_between_paragraphs():
 **C3. Run tests + smoke-test the output**
 
 ```bash
-cd /Users/shin/Projects/nhi-knowledge-extractor
 uv run pytest tests/test_markdown.py -v
 # Re-run a chunk to eyeball the content
 uv run nhi-extract chunk tests/fixtures/section_3_normal.docx | head -5
@@ -513,7 +511,6 @@ Also extract the existing character-split logic from inside the strategy-3 fallb
 **D3. Run tests**
 
 ```bash
-cd /Users/shin/Projects/nhi-knowledge-extractor
 uv run pytest tests/test_chunk_leaf.py -v
 uv run pytest tests/test_chunk_pain_cases.py -v
 uv run pytest -v  # full sweep
@@ -524,7 +521,6 @@ The full sweep must stay green. The pain-case test for §9 row 85 must still pas
 **D4. Eyeball the 9.69 output**
 
 ```bash
-cd /Users/shin/Projects/nhi-knowledge-extractor
 uv run nhi-extract sync --skip-fetch
 python3 -c "
 import csv
@@ -676,7 +672,6 @@ git commit -m "fix(parse): reject tilde cross-references as headings; remove -du
 After Tasks A–E are committed, do a final end-to-end against the live NHI site to confirm everything works.
 
 ```bash
-cd /Users/shin/Projects/nhi-knowledge-extractor
 
 # Clean previous release artefacts (NOT chapters/ — those are now committed)
 rm -f data/regulations/medication/藥品給付規定_*.zip

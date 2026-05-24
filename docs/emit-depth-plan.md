@@ -1,7 +1,7 @@
 # EMIT_DEPTH + RAG Metadata + Anchor Preamble — Implementation Plan
 
 > Planned in session 2026-05-23. Not yet implemented. Next session should pick this up
-> by re-reading this file + `HANDOFF.md` + `docs/spec.md` §4 (chunker).
+> by re-reading this file + `docs/spec.md` §4 (chunker) + the latest commits.
 
 ## Why this change exists
 
@@ -361,7 +361,6 @@ DictReader / pandas readers handle this transparently.
 ## Task M — Full E2E verification
 
 ```bash
-cd /Users/shin/Projects/nhi-knowledge-extractor
 
 # Clean prior outputs (not chapters/ — those are NHI source)
 rm -rf data/regulations/medication/藥品給付規定_*/
