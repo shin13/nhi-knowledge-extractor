@@ -78,7 +78,7 @@ $ nhi-extract sync
 
 - Not a general-purpose ODT/DOCX library. Optimise for the NHI document shape.
 - Not a RAG system. The output is the input *to* a RAG system.
-- Not a UI. CLI is enough. Delivery is still a zip to a human (邦漢).
+- Not a UI. CLI is enough. Delivery is a zip containing processed CSV files.
 - Not a scheduler. NHI updates are irregular and human-triggered.
 
 ---
@@ -91,7 +91,7 @@ Use these as test cases / acceptance criteria:
 | ---------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------ |
 | Deep nesting (`9.69.1.1.`)                                       | Silently flattened into parent row                             | Preserved as its own item with full ancestor path            |
 | Embedded decision-matrix table                                   | Flattened into paragraph-soup; manual Google Docs reconstruct | Extracted as Markdown table inline                           |
-| Single regulation > 7 000 tokens                                 | Linter warning + manual `csv_splitter.py` invocation           | Auto-split at semantic boundary; budget never exceeded       |
+| Single regulation > 7,000 tokens                                 | Linter warning + manual `csv_splitter.py` invocation           | Auto-split at semantic boundary; budget never exceeded       |
 | New release with one changed section                             | Re-process everything; no diff                                 | Re-process changed only; emit diff for human review          |
 | Topic prefix change                                              | Edit constant, re-run whole pipeline                           | Prefix is a render-time option, not baked in                 |
 | ROC calendar date in the document body                           | Treated as opaque text                                         | Parsed into structured date; both ROC and Western available |
@@ -119,7 +119,7 @@ Use these as test cases / acceptance criteria:
 These were never answered in the current repo and the new repo should answer them explicitly:
 
 1. **Granularity contract**: Should knowledge items always be at one level (e.g. always 條-level)? Or variable depth based on token budget? Pick one and write it down.
-2. **Table representation**: Markdown inline in `body`, or a separate `tables: [...]` field? Downstream RAG retrieval quality should drive this — talk to 邦漢.
+2. **Table representation**: Markdown inline in `body`, or a separate `tables: [...]` field? Downstream RAG retrieval quality should drive this.
 3. **Deduplication across releases**: NHI republishes the full document each time, even if only one 節 changed. Do we keep per-item version history, or just snapshot the latest?
 4. **Source authority**: ODT or DOCX? DOCX preserves tables better in most parsers — worth re-evaluating the format choice.
 5. **What is a "reference"?** Today it's a free-form Chinese string. Should it be `{source_url, document_filename, update_date_roc, update_date_iso, section_id}`?
@@ -129,7 +129,7 @@ These were never answered in the current repo and the new repo should answer the
 ## 8. What to Carry Over from the Current Repo
 
 - The **`TOPIC_PREFIX`** value and its purpose (downstream namespace tag for the RAG corpus).
-- The **dated-zip delivery convention** (`藥品給付規定_YYYYMMDD.zip` → 邦漢).
+- The **dated-zip delivery convention** (`藥品給付規定_YYYYMMDD.zip`).
 - The **CSS selector and ROC-date parsing** for the website update date — that part works.
 - The **list of past deliverables** in `data/regulations/medication/` as regression input.
 

@@ -1,0 +1,76 @@
+name: Bug report
+description: Something behaved unexpectedly when running the pipeline.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a report! The fields below help reproduce the issue.
+        For Mandarin reporters: 中文回報也歡迎，必填欄位請對照範例填寫。
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the unexpected behaviour. Paste the exact error / log if any.
+      placeholder: |
+        Running `uv run nhi-extract sync` failed with ValueError: budget contract violated...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      placeholder: Pipeline completes; release zip appears in data/regulations/medication/.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Minimal steps. Include the exact command, any non-default flags, and the source file involved (if known).
+      placeholder: |
+        1. `git clone …`
+        2. `uv sync`
+        3. `uv run nhi-extract sync --emit-depth 4`
+        4. Error appears when processing `第九節_抗癌瘤藥物_*.docx`
+    validations:
+      required: true
+
+  - type: input
+    id: nhi-release
+    attributes:
+      label: NHI release date
+      description: The publish date shown on the NHI listing page (or in the release zip filename, e.g. `藥品給付規定_20260424.zip`).
+      placeholder: "2026-04-24"
+    validations:
+      required: true
+
+  - type: input
+    id: pipeline-version
+    attributes:
+      label: Pipeline version
+      description: Output of `git describe --tags --always` (or "v0.1.0" if from a release).
+      placeholder: "v0.1.0 or commit SHA"
+    validations:
+      required: true
+
+  - type: input
+    id: python-uv
+    attributes:
+      label: Python and uv versions
+      description: Output of `python --version` and `uv --version`.
+      placeholder: "Python 3.13.1 / uv 0.5.4"
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Stack trace, screenshots, suspected root cause — anything that might help.
+    validations:
+      required: false
