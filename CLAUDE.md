@@ -101,6 +101,7 @@ Read in order before non-trivial changes:
 - **Heading-based splitting destroys structure.** The predecessor split at 2/3-level headings and flattened everything below into one CSV cell. This chunker splits by token budget *as a contract*, descending the tree until each item fits.
 - **`odfpy.getElementsByType(P)` can't see tables** — why the predecessor needed Google Docs roundtrip for §9.69. `python-docx` walks `<w:tbl>` natively; tables are first-class blocks.
 - **NHI publishes 通則 / 第六節 / 第十一節 / 第十二節 / 第十五節 only as .doc/.odt.** Filter-by-`.docx` silently drops half the corpus. `fetch.parse_listing` groups by title; `.odt` parsed natively (no LibreOffice).
+- **NHI sits behind Cloudflare — use `curl_cffi`, not `cloudscraper`/`requests`.** Cloudflare gates a JS challenge on the TLS/JA3 fingerprint: `cloudscraper` gets a hard 403, a browser User-Agent alone is flaky. `fetch._make_session` uses `curl_cffi.Session(impersonate="chrome")` for a deterministic pass — don't "simplify" it back. If 403s return, bump the impersonation target before suspecting code. No offline test covers this (the session is mocked); only a live `sync` catches it.
 - **Tilde cross-references look like headings.** `4.1~3項規定` would parse as a `(4,1)` heading. `parse.TILDE_REFERENCE_RE` rejects them. Also: `HEADING_PREFIX_RE` requires `.` / whitespace / EOL after the numeric prefix, so `"2.18歲以上..."` stays as body.
 - **通則 uses Chinese-numeral headings (一、二、三)** — doesn't match Arabic-only regex. `chunk_document` detects root-only shape and emits as a single `sec0` item.
 
