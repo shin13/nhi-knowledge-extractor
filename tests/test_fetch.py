@@ -90,7 +90,7 @@ def test_fetch_all_records_skipped_appendix_forms(tmp_path, monkeypatch):
     fake_session.get = MagicMock(
         side_effect=lambda url, **kw: listing_resp if url.endswith(".html") else download_resp
     )
-    monkeypatch.setattr("nhi_extractor.fetch.cloudscraper.create_scraper", lambda: fake_session)
+    monkeypatch.setattr("nhi_extractor.fetch._make_session", lambda: fake_session)
 
     from nhi_extractor.fetch import fetch_all
     manifest = fetch_all(download_dir=tmp_path)
