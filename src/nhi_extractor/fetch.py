@@ -9,6 +9,12 @@ Strategy:
    external conversion needed — see parse.parse_odt).
 
 No external binary dependencies — `uv sync` is sufficient.
+
+The NHI site sits behind Cloudflare, which fingerprints the TLS/JA3 handshake
+and serves a "Just a moment..." managed challenge to non-browser clients
+(`cloudscraper` 1.2.71 can no longer pass it; plain `requests` is flaky even
+with a browser User-Agent). `curl_cffi` impersonates a real Chrome TLS
+fingerprint, which clears the challenge deterministically.
 """
 
 from __future__ import annotations
@@ -19,8 +25,8 @@ from datetime import date
 from pathlib import Path
 from urllib.parse import urljoin
 
-import cloudscraper
 from bs4 import BeautifulSoup
+from curl_cffi import requests as cffi_requests
 
 from .config import (
     APPENDIX_FORM_TITLE_PATTERN,
@@ -117,6 +123,11 @@ def _safe_filename(title: str, update_date: date, ext: str) -> str:
     return f"{name}{suffix}.{ext}"
 
 
+def _make_session():
+    """Browser-impersonating HTTP session that clears NHI's Cloudflare challenge."""
+    return cffi_requests.Session(impersonate="chrome")
+
+
 def _download(session, url: str, out_path: Path) -> None:
     if out_path.exists():
         return
@@ -140,7 +151,7 @@ def fetch_all(
     are not downloaded but are recorded in `manifest.skipped_documents`.
     """
     download_dir.mkdir(parents=True, exist_ok=True)
-    session = cloudscraper.create_scraper()
+    session = _make_session()
     resp = session.get(source_url)
     resp.raise_for_status()
     docs, update_date = parse_listing(resp.text, base_url=source_url)

@@ -6,7 +6,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 
 ## [Unreleased]
 
-_(nothing yet)_
+### Fixed
+- `fetch` no longer fails with `403 Forbidden` on `sync`. NHI's Cloudflare now serves a JS managed challenge that `cloudscraper` could not pass and that plain `requests` cleared only intermittently. Switched to `curl_cffi` with Chrome TLS impersonation, which clears it deterministically.
+
+### Changed
+- Dependency: replaced `cloudscraper` with `curl-cffi` (still pure-pip, no system binary required).
 
 ## [v0.1.0] - 2026-05-24
 
