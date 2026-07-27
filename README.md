@@ -19,17 +19,17 @@ uv sync
 uv run nhi-extract sync   # fetch → parse → chunk → render → package
 ```
 
-Output:
+Output — an actual run from 2026-07-27. Counts shift with every NHI release, so treat the numbers as a shape, not a target:
 
 ```
-Fetched: 16 documents, release date 2026-04-24
-Skipped 76 (75 appendix_form, 1 unrecognized_title) — see MANIFEST.json
-  通則_113.05.28更新_1150424.odt: 1 items
-  第一節_神經系統藥物_115.3.23更新_1150424.docx: 49 items
+Fetched: 16 documents, release date 2026-07-27
+Skipped 77 (76 appendix_form, 1 unrecognized_title) — see MANIFEST.json
+  通則_113.05.28更新_1150727.odt: 1 items
+  第一節_神經系統藥物_115.6.23更新_1150727.docx: 50 items
   ...
-  第九節_抗癌瘤藥物_115.4.23更新_1150424.docx: 146 items
-Total: 543 items, max token count 5992
-Wrote: data/regulations/medication/藥品給付規定_20260424.zip
+  第九節_抗癌瘤藥物_115.7.23更新_1150727.docx: 150 items
+Total: 551 items, max token count 6001
+Wrote: data/regulations/medication/藥品給付規定_20260727.zip
 ```
 
 Each release zip contains one CSV per chapter, plus `MANIFEST.json` and `CHANGES_YYYYMMDD.md`.

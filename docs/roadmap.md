@@ -81,5 +81,6 @@ Run these once the repo is live on GitHub.
 3. Wait for demand to drive P0 items (don't pre-build)
 
 Feature-complete for its stated scope as of `v0.1.1` (2026-07-27). 107 / 107 tests green.
-Last pipeline check: `sync --dry-run` on 2026-06-24 — 16 docs, 547 items, max 5932 tokens
-per row, no polluted rows. Dry run only; packaging (CHANGES file, zip) unexercised since v0.1.0.
+Last pipeline check: full `nhi-extract sync` on 2026-07-27 — 16 docs, 551 items, max 6001
+tokens per row, no polluted rows, CHANGES file and zip both produced. All five spec §7
+success criteria verified.
