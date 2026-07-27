@@ -6,6 +6,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 
 ## [Unreleased]
 
+## [v0.1.1] - 2026-07-27
+
 ### Fixed
 - `fetch` no longer fails with `403 Forbidden` on `sync`. NHI's Cloudflare now serves a JS managed challenge that `cloudscraper` could not pass and that plain `requests` cleared only intermittently. Switched to `curl_cffi` with Chrome TLS impersonation, which clears it deterministically.
 
@@ -35,5 +37,6 @@ First public release.
 
 Pre-v0.1.0 work lives in git commits. Highlights: DOCX/ODT parser with native table extraction; variable-depth chunker with hard token budget contract; multi-format NHI fetcher (DOCX + ODT, 17 chapters); Strategy 0 leaf-splitter; same-date CHANGELOG replace; tilde cross-reference rejection.
 
-[Unreleased]: https://github.com/shin13/nhi-knowledge-extractor/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/shin13/nhi-knowledge-extractor/compare/v0.1.1...HEAD
+[v0.1.1]: https://github.com/shin13/nhi-knowledge-extractor/releases/tag/v0.1.1
 [v0.1.0]: https://github.com/shin13/nhi-knowledge-extractor/releases/tag/v0.1.0
