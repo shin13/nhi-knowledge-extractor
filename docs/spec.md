@@ -273,7 +273,7 @@ A release run with `nhi-extract sync` is successful when:
 4. `CHANGES_YYYYMMDD.md` lists item-level adds / removes / modifies vs. last release
 5. Zip is produced and ready to deliver
 
-All five hold as of v0.1.0.
+All five hold as of v0.1.1 — verified 2026-07-27 by a full `nhi-extract sync`: 16 documents, 551 items, max 6001 tokens, `CHANGES_20260727.md` and zip both produced.
 
 ---
 

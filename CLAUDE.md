@@ -133,3 +133,4 @@ Read in order before non-trivial changes:
 **Misc**
 - **附表 forms are out of scope** — recorded in `Manifest.skipped_documents` with reason `"appendix_form"`. Future plan in `docs/next-fixes.md` Task G.
 - **`package._prepend_changelog` replaces same-date entries** instead of stacking duplicates.
+- **NHI republishes unchanged content under a new release date.** The 2026-07-24 and 2026-07-27 releases are identical except for the `source_file` and `update_date` columns, and the item-level diff correctly reports `+0 / ~0 / -0`. A zero diff is not evidence of a broken pipeline — confirm by comparing CSVs directly. Downstream RAG should not re-embed on a date-only change.
