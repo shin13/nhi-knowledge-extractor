@@ -1,7 +1,7 @@
 # Spec — NHI Knowledge Extractor
 
-- **Date:** 2026-05-21 (initial), updated 2026-05-24 for v0.1.0
-- **Status:** Implemented (v0.1.0)
+- **Date:** 2026-05-21 (initial); last substantive edit 2026-06-24 (§5, curl_cffi fetch)
+- **Status:** Implemented — current as of v0.1.1
 - **Predecessor:** `NHI-Knowledge-Extraction` — see [`intent.md`](intent.md) for problem statement
 
 ---

@@ -83,6 +83,21 @@ uv run pytest                                    # all
 uv run pytest tests/test_chunk_pain_cases.py -v  # regression net
 ```
 
+## Releasing
+
+The version lives in **three** places: `pyproject.toml`, `uv.lock` (run `uv lock` after bumping — never hand-edit), and `CHANGELOG.md`. There is no `__version__` in the package.
+
+1. Branch `release/vX.Y.Z`. In `CHANGELOG.md`: `[Unreleased]` → `[vX.Y.Z] - YYYY-MM-DD`, leave a new empty `[Unreleased]` above it, and repoint the `compare/…HEAD` link at the new tag.
+2. Bump `pyproject.toml`, run `uv lock`, then `uv run pytest`.
+3. PR → squash merge. The trunk is protected; no direct pushes.
+4. Tag and publish — the tag message **is** the release body:
+
+```bash
+git tag -a vX.Y.Z -F <notes-file>   # annotated only; lightweight tags have no message
+git push origin vX.Y.Z
+gh release create vX.Y.Z --notes-from-tag
+```
+
 ## Project history & lessons
 
 Read in order before non-trivial changes:
@@ -101,7 +116,7 @@ Read in order before non-trivial changes:
 - **Heading-based splitting destroys structure.** The predecessor split at 2/3-level headings and flattened everything below into one CSV cell. This chunker splits by token budget *as a contract*, descending the tree until each item fits.
 - **`odfpy.getElementsByType(P)` can't see tables** — why the predecessor needed Google Docs roundtrip for §9.69. `python-docx` walks `<w:tbl>` natively; tables are first-class blocks.
 - **NHI publishes 通則 / 第六節 / 第十一節 / 第十二節 / 第十五節 only as .doc/.odt.** Filter-by-`.docx` silently drops half the corpus. `fetch.parse_listing` groups by title; `.odt` parsed natively (no LibreOffice).
-- **NHI sits behind Cloudflare — use `curl_cffi`, not `cloudscraper`/`requests`.** Cloudflare gates a JS challenge on the TLS/JA3 fingerprint: `cloudscraper` gets a hard 403, a browser User-Agent alone is flaky. `fetch._make_session` uses `curl_cffi.Session(impersonate="chrome")` for a deterministic pass — don't "simplify" it back. If 403s return, bump the impersonation target before suspecting code. No offline test covers this (the session is mocked); only a live `sync` catches it.
+- **NHI sits behind Cloudflare — use `curl_cffi`, not `cloudscraper`/`requests`.** Cloudflare gates a JS challenge on the TLS/JA3 fingerprint: `cloudscraper` gets a hard 403, a browser User-Agent alone is flaky. `fetch._make_session` uses `curl_cffi.Session(impersonate="chrome")` for a deterministic pass — don't "simplify" it back. If 403s return, bump the impersonation target before suspecting code. No offline test covers this (the session is mocked); only a live `sync` catches it. Corollary: a green test run is **not** evidence that a fetch change works — cite a live `sync` instead.
 - **Tilde cross-references look like headings.** `4.1~3項規定` would parse as a `(4,1)` heading. `parse.TILDE_REFERENCE_RE` rejects them. Also: `HEADING_PREFIX_RE` requires `.` / whitespace / EOL after the numeric prefix, so `"2.18歲以上..."` stays as body.
 - **通則 uses Chinese-numeral headings (一、二、三)** — doesn't match Arabic-only regex. `chunk_document` detects root-only shape and emits as a single `sec0` item.
 
