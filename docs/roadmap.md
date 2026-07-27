@@ -60,7 +60,7 @@ Run these once the repo is live on GitHub.
 |---|---|---|
 | `fetch` retry / backoff | NHI occasionally returns 429 / timeout | 0.5 day |
 | Schema migration script | When CSV columns change and we need to migrate old releases | 0.5 day |
-| Scheduled weekly sync (cron / CI workflow) | Auto-fetch + diff + notify | 0.5 day |
+| Scheduled weekly sync (cron / CI workflow) | Auto-fetch + diff + notify — and the only guard against fetch breakage: the Cloudflare 403 fixed in v0.1.1 hid for a month because `test_fetch.py` mocks the session | 0.5 day |
 | Incident log on failed sync | Traceability | 0.25 day |
 | Retire `_char_split_oversized` | It's a band-aid for a pathological test; remove once spec confirms it's unreachable | 0.5 day |
 
@@ -80,5 +80,6 @@ Run these once the repo is live on GitHub.
 2. Add ruff to CI (low cost, high signal)
 3. Wait for demand to drive P0 items (don't pre-build)
 
-The repo is feature-complete for its stated scope as of commit `f0f6a5f` (2026-05-23).
-107 / 107 tests green. 16 docs, 543 items, max 5992 tokens per row, no polluted rows.
+Feature-complete for its stated scope as of `v0.1.1` (2026-07-27). 107 / 107 tests green.
+Last pipeline check: `sync --dry-run` on 2026-06-24 — 16 docs, 547 items, max 5932 tokens
+per row, no polluted rows. Dry run only; packaging (CHANGES file, zip) unexercised since v0.1.0.
