@@ -36,11 +36,14 @@ repos:
         name: mypy (strict)
         entry: uv run mypy
         language: system
-        types: [python]
         # mypy is configured with `files = ["src"]` and runs strict, which needs
         # the whole-package view — passing it only the staged files would miss
         # cross-module errors.
         pass_filenames: false
+        # And because it ignores the file list, gating it on `types: [python]`
+        # would be inconsistent: editing this file's mypy settings, or bumping a
+        # typed dependency in uv.lock, can break the type check with no .py edit.
+        always_run: true
 
       - id: pytest
         name: pytest + coverage gate
