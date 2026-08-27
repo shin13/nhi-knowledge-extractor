@@ -1,0 +1,53 @@
+# Local hooks shell out to `uv run` instead of using pre-commit's own managed
+# environments. That is deliberate: pre-commit's ruff/mypy mirrors pin their own
+# tool versions, which would drift from `uv.lock` and from CI, so a commit could
+# pass locally and fail in CI on a rule the local ruff had never heard of. This
+# way there is exactly one pinned version of each tool.
+#
+# Install both stages — the pre-push hook is not installed by default:
+#   uv run pre-commit install --hook-type pre-commit --hook-type pre-push
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # `tests/fixtures/` holds documents and HTML captured verbatim from the NHI
+      # site. They are data, not source: a fixture must stay byte-identical to
+      # what the site actually served, or it stops reproducing the bug it exists
+      # to pin. (Caught in practice — these two hooks rewrote 12 lines of
+      # embedded JavaScript inside `listing_page.html` on their first run.)
+      - id: trailing-whitespace
+        exclude: ^tests/fixtures/
+      - id: end-of-file-fixer
+        exclude: ^tests/fixtures/
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files   # default 500 kB; largest tracked fixture is 192 kB
+
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff check --fix
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+
+      - id: mypy
+        name: mypy (strict)
+        entry: uv run mypy
+        language: system
+        types: [python]
+        # mypy is configured with `files = ["src"]` and runs strict, which needs
+        # the whole-package view — passing it only the staged files would miss
+        # cross-module errors.
+        pass_filenames: false
+
+      - id: pytest
+        name: pytest + coverage gate
+        entry: uv run pytest --cov=src/nhi_extractor
+        language: system
+        pass_filenames: false
+        always_run: true
+        # Pre-push, not pre-commit: keeps committing fast while still refusing to
+        # push a red suite or a coverage regression.
+        stages: [pre-push]

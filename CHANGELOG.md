@@ -6,6 +6,22 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 
 ## [Unreleased]
 
+### Added
+- A coverage gate. `pytest --cov=src/nhi_extractor` now fails below 90% line coverage
+  (`fail_under` in `pyproject.toml`; actual is 92.5%), and CI runs it. The README badge
+  asserts `coverage ≥90%` rather than a snapshot number, so it states exactly what the
+  gate enforces and cannot drift out of date. `--cov` is passed on the command line, not
+  in `addopts`, so running a single test file during development does not trip the
+  project-wide threshold.
+- `.pre-commit-config.yaml`. On commit: whitespace hygiene, `ruff --fix`, `mypy`. On push:
+  the full suite and the coverage gate. Hooks shell out to `uv run` instead of
+  pre-commit's managed environments, so the tool versions are exactly the ones in
+  `uv.lock` and in CI — a pre-commit mirror pins its own version, which would let a
+  commit pass locally and fail in CI. Install with
+  `uv run pre-commit install --hook-type pre-commit --hook-type pre-push`.
+  `tests/fixtures/` is excluded from the whitespace hooks: those files are captured
+  verbatim from the NHI site and must stay byte-identical to what was served.
+
 ## [v0.1.2] - 2026-08-27
 
 ### Added
