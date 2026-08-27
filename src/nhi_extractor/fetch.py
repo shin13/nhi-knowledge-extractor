@@ -123,6 +123,79 @@ def _safe_filename(title: str, update_date: date, ext: str) -> str:
     return f"{name}{suffix}.{ext}"
 
 
+SOURCE_EXTENSIONS = (".docx", ".odt")
+
+# Reads back the `_{ROC}{MM}{DD}` suffix that _safe_filename writes. Anchored to
+# the extension so an update date inside the title (…_115.8.21更新_1150821.docx)
+# cannot be mistaken for the release stamp.
+_RELEASE_STAMP_RE = re.compile(r"_(\d{3})(\d{2})(\d{2})\.(?:docx|odt)$", re.IGNORECASE)
+
+
+@dataclass(frozen=True)
+class LocalRelease:
+    """One release's worth of already-downloaded source files.
+
+    `update_date` is None when the directory carries no release stamps at all —
+    a hand-assembled folder, which is still usable but whose release date is not
+    recoverable from the filenames.
+    """
+    update_date: date | None
+    paths: tuple[Path, ...]
+    superseded: tuple[Path, ...] = ()
+
+
+def parse_release_stamp(path: Path) -> date | None:
+    """Recover the release date `_safe_filename` encoded into a filename."""
+    m = _RELEASE_STAMP_RE.search(path.name)
+    if not m:
+        return None
+    roc, mo, da = (int(g) for g in m.groups())
+    try:
+        return date(roc + 1911, mo, da)
+    except ValueError:
+        return None
+
+
+def latest_local_release(chapters_dir: Path) -> LocalRelease:
+    """Select the newest downloaded release from `chapters_dir`.
+
+    The download directory accumulates every release ever fetched, so it must
+    never be globbed wholesale: item_ids are unique within a document and
+    `chunk_document`'s collision guard is per-document, so a mixed-release
+    corpus emits duplicate item_ids silently and destroys diff stability.
+
+    Both `.docx` and `.odt` count — 通則 and four 節 are published ODT-only, so a
+    `.docx`-only glob drops 5 of the 16 in-scope documents without a word.
+    """
+    by_release: dict[date, list[Path]] = {}
+    unstamped: list[Path] = []
+    for p in sorted(chapters_dir.glob("*")):
+        if p.suffix.lower() not in SOURCE_EXTENSIONS:
+            continue
+        stamp = parse_release_stamp(p)
+        if stamp is None:
+            unstamped.append(p)
+        else:
+            by_release.setdefault(stamp, []).append(p)
+
+    if by_release:
+        newest = max(by_release)
+        older = [p for d, ps in by_release.items() if d != newest for p in ps]
+        return LocalRelease(
+            update_date=newest,
+            paths=tuple(sorted(by_release[newest])),
+            superseded=tuple(sorted(older + unstamped)),
+        )
+
+    if unstamped:
+        return LocalRelease(update_date=None, paths=tuple(unstamped))
+
+    raise FileNotFoundError(
+        f"No .docx or .odt source documents in {chapters_dir}. "
+        "Run `nhi-extract sync` without --skip-fetch to download them first."
+    )
+
+
 def _make_session():
     """Browser-impersonating HTTP session that clears NHI's Cloudflare challenge."""
     return cffi_requests.Session(impersonate="chrome")

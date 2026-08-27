@@ -239,6 +239,7 @@ Eliminates the predecessor's `"General Information"` / `"Additional Information"
 ## 5. Other stages (brief)
 
 - **`fetch`** — `curl_cffi` browser-impersonating session (clears NHI's Cloudflare TLS-fingerprint challenge), ROC date parsing. Groups listing links by document title; classifies as `regulation` (download) / `appendix_form` (record in `Manifest.skipped_documents`) / `unknown` (warn). Prefers `.docx`, falls back to `.odt`.
+  `latest_local_release` is the read-back counterpart of `_safe_filename`: `--skip-fetch` uses it to select **one** release from the download directory (which accumulates every release ever fetched) by the date stamp in the filename, covering `.docx` and `.odt` alike.
 - **`parse`** — DOCX via `python-docx`; ODT natively via zipfile + lxml. Walks document body in order; dispatches Paragraph (heading detection via style + numeric prefix regex) vs. Table.
 - **`render`** — Pure function `Item → dict[str, str]`. Writes CSVs with `csv.DictWriter`, `utf-8-sig` BOM (Excel-friendly).
 - **`package`** — Groups items by `source.path.name`, writes per-source CSVs into dated folder, generates `MANIFEST.json` with content hashes, runs `diff` against prior release, prepends to `CHANGELOG_data.md` (gitignored), zips folder.
