@@ -11,10 +11,16 @@ Strategy:
 No external binary dependencies — `uv sync` is sufficient.
 
 The NHI site sits behind Cloudflare, which fingerprints the TLS/JA3 handshake
-and serves a "Just a moment..." managed challenge to non-browser clients
-(`cloudscraper` 1.2.71 can no longer pass it; plain `requests` is flaky even
-with a browser User-Agent). `curl_cffi` impersonates a real Chrome TLS
-fingerprint, which clears the challenge deterministically.
+and serves a managed challenge (HTTP 403, sometimes 503) to clients whose
+fingerprint it does not like. `cloudscraper` 1.2.71 cannot pass it and plain
+`requests` is flaky even with a browser User-Agent; `curl_cffi` impersonates a
+real browser's TLS fingerprint, which clears it.
+
+Which fingerprint works is not stable over time. As of 2026-08-27 Cloudflare
+rejects recent Chrome profiles (`chrome146`, which the bare `"chrome"` alias
+resolves to, cleared only 3/12) while Firefox and Safari profiles clear 12/12.
+`_open_session` therefore walks `config.IMPERSONATE_CANDIDATES` and keeps the
+first profile that gets through, instead of pinning one and hoping.
 """
 
 from __future__ import annotations
@@ -31,6 +37,7 @@ from curl_cffi import requests as cffi_requests
 from .config import (
     APPENDIX_FORM_TITLE_PATTERN,
     CHAPTERS_DIR,
+    IMPERSONATE_CANDIDATES,
     REGULATION_TITLE_PATTERN,
     SOURCE_URL,
     UPDATE_DATE_SELECTOR,
@@ -123,9 +130,91 @@ def _safe_filename(title: str, update_date: date, ext: str) -> str:
     return f"{name}{suffix}.{ext}"
 
 
-def _make_session():
-    """Browser-impersonating HTTP session that clears NHI's Cloudflare challenge."""
-    return cffi_requests.Session(impersonate="chrome")
+def _make_session(impersonate: str):
+    """HTTP session pinned to one curl_cffi TLS-impersonation profile."""
+    return cffi_requests.Session(impersonate=impersonate)
+
+
+CHALLENGE_STATUS = 403
+
+
+class CloudflareBlocked(RuntimeError):
+    """Every impersonation profile was rejected — nothing was downloaded.
+
+    A distinct type so the CLI can present the (bilingual, actionable) message
+    on its own instead of buried under a traceback. Deliberately narrow: it must
+    not become a catch-all that swallows real pipeline failures.
+    """
+
+
+def _cleared_challenge(resp) -> bool:
+    """Did this response get past Cloudflare, or should we try the next profile?
+
+    Only a 403 means "wrong TLS fingerprint, try another profile". Every other
+    status — including 404 and 5xx — means the request reached NHI, so the
+    caller must see the real result rather than a fabricated Cloudflare error.
+    """
+    return resp.status_code != CHALLENGE_STATUS
+
+
+def _open_session(url: str, *, candidates=IMPERSONATE_CANDIDATES):
+    """Return `(session, response)` for the first profile that clears Cloudflare.
+
+    Probes `url` once per candidate. The winning session is returned open so the
+    whole run reuses one cleared connection — re-probing per download would cost
+    an extra request per file and risk landing on a blocked profile mid-run.
+
+    The probe response is returned rather than discarded: `url` is the page the
+    caller wanted anyway, so this costs no extra request.
+    """
+    attempts: list[str] = []
+    last_status: int | str | None = None
+
+    for target in candidates:
+        attempts.append(target)
+        session = _make_session(target)
+        try:
+            resp = session.get(url)
+        except Exception as exc:  # transport-level failure — try the next profile
+            session.close()
+            last_status = f"{type(exc).__name__}: {exc}"
+            continue
+        if _cleared_challenge(resp):
+            return session, resp
+        session.close()
+        last_status = resp.status_code
+
+    raise CloudflareBlocked(
+        "\n"
+        "Blocked by Cloudflare — every browser fingerprint was rejected (HTTP 403).\n"
+        "被 Cloudflare 阻擋——所有瀏覽器指紋都被拒絕（HTTP 403）。\n"
+        "\n"
+        f"  URL          : {url}\n"
+        f"  Tried / 已嘗試: {', '.join(attempts)}\n"
+        f"  Last / 最後結果: {last_status}\n"
+        "\n"
+        "What this means / 這代表什麼:\n"
+        "  The NHI website is up, but Cloudflare no longer accepts any of the TLS\n"
+        "  fingerprints this tool impersonates. Your network is fine and nothing in\n"
+        "  the parsing pipeline is broken — the download simply never started.\n"
+        "  健保署網站是正常的，但 Cloudflare 已不再接受本工具偽裝的任何一種 TLS 指紋。\n"
+        "  你的網路沒問題，解析流程也沒壞——只是連下載都還沒開始就被擋掉了。\n"
+        "\n"
+        "How to fix / 如何修復:\n"
+        "  1. Retry in a few minutes; blocks are sometimes temporary.\n"
+        "     幾分鐘後重試，封鎖有時是暫時的。\n"
+        "  2. If it persists, find a working profile and add it to\n"
+        "     IMPERSONATE_CANDIDATES in src/nhi_extractor/config.py.\n"
+        "     若持續失敗，找出可用的 profile 並加進 config.py 的 IMPERSONATE_CANDIDATES。\n"
+        "     Test each candidate at least 10 times before trusting it — a single\n"
+        "     success cannot be told apart from ordinary flakiness.\n"
+        "     每個候選至少測 10 次再採信——單次成功無法與偶發性波動區分。\n"
+        "     Older and non-Chrome profiles have historically survived longest.\n"
+        "     歷來較舊的版本與非 Chrome 的 profile 撐得最久。\n"
+        "  3. Meanwhile you can still run the rest of the pipeline on files you\n"
+        "     already have: nhi-extract sync --skip-fetch\n"
+        "     在此期間仍可用既有檔案跑後續流程：nhi-extract sync --skip-fetch\n"
+    )
 
 
 def _download(session, url: str, out_path: Path) -> None:
@@ -151,8 +240,7 @@ def fetch_all(
     are not downloaded but are recorded in `manifest.skipped_documents`.
     """
     download_dir.mkdir(parents=True, exist_ok=True)
-    session = _make_session()
-    resp = session.get(source_url)
+    session, resp = _open_session(source_url)
     resp.raise_for_status()
     docs, update_date = parse_listing(resp.text, base_url=source_url)
 
