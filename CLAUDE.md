@@ -13,7 +13,7 @@ Convert Taiwan NHI medication regulation documents into RAG-ingestion-ready CSV 
 
 ```bash
 uv run nhi-extract sync                  # full pipeline
-uv run nhi-extract sync --skip-fetch     # use local DOCX
+uv run nhi-extract sync --skip-fetch     # newest already-downloaded release (.docx + .odt)
 uv run nhi-extract sync --dry-run        # build, print stats, write nothing
 uv run nhi-extract parse <docx>          # debug: print tree
 uv run nhi-extract chunk <docx>          # debug: print emitted items + tokens
