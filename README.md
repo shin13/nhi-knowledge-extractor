@@ -24,17 +24,18 @@ uv sync
 uv run nhi-extract sync   # fetch → parse → chunk → render → package
 ```
 
-Output — an actual run from 2026-07-27. Counts shift with every NHI release, so treat the numbers as a shape, not a target:
+Output — an actual run from 2026-08-27, on NHI release 2026-08-21. Counts shift with every NHI release, so treat the numbers as a shape, not a target:
 
 ```
-Fetched: 16 documents, release date 2026-07-27
-Skipped 77 (76 appendix_form, 1 unrecognized_title) — see MANIFEST.json
-  通則_113.05.28更新_1150727.odt: 1 items
-  第一節_神經系統藥物_115.6.23更新_1150727.docx: 50 items
+Fetched: 16 documents, release date 2026-08-21
+Skipped 78 (77 appendix_form, 1 unrecognized_title) — see MANIFEST.json
+  通則_113.05.28更新_1150821.odt: 1 items
+  第一節_神經系統藥物_115.8.21更新_1150821.docx: 50 items
   ...
-  第九節_抗癌瘤藥物_115.7.23更新_1150727.docx: 150 items
-Total: 551 items, max token count 6001
-Wrote: data/regulations/medication/藥品給付規定_20260727.zip
+  第九節_抗癌瘤藥物_115.8.21更新_1150821.docx: 151 items
+Total: 575 items, max token count 5907
+Wrote: data/regulations/medication/藥品給付規定_20260821.zip
+Diff vs prior: +25 / ~13 / -1
 ```
 
 Each release zip contains one CSV per chapter, plus `MANIFEST.json` and `CHANGES_YYYYMMDD.md`.
@@ -48,6 +49,7 @@ uv run nhi-extract sync --emit-depth 4     # coarser chunks (default 5)
 uv run nhi-extract parse <doc>             # debug: print parsed tree
 uv run nhi-extract chunk <doc>             # debug: print emitted items
 uv run nhi-extract diff <dir_a> <dir_b>    # diff two release folders
+uv run nhi-extract --version               # installed version
 ```
 
 ## Output schema
@@ -143,6 +145,7 @@ uv run nhi-extract sync --skip-fetch     # 用 chapters/ 裡最新版次的檔�
 uv run nhi-extract sync --dry-run        # 跑流程印統計，不寫 zip
 uv run nhi-extract sync --emit-depth 4   # 較粗粒度切塊
 uv run nhi-extract diff <舊版> <新版>     # 比對兩次 release 的差異
+uv run nhi-extract --version             # 已安裝的版本
 ```
 
 `diff` 範例 — 比對兩次 release 看健保署這次改了什麼：

@@ -6,6 +6,16 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 
 ## [Unreleased]
 
+### Changed
+- Docs synced to v0.1.2. `README.md`'s worked example was still the 2026-07-27 run
+  (551 items, max 6001 tokens); it now shows the verified 2026-08-27 run on NHI release
+  2026-08-21 (575 items, max 5907, diff `+25 / ~13 / -1`). `docs/spec.md` §7 restates the
+  five success criteria with per-criterion evidence rather than the run's summary line, §6
+  documents the four CI gates, and §3.2 gains `ManifestEntry` — the `TypedDict` that types
+  `MANIFEST.json` rows, whose `NotRequired` fields are what let `diff` read manifests
+  written by earlier releases without a migration script. `--version` added to the command
+  lists in both README languages.
+
 ### Added
 - A coverage gate. `pytest --cov=src/nhi_extractor` now fails below 90% line coverage
   (`fail_under` in `pyproject.toml`; actual is 92.5%), and CI runs it. The README badge

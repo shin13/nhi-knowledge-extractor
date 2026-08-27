@@ -61,6 +61,7 @@ tests/
 - New stages get a new module + test coverage under `tests/`. One responsibility per file — which means splitting a module's tests across several focused files once one grows unwieldy (`test_<module>_<topic>.py`), not growing a single file to match the module.
 - TDD: write the failing test first. `tests/test_chunk_pain_cases.py` is the regression net — never disable it.
 - `mypy` runs **strict with no per-module exemptions**. A new module is expected to type-check clean, not to be added to an ignore list. The only override in `pyproject.toml` is `ignore_missing_imports` for `curl_cffi`.
+- **`ruff`'s `line-length = 110` was measured, not defaulted.** `src` p99 is 97 characters and the longest line is 120, so 110 sits above the codebase's natural ceiling while still flagging genuine runaways. Dropping to ruff's default 88 would reformat 135 lines and bury the findings that matter (unused imports, `zip` without `strict=`) in whitespace churn. `E501` is waived under `tests/` — fixtures embed real NHI regulation text, and wrapping those literals hides the shape of the fixture.
 - **Coverage `fail_under = 90` and the README's "coverage ≥90%" badge are one claim.** The badge is only honest because the gate enforces it; change one and change the other. Deliberately line coverage, not branch — branch coverage measures exactly 90% today, so gating on it would sit on the threshold and fail on noise.
 - **`tests/fixtures/` is excluded from the whitespace pre-commit hooks.** Those files are captured verbatim from NHI; a fixture that has been "tidied" no longer reproduces what the site served. The hooks rewrote 12 lines inside `listing_page.html` the first time they ran.
 - `config.IMPERSONATE_CANDIDATES` is typed as curl_cffi's own `BrowserTypeLiteral`, imported under `TYPE_CHECKING` only. A profile name that does not exist now fails `mypy` in CI instead of failing against Cloudflare on someone's next `sync`. Keep the import guarded — a runtime import would let an upstream rename break the whole package.
@@ -112,7 +113,7 @@ fetch change works.
 The version lives in **three** places: `pyproject.toml`, `uv.lock` (run `uv lock` after bumping — never hand-edit), and `CHANGELOG.md`. `nhi_extractor.__version__` and `nhi-extract --version` read it from installed package metadata via `importlib.metadata`, so they follow the bump automatically — do not add a fourth hand-maintained copy.
 
 1. Branch `release/vX.Y.Z`. In `CHANGELOG.md`: `[Unreleased]` → `[vX.Y.Z] - YYYY-MM-DD`, leave a new empty `[Unreleased]` above it, and repoint the `compare/…HEAD` link at the new tag.
-2. Bump `pyproject.toml`, run `uv lock`, then run all three gates (`ruff`, `mypy`, `pytest` — see § Running checks).
+2. Bump `pyproject.toml`, run `uv lock`, then run all four gates (`ruff`, `mypy`, `pytest`, coverage — see § Running checks).
 3. PR → squash merge. The trunk is protected; no direct pushes.
 4. Tag and publish — the tag message **is** the release body:
 

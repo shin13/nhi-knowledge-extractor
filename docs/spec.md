@@ -1,7 +1,7 @@
 # Spec — NHI Knowledge Extractor
 
 - **Date:** 2026-05-21 (initial); last substantive edit 2026-08-27 (§5 fetch resilience, §6.1 live tests)
-- **Status:** Implemented — current as of v0.1.1
+- **Status:** Implemented — current as of v0.1.2
 - **Predecessor:** `NHI-Knowledge-Extraction` — see [`intent.md`](intent.md) for problem statement
 
 ---
@@ -67,7 +67,7 @@ Each stage is a module. Data types are the contracts. See [`CLAUDE.md`](../CLAUD
 
 ### 3.2 Core types
 
-Three groups: **external** (what `fetch` returns), **tree** (parser's intermediate representation), and **output** (chunker's product).
+Four groups: **external** (what `fetch` returns), **tree** (parser's intermediate representation), **output** (chunker's product), and **persisted** (what round-trips through `MANIFEST.json`).
 
 **External types** — produced by `fetch`, identify NHI source documents.
 
@@ -107,6 +107,19 @@ Block = Paragraph | Table
 ```
 
 `Node.body` is deliberately separated from `Node.children` so prose directly under a heading (before its first child heading) stays attached to that node — fixing a subtle predecessor bug where this content got misattributed to either the parent or the first child.
+
+**Persisted type** — one row of `MANIFEST.json`'s `items` list, written by `package` and read back by `diff`.
+
+```python
+class ManifestEntry(TypedDict):
+    item_id: str
+    content_sha256: str
+    section_path: NotRequired[str]
+    source_file: NotRequired[str]
+    token_count: NotRequired[int]
+```
+
+A `TypedDict`, not a dataclass, because these cross a JSON boundary: `diff` reads manifests written by *earlier* releases. Only the two fields `diff` actually requires are mandatory — the rest are `NotRequired`, so a manifest that predates a column still type-checks instead of needing a migration script.
 
 **Output type** — what `chunk` produces and `render` writes to CSV. One `Item` per CSV row.
 
@@ -250,6 +263,12 @@ Eliminates the predecessor's `"General Information"` / `"Additional Information"
 
 ## 6. Testing strategy
 
+CI gates four things on every pull request: `ruff check src/ tests/`, `mypy` (strict, no per-module exemptions), the offline test suite, and a **90% line-coverage threshold** (`fail_under` in `pyproject.toml`; actual is 92.5%). The README badge asserts `coverage ≥90%`, which is true only because that gate enforces it — the two numbers are one claim and must move together.
+
+Coverage is deliberately line, not branch: branch coverage measures *exactly* 90% today, so gating on it would sit on the threshold and fail on trivial noise. `--cov` is passed on the command line rather than in pytest's `addopts`, so running a single test file during development does not trip the project-wide threshold.
+
+`.pre-commit-config.yaml` turns the same gates into a local block — hygiene + `ruff --fix` + `mypy` on commit, full suite + coverage on push. `tests/fixtures/` is excluded from the whitespace hooks: those files are captured verbatim from the NHI site and must stay byte-identical to what was served.
+
 ### 6.1 Unit tests (per module)
 
 One or more focused `test_<module>[_<topic>].py` files per source module — split by topic once a single file grows unwieldy. Standard assertions on tree structure, table extraction, column mapping, etc.
@@ -279,7 +298,17 @@ A release run with `nhi-extract sync` is successful when:
 4. `CHANGES_YYYYMMDD.md` lists item-level adds / removes / modifies vs. last release
 5. Zip is produced and ready to deliver
 
-All five hold as of v0.1.1 — verified 2026-07-27 by a full `nhi-extract sync`: 16 documents, 551 items, max 6001 tokens, `CHANGES_20260727.md` and zip both produced.
+All five hold as of **v0.1.2** — verified 2026-08-27 by a full `nhi-extract sync` on NHI release 2026-08-21, and checked criterion by criterion against the produced release rather than inferred from the run's summary line:
+
+| # | Criterion | Evidence |
+|---|---|---|
+| 1 | Zero manual interventions | one `nhi-extract sync` invocation, no prompts |
+| 2 | Every item ≤ 7000 tokens | max `token_count` 5907 across 575 entries in `MANIFEST.json`; 0 over budget |
+| 3 | `第9節 / 9.69.` table present as Markdown | `sec9-9.69-part3-2` — the PD-L1 table the predecessor needed a Google Docs roundtrip for |
+| 4 | `CHANGES_YYYYMMDD.md` lists item-level diff | `CHANGES_20260821.md`, 39 item-level lines (`+25 / ~13 / -1`) |
+| 5 | Zip produced | `藥品給付規定_20260821.zip` |
+
+Also confirmed: 575 unique `item_id`s across 575 items — no collisions.
 
 ---
 
