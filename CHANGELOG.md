@@ -6,6 +6,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 
 ## [Unreleased]
 
+## [v0.1.2] - 2026-08-27
+
 ### Added
 - `nhi-extract --version`, and `nhi_extractor.__version__`. Both read the installed
   package metadata via `importlib.metadata`, so `pyproject.toml` stays the single
@@ -67,6 +69,7 @@ First public release.
 
 Pre-v0.1.0 work lives in git commits. Highlights: DOCX/ODT parser with native table extraction; variable-depth chunker with hard token budget contract; multi-format NHI fetcher (DOCX + ODT, 17 chapters); Strategy 0 leaf-splitter; same-date CHANGELOG replace; tilde cross-reference rejection.
 
-[Unreleased]: https://github.com/shin13/nhi-knowledge-extractor/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/shin13/nhi-knowledge-extractor/compare/v0.1.2...HEAD
+[v0.1.2]: https://github.com/shin13/nhi-knowledge-extractor/releases/tag/v0.1.2
 [v0.1.1]: https://github.com/shin13/nhi-knowledge-extractor/releases/tag/v0.1.1
 [v0.1.0]: https://github.com/shin13/nhi-knowledge-extractor/releases/tag/v0.1.0
