@@ -10,6 +10,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 - `sync` no longer fails with `403 Forbidden`. Cloudflare began rejecting recent Chrome TLS fingerprints, including the one the `impersonate="chrome"` alias resolved to. `fetch` now walks `config.IMPERSONATE_CANDIDATES` and keeps the first profile that clears the challenge, so a future block on one fingerprint degrades to a slower first request instead of a hard failure.
 
 ### Added
+- Catalog fallback sweep. Once the pinned candidates are exhausted, `fetch` walks every other profile curl_cffi ships, non-Chromium first — a live sweep found 22 of 45 profiles clearing while all Edge and all but three Chrome were blocked. Derived defensively from undocumented curl_cffi internals: if their shape changes on a version bump the sweep yields nothing and the pinned list still works, rather than raising from inside the fetcher.
+- `fetch.NetworkUnreachable`, raised immediately on a DNS/connection/timeout failure. Previously any exception advanced the walk, so an offline machine would probe every candidate and then be told at length, in two languages, that its network was fine. Only errors specific to a profile (`ImpersonateError`) now continue the walk.
 - When every profile is blocked, `sync` now exits with a bilingual (English / 繁體中文) explanation — what failed, what it does *not* mean (the site and your network are fine), and how to recover — instead of a `curl_cffi` traceback. Raised as `fetch.CloudflareBlocked` so the CLI can present it without a stack trace.
 - `pytest -m live` — an opt-in test that hits the real NHI site. The rest of `test_fetch.py` mocks the session and cannot detect a Cloudflare block.
 

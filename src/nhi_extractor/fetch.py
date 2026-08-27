@@ -26,13 +26,16 @@ first profile that gets through, instead of pinning one and hoping.
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
+from typing import get_args
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 from curl_cffi import requests as cffi_requests
+from curl_cffi.requests import exceptions as cffi_exceptions
 
 from .config import (
     APPENDIX_FORM_TITLE_PATTERN,
@@ -147,6 +150,68 @@ class CloudflareBlocked(RuntimeError):
     """
 
 
+class NetworkUnreachable(RuntimeError):
+    """The request never reached NHI — DNS, connection or timeout.
+
+    Kept separate from CloudflareBlocked because the two need opposite advice:
+    a fingerprint problem is worth trying another profile for, a dead network is
+    not. Conflating them tells an offline user, at length and in two languages,
+    that their network is fine.
+    """
+
+
+# Errors that are a fact about one profile rather than about the connection.
+# Only these advance the walk; anything else means the fingerprint is not the
+# variable and continuing would re-hit a dead host once per candidate.
+_PROFILE_ERRORS = (cffi_exceptions.ImpersonateError,)
+
+
+def _catalog_raw():
+    """Raw (names, normalizer) from curl_cffi's impersonation catalog.
+
+    Split out purely so the guard in `_catalog_candidates` is testable. Both
+    names live in `curl_cffi.requests.impersonate` and are undocumented.
+    """
+    from curl_cffi.requests import impersonate as imp
+
+    return get_args(imp.BrowserTypeLiteral), imp.normalize_browser_type
+
+
+def _is_chromium(target: str) -> bool:
+    return target.startswith(("chrome", "edge"))
+
+
+def _catalog_candidates(exclude: Sequence[str] = ()) -> tuple[str, ...]:
+    """Every distinct profile curl_cffi ships, non-Chromium first.
+
+    Used only after the pinned candidates are exhausted. Ordering is not
+    cosmetic: in the 2026-08-27 sweep all Edge and all but three Chrome
+    profiles were blocked while Firefox/Safari/Tor cleared, so probing
+    Chromium first would spend ~20 requests before reaching a likely winner.
+
+    Derived from undocumented curl_cffi internals, so every access is guarded:
+    if the catalog's shape changes on a version bump we return nothing and the
+    caller falls back to the pinned list. A crash here would be strictly worse
+    than the 403 this exists to route around.
+    """
+    try:
+        names, normalize = _catalog_raw()
+        seen: set[str] = set()
+        targets: list[str] = []
+        for name in sorted(names):
+            real = normalize(name)
+            if real not in seen:
+                seen.add(real)
+                targets.append(real)
+    except Exception:
+        return ()
+
+    skip = set(exclude)
+    return tuple(
+        t for t in sorted(targets, key=lambda t: (_is_chromium(t), t)) if t not in skip
+    )
+
+
 def _cleared_challenge(resp) -> bool:
     """Did this response get past Cloudflare, or should we try the next profile?
 
@@ -166,19 +231,48 @@ def _open_session(url: str, *, candidates=IMPERSONATE_CANDIDATES):
 
     The probe response is returned rather than discarded: `url` is the page the
     caller wanted anyway, so this costs no extra request.
+
+    Two phases. The pinned `candidates` are the fast path — in the normal case
+    the first one clears and nothing else is touched. Only once they are all
+    blocked does the catalog sweep run, covering every other profile curl_cffi
+    ships. A live sweep on 2026-08-27 cleared 22 of 45, so exhausting three
+    pinned profiles is a long way from being out of options; the sweep costs
+    roughly 13s worst case, paid only when the alternative is a hard failure.
     """
     attempts: list[str] = []
     last_status: int | str | None = None
 
-    for target in candidates:
+    for target in (*candidates, *_catalog_candidates(exclude=candidates)):
         attempts.append(target)
         session = _make_session(target)
         try:
             resp = session.get(url)
-        except Exception as exc:  # transport-level failure — try the next profile
+        except _PROFILE_ERRORS as exc:
+            # This profile is unusable; says nothing about the others.
             session.close()
             last_status = f"{type(exc).__name__}: {exc}"
             continue
+        except Exception as exc:
+            # Connection, DNS or timeout: the fingerprint is not the variable.
+            # Trying the rest would re-hit a dead host once per candidate and
+            # then blame Cloudflare for it.
+            session.close()
+            raise NetworkUnreachable(
+                "\n"
+                f"Could not reach {url} — {type(exc).__name__}: {exc}\n"
+                f"無法連線至 {url} —— {type(exc).__name__}: {exc}\n"
+                "\n"
+                "What this means / 這代表什麼:\n"
+                "  The request never reached the NHI server, so this is not a\n"
+                "  Cloudflare block and trying other browser profiles would not\n"
+                "  help. Check your network, DNS, VPN or proxy.\n"
+                "  請求根本沒有送達健保署伺服器，所以這不是 Cloudflare 封鎖，\n"
+                "  換其他瀏覽器 profile 也沒有用。請檢查網路、DNS、VPN 或 proxy。\n"
+                "\n"
+                "  You can still run the rest of the pipeline on files you already\n"
+                "  have: nhi-extract sync --skip-fetch\n"
+                "  仍可用既有檔案跑後續流程：nhi-extract sync --skip-fetch\n"
+            ) from exc
         if _cleared_challenge(resp):
             return session, resp
         session.close()
@@ -189,30 +283,32 @@ def _open_session(url: str, *, candidates=IMPERSONATE_CANDIDATES):
         "Blocked by Cloudflare — every browser fingerprint was rejected (HTTP 403).\n"
         "被 Cloudflare 阻擋——所有瀏覽器指紋都被拒絕（HTTP 403）。\n"
         "\n"
-        f"  URL          : {url}\n"
-        f"  Tried / 已嘗試: {', '.join(attempts)}\n"
+        f"  URL           : {url}\n"
+        f"  Tried / 已嘗試 : {len(attempts)} profiles — {', '.join(attempts[:4])}"
+        f"{', …' if len(attempts) > 4 else ''}\n"
         f"  Last / 最後結果: {last_status}\n"
         "\n"
         "What this means / 這代表什麼:\n"
-        "  The NHI website is up, but Cloudflare no longer accepts any of the TLS\n"
-        "  fingerprints this tool impersonates. Your network is fine and nothing in\n"
-        "  the parsing pipeline is broken — the download simply never started.\n"
-        "  健保署網站是正常的，但 Cloudflare 已不再接受本工具偽裝的任何一種 TLS 指紋。\n"
-        "  你的網路沒問題，解析流程也沒壞——只是連下載都還沒開始就被擋掉了。\n"
+        "  The NHI website is reachable, but Cloudflare rejected every TLS\n"
+        "  fingerprint curl_cffi can produce — not just the preferred ones.\n"
+        "  Your network is fine and the parsing pipeline is not broken; the\n"
+        "  download simply never started.\n"
+        "  健保署網站連得到，但 Cloudflare 拒絕了 curl_cffi 能產生的每一種 TLS\n"
+        "  指紋——不只是優先的那幾個。你的網路沒問題，解析流程也沒壞，\n"
+        "  只是連下載都還沒開始就被擋掉了。\n"
         "\n"
         "How to fix / 如何修復:\n"
         "  1. Retry in a few minutes; blocks are sometimes temporary.\n"
         "     幾分鐘後重試，封鎖有時是暫時的。\n"
-        "  2. If it persists, find a working profile and add it to\n"
-        "     IMPERSONATE_CANDIDATES in src/nhi_extractor/config.py.\n"
-        "     若持續失敗，找出可用的 profile 並加進 config.py 的 IMPERSONATE_CANDIDATES。\n"
-        "     Test each candidate at least 10 times before trusting it — a single\n"
-        "     success cannot be told apart from ordinary flakiness.\n"
-        "     每個候選至少測 10 次再採信——單次成功無法與偶發性波動區分。\n"
-        "     Try Firefox, Safari and Tor profiles first — Cloudflare blocks by\n"
-        "     engine family, not by age, and Chromium ones fare worst.\n"
-        "     優先試 Firefox、Safari、Tor 的 profile——Cloudflare 是按引擎家族封鎖，\n"
-        "     不是按新舊，其中 Chromium 系列最容易被擋。\n"
+        "  2. Since every bundled profile failed, a newer curl_cffi may be needed:\n"
+        "     uv add --upgrade curl-cffi\n"
+        "     所有內建 profile 都失敗，可能需要更新的 curl_cffi：\n"
+        "     uv add --upgrade curl-cffi\n"
+        "     Then put any profile that works into IMPERSONATE_CANDIDATES in\n"
+        "     src/nhi_extractor/config.py, testing each at least 10 times — a\n"
+        "     single success cannot be told apart from ordinary flakiness.\n"
+        "     再把可用的 profile 填進 config.py 的 IMPERSONATE_CANDIDATES，\n"
+        "     每個至少測 10 次——單次成功無法與偶發性波動區分。\n"
         "  3. Meanwhile you can still run the rest of the pipeline on files you\n"
         "     already have: nhi-extract sync --skip-fetch\n"
         "     在此期間仍可用既有檔案跑後續流程：nhi-extract sync --skip-fetch\n"

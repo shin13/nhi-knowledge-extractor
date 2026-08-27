@@ -83,14 +83,20 @@ def test_classify_document(title, expected):
 def _sessions_for(monkeypatch, codes):
     """Stub _make_session so the Nth call yields a session returning codes[N].
 
+    Calls past the end of `codes` return 403 — once the pinned candidates are
+    exhausted the walk continues into the curl_cffi catalog, and these tests
+    are about the pinned prefix.
+
     Returns the list of created (target, session) pairs so tests can assert
     which candidates were tried and that rejected sessions were closed.
     """
     created = []
 
     def fake_make_session(target):
+        i = len(created)
+        code = codes[i] if i < len(codes) else 403
         session = MagicMock()
-        session.get = MagicMock(return_value=MagicMock(status_code=codes[len(created)]))
+        session.get = MagicMock(return_value=MagicMock(status_code=code))
         created.append((target, session))
         return session
 
@@ -122,10 +128,10 @@ def test_open_session_falls_back_past_a_challenge(monkeypatch):
         rejected.close.assert_called_once()
 
 
-def test_open_session_skips_a_candidate_that_raises(monkeypatch):
-    """A transport-level failure must not abort the walk."""
+def _sessions_raising(monkeypatch, outcomes):
+    """Stub _make_session where each outcome is either an exception to raise
+    from .get() or a status code to return."""
     created = []
-    outcomes = [OSError("tls handshake failed"), MagicMock(status_code=200)]
 
     def fake_make_session(target):
         outcome = outcomes[len(created)]
@@ -133,16 +139,56 @@ def test_open_session_skips_a_candidate_that_raises(monkeypatch):
         if isinstance(outcome, Exception):
             session.get = MagicMock(side_effect=outcome)
         else:
-            session.get = MagicMock(return_value=outcome)
+            session.get = MagicMock(return_value=MagicMock(status_code=outcome))
         created.append((target, session))
         return session
 
     monkeypatch.setattr("nhi_extractor.fetch._make_session", fake_make_session)
+    return created
+
+
+def test_open_session_skips_a_profile_curl_cannot_impersonate(monkeypatch):
+    """An unsupported profile is a fact about that profile — try the next one."""
+    from curl_cffi.requests.exceptions import ImpersonateError
+
+    created = _sessions_raising(monkeypatch, [ImpersonateError("nope"), 200])
     from nhi_extractor.fetch import _open_session
 
     session, resp = _open_session(BASE_URL, candidates=("chrome146", "firefox147"))
     assert [t for t, _ in created] == ["chrome146", "firefox147"]
     assert resp.status_code == 200
+
+
+def test_open_session_aborts_immediately_on_a_network_failure(monkeypatch):
+    """A connection/DNS failure is not about the fingerprint. Walking the list
+    would hammer the host once per candidate and then report, in confident
+    bilingual prose, that the network is fine."""
+    from curl_cffi.requests.exceptions import DNSError
+
+    from nhi_extractor.fetch import NetworkUnreachable, _open_session
+
+    created = _sessions_raising(monkeypatch, [DNSError("could not resolve"), 200, 200])
+
+    with pytest.raises(NetworkUnreachable) as exc:
+        _open_session(BASE_URL, candidates=("firefox147", "safari184", "chrome131"))
+
+    assert len(created) == 1, "must not try another profile after a network error"
+    msg = str(exc.value)
+    assert "could not resolve" in msg
+    assert "無法連線" in msg and "Could not reach" in msg
+
+
+def test_open_session_aborts_on_timeout(monkeypatch):
+    """45 candidates x a 30s timeout is a 20-minute hang, not a fallback."""
+    from curl_cffi.requests.exceptions import Timeout
+
+    from nhi_extractor.fetch import NetworkUnreachable, _open_session
+
+    created = _sessions_raising(monkeypatch, [Timeout("timed out"), 200])
+
+    with pytest.raises(NetworkUnreachable):
+        _open_session(BASE_URL, candidates=("firefox147", "safari184"))
+    assert len(created) == 1
 
 
 def test_open_session_raises_when_every_candidate_is_blocked(monkeypatch):
