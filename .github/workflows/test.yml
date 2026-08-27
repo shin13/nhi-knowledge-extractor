@@ -33,5 +33,7 @@ jobs:
       - name: Type-check (mypy)
         run: uv run mypy
 
-      - name: Run tests
-        run: uv run pytest -v
+      - name: Run tests + coverage gate
+        # --cov is passed here rather than in pytest's addopts so that running a
+        # single test file locally does not trip the project-wide threshold.
+        run: uv run pytest -v --cov=src/nhi_extractor

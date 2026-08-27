@@ -2,6 +2,7 @@
 
 [![tests](https://github.com/shin13/nhi-knowledge-extractor/actions/workflows/test.yml/badge.svg)](https://github.com/shin13/nhi-knowledge-extractor/actions/workflows/test.yml)
 [![Python 3.13+](https://img.shields.io/badge/python-3.13%2B-blue)](https://www.python.org/downloads/)
+[![coverage](https://img.shields.io/badge/coverage-%E2%89%A590%25-green)](CONTRIBUTING.md#the-four-gates)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 Convert Taiwan NHI medication regulation documents — <https://www.nhi.gov.tw/ch/cp-7593-ad2a9-3397-1.html> — into RAG-ingestion-ready CSVs.

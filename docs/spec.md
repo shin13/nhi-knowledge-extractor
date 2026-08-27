@@ -325,4 +325,3 @@ Terms used across this spec and the rest of `docs/`. NHI domain vocabulary (通�
 | Strategy 2 | Split oversize single table by rows, keeping header on each part. |
 | Strategy 3 | Last-resort greedy paragraph accumulation for prose-only over-budget leaves. |
 | Anchor preamble | When Strategy 0 recursively sub-splits an over-budget group, continuation sub-parts (part3-2 onwards) inject `{opener}（續）：` after the heading line so each row is self-contained. See [`emit-depth-plan.md`](emit-depth-plan.md). |
-

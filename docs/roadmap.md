@@ -1,6 +1,6 @@
 # Future Plans
 
-Categorised by priority and stance toward YAGNI. Status here reflects 2026-08-27.
+Categorised by priority and stance toward YAGNI. Status here reflects 2026-08-27 (post-v0.1.2).
 
 ## P0 — Demand-triggered (currently YAGNI)
 
@@ -25,6 +25,7 @@ Run these once the repo is live on GitHub.
 | Add `ruff check` to CI | Style + dead-code guardrail | 30 min — **done** |
 | Add `mypy src/` to CI | Type-drift guardrail | 2–4 hr — **done, and strict** |
 | PyPI release | `pip install nhi-knowledge-extractor` instead of cloning | 1 hr (trusted publisher setup) |
+| **Docs revision — succinct + more approachable** | 1223 lines across `docs/` + `README.md` + `CLAUDE.md` + `CONTRIBUTING.md`, and `CLAUDE.md` asks a contributor to read **five** docs in order before any non-trivial change. `docs/spec.md` alone is 327 lines. The content is accurate but the on-ramp is heavy, and several docs restate each other (the pain cases and the Cloudflare lesson each appear in three places). Scope: shorten, de-duplicate, put a genuine 5-minute path first, and make each doc state plainly who it is for. Accuracy is not the problem — **do not trade correctness for brevity**, and do not delete a recorded lesson just because it is repeated; consolidate it to one home and link | 0.5–1 day |
 
 ## P2 — Code-quality (raise the bar)
 
@@ -32,8 +33,9 @@ Run these once the repo is live on GitHub.
 |---|---|---|
 | **ruff** | Unified style, catch unused imports | 30 min — **done** (`E,F,I,UP,B,SIM`) |
 | **mypy strict** | Catch type drift; some functions still un-annotated | 2–4 hr — **done, no per-module exemptions** |
-| **pre-commit hooks** | Gate at local commit, not just CI | 30 min |
-| **Coverage threshold + badge** | Encourage tests with new features | 30 min |
+| **pre-commit hooks** | Gate at local commit, not just CI | 30 min — **done** (`.pre-commit-config.yaml`; pre-commit = hygiene + ruff + mypy, pre-push = tests + coverage) |
+| **Coverage threshold + badge** | Encourage tests with new features | 30 min — **done** (`fail_under = 90`, actual 92.5%; badge asserts `≥90%` so it cannot go stale) |
+| **Codebase review & optimization** | No sweep has been done since the module split. Concrete starting points, all observed 2026-08-27: `chunk.py` has **8 function-level imports** (`from .config import TARGET_BUDGET/HARD_BUDGET/EMIT_DEPTH` ×4, `dataclasses.replace` ×2, `collections.defaultdict`, `datetime`+`pathlib`) with **no circular-import justification** — the module already imports `.config` at line 15, so these are leftovers; `chunk.py` is the largest module at 263 statements and holds the most intricate algorithm; `cli.py` sits at 71% coverage (lowest — error and interactive paths untested) and `parse.py` at 87%. Scope: dead code, redundant imports, extract-function on the chunker's longest paths, and raise the two low-coverage modules. **Not** a rewrite — the token-budget contract and `item_id` scheme stay untouched | 1–2 days |
 
 ## P3 — Feature expansion (changes how the tool is used)
 
@@ -79,11 +81,15 @@ Run these once the repo is live on GitHub.
 
 1. P5 scheduled sync — the only thing that would run `pytest -m live` unattended, and
    therefore the only unattended guard against the fetch breaking again
-2. Confirm downstream RAG integration works with current 11-column schema + hydration pattern
-3. Wait for demand to drive P0 items (don't pre-build)
+2. P1 docs revision — the guardrails are in place, so the remaining barrier to anyone
+   else using or contributing to this is the 1223-line on-ramp
+3. P2 codebase review & optimization — cheapest right after the docs pass, while the
+   structure is fresh in mind
+4. Confirm downstream RAG integration works with current 11-column schema + hydration pattern
+5. Wait for demand to drive P0 items (don't pre-build)
 
-Feature-complete for its stated scope. 137 / 137 offline tests green, plus `ruff`,
-`mypy --strict` and the opt-in `pytest -m live`. Last pipeline check: full
+Feature-complete for its stated scope. 137 / 137 offline tests green at 92.5% line
+coverage (gate: 90%), plus `ruff`, `mypy --strict` and the opt-in `pytest -m live`. Last pipeline check: full
 `nhi-extract sync` on 2026-08-27 — NHI release 2026-08-21, 16 documents, 575 items,
 max 5907 tokens per row, diff vs prior `+25 / ~13 / -1`, zip produced. The last full
 audit against all five spec §7 success criteria was PR #8; this run confirms the

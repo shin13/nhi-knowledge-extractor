@@ -16,18 +16,47 @@ uv sync
 No system binaries are required — ODT is parsed natively via `zipfile` + `lxml`,
 so there is no LibreOffice or `antiword` dependency to install.
 
-## The three gates
+## The four gates
 
-CI runs all three on every pull request. Run them locally before pushing:
+CI runs all four on every pull request. Run them locally before pushing:
 
 ```bash
 uv run ruff check src/ tests/
 uv run mypy
-uv run pytest
+uv run pytest --cov=src/nhi_extractor
 ```
 
 `mypy` runs in `strict` mode with no per-module exemptions. If you add a module,
 it is expected to type-check cleanly rather than be added to an ignore list.
+
+The fourth gate is the coverage threshold, `fail_under = 90` in
+`pyproject.toml`. The README badge asserts "coverage ≥90%", and that claim is
+true only because this gate enforces it — the two numbers must stay equal. If a
+change genuinely cannot be covered, say why in the PR rather than lowering the
+threshold to get a green build.
+
+`--cov` is passed on the command line rather than in pytest's `addopts`, so
+running a single file (`uv run pytest tests/test_chunk_leaf.py`) during
+development does not trip the project-wide threshold.
+
+## Pre-commit hooks
+
+Optional but recommended — they turn the gates above from a reminder into a
+local block:
+
+```bash
+uv run pre-commit install --hook-type pre-commit --hook-type pre-push
+```
+
+Both stages must be installed; `pre-commit install` alone does not set up the
+pre-push hook. On commit you get whitespace hygiene, `ruff --fix` and `mypy`; on
+push you also get the full suite and the coverage gate.
+
+The hooks shell out to `uv run` rather than using pre-commit's managed
+environments, so the tool versions are exactly the ones in `uv.lock` and in CI.
+`tests/fixtures/` is excluded from the whitespace hooks — those files are
+captured verbatim from the NHI site and must stay byte-identical to what was
+served.
 
 ## The live test
 
