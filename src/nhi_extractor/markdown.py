@@ -11,7 +11,7 @@ from .types import Block, Node, Paragraph, Table
 
 
 @functools.lru_cache(maxsize=1)
-def _encoding():
+def _encoding() -> tiktoken.Encoding:
     return tiktoken.get_encoding(TIKTOKEN_ENCODING)
 
 

@@ -15,7 +15,7 @@ from pathlib import Path
 
 from .diff import DiffResult, compute_diff
 from .render import render
-from .types import Item
+from .types import Item, ManifestEntry, SkippedDoc
 
 CSV_FIELDS = [
     "topic", "content", "heading", "section_path",
@@ -36,8 +36,8 @@ def _release_label(d: date) -> str:
     return f"{d.year}{d.month:02d}{d.day:02d}"
 
 
-def _items_to_manifest_entries(items: list[Item]) -> list[dict]:
-    entries: list[dict] = []
+def _items_to_manifest_entries(items: list[Item]) -> list[ManifestEntry]:
+    entries: list[ManifestEntry] = []
     for it in items:
         h = hashlib.sha256(it.content_md.encode("utf-8")).hexdigest()
         entries.append({
@@ -50,7 +50,7 @@ def _items_to_manifest_entries(items: list[Item]) -> list[dict]:
     return entries
 
 
-def _find_prior_manifest(data_dir: Path, exclude_label: str) -> list[dict]:
+def _find_prior_manifest(data_dir: Path, exclude_label: str) -> list[ManifestEntry]:
     """Find the most recent prior release (by folder name sort) and return its manifest entries.
     Returns [] if none."""
     candidates: list[Path] = []
@@ -67,7 +67,9 @@ def _find_prior_manifest(data_dir: Path, exclude_label: str) -> list[dict]:
     if not candidates:
         return []
     candidates.sort(key=lambda p: p.name, reverse=True)
-    return json.loads((candidates[0] / "MANIFEST.json").read_text(encoding="utf-8"))["items"]
+    manifest = json.loads((candidates[0] / "MANIFEST.json").read_text(encoding="utf-8"))
+    entries: list[ManifestEntry] = manifest["items"]
+    return entries
 
 
 def _write_csvs(items: list[Item], folder: Path) -> list[Path]:
@@ -144,7 +146,7 @@ def build_release(
     release_date: date,
     data_dir: Path,
     changelog_path: Path,
-    skipped_documents: tuple = (),
+    skipped_documents: tuple[SkippedDoc, ...] = (),
 ) -> BuildResult:
     label = _release_label(release_date)
     folder = data_dir / f"藥品給付規定_{label}"

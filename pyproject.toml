@@ -3,6 +3,8 @@ name = "nhi-extractor"
 version = "0.1.1"
 description = "Convert Taiwan NHI medication regulation DOCX documents into RAG-ingestion-ready CSVs."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.13"
 dependencies = [
     "python-docx>=1.1.2",
@@ -18,8 +20,11 @@ nhi-extract = "nhi_extractor.cli:app"
 
 [dependency-groups]
 dev = [
+    "lxml-stubs>=0.5.1",
+    "mypy>=2.3.1",
     "pytest>=8.0.0",
     "pytest-cov>=5.0.0",
+    "ruff>=0.16.4",
 ]
 
 [build-system]
@@ -35,3 +40,27 @@ addopts = "-m 'not live'"
 markers = [
     "live: hits the live NHI website (opt-in; the only check that can catch a Cloudflare block)",
 ]
+
+[tool.ruff]
+# src p99 is 97 chars and the longest line is 120; 110 sits above the codebase's
+# natural ceiling with headroom while still flagging genuine runaways.
+line-length = 110
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+# Test fixtures embed real NHI regulation text. Wrapping those literals hides the
+# shape of the fixture, which is the thing under test.
+"tests/*" = ["E501"]
+
+[tool.mypy]
+python_version = "3.13"
+files = ["src"]
+strict = true
+
+[[tool.mypy.overrides]]
+# curl_cffi ships no type information.
+module = ["curl_cffi.*"]
+ignore_missing_imports = true

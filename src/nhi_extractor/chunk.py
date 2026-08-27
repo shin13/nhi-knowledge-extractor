@@ -14,7 +14,7 @@ import re
 
 from .config import TRIVIAL_BODY_TOKEN_THRESHOLD
 from .markdown import count_tokens, render_node_to_markdown, table_to_markdown
-from .types import Item, Node, Paragraph, SourceDoc, Table
+from .types import Block, Document, Item, Node, Paragraph, SourceDoc, Table
 
 
 def has_significant_body(node: Node) -> bool:
@@ -71,7 +71,7 @@ NUMBERED_LIST_RE = re.compile(r"^(\d+)\.\s", re.MULTILINE)
 TOP_LEVEL_ITEM_RE = re.compile(r"^(\d+)\.(?!\d)")
 
 
-def _group_blocks_by_numbered_item(body: list) -> list[list] | None:
+def _group_blocks_by_numbered_item(body: list[Block]) -> list[list[Block]] | None:
     """Group body blocks by top-level numbered item.
 
     Each Paragraph whose text matches `^N.\\s` opens a new group. Tables and
@@ -83,7 +83,7 @@ def _group_blocks_by_numbered_item(body: list) -> list[list] | None:
       List of groups (each a list of blocks) when ≥2 numbered items found,
       else None (caller should try another strategy).
     """
-    groups: list[list] = [[]]  # index 0 = preamble bucket
+    groups: list[list[Block]] = [[]]  # index 0 = preamble bucket
     item_starts = 0
     for block in body:
         if isinstance(block, Paragraph) and TOP_LEVEL_ITEM_RE.match(block.text):
@@ -130,7 +130,8 @@ def _split_table_by_rows(table: Table, target_budget: int) -> list[Table]:
 
     for row in table.rows:
         tentative = current_rows + [row]
-        size = count_tokens(table_to_markdown(Table(header=table.header, rows=tentative, caption=table.caption)))
+        tentative_table = Table(header=table.header, rows=tentative, caption=table.caption)
+        size = count_tokens(table_to_markdown(tentative_table))
         if size > target_budget and current_rows:
             out.append(Table(header=table.header, rows=current_rows, caption=table.caption))
             current_rows = [row]
@@ -167,7 +168,7 @@ def split_leaf(
     ancestors: list[Node],
     section_number: int | None,
     source: SourceDoc | None = None,
-    target_budget: int = None,
+    target_budget: int | None = None,
 ) -> list[Item]:
     """Split an over-budget leaf into multiple Items following spec §4.2 priority."""
     from .config import TARGET_BUDGET
@@ -217,7 +218,7 @@ def split_leaf(
         # for RAG retrieval.
         from dataclasses import replace
         out: list[Item] = []
-        for it, group in zip(items, groups):
+        for it, group in zip(items, groups, strict=True):
             if it.token_count <= HARD_BUDGET:
                 out.append(it)
                 continue
@@ -313,7 +314,7 @@ def _split_leaf_without_strategy_0(
     current_size = count_tokens(heading_prefix)
     part_idx = 1
 
-    def flush():
+    def flush() -> None:
         nonlocal current_parts, current_size, part_idx
         if not current_parts:
             return
@@ -363,10 +364,7 @@ def _split_leaf_without_strategy_0(
             start = end
 
     for block in leaf.body:
-        if isinstance(block, Paragraph):
-            rendered = block.text
-        else:
-            rendered = table_to_markdown(block)
+        rendered = block.text if isinstance(block, Paragraph) else table_to_markdown(block)
         block_size = count_tokens(rendered)
         if current_size + block_size > target_budget and current_parts:
             flush()
@@ -529,7 +527,7 @@ def _assign_metadata(items: list[Item]) -> list[Item]:
     return out
 
 
-def chunk_document(doc, *, emit_depth: int | None = None) -> list[Item]:
+def chunk_document(doc: Document, *, emit_depth: int | None = None) -> list[Item]:
     """Public entry point: Document → list[Item], all within HARD_BUDGET.
 
     Args:

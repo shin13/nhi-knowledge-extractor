@@ -20,8 +20,8 @@ from __future__ import annotations
 
 import re
 import zipfile
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Iterator, Union
 
 import docx as python_docx  # the `python-docx` package
 from docx.document import Document as DocxDocument
@@ -55,10 +55,10 @@ TILDE_REFERENCE_RE = re.compile(r"^\d+\.\d+~\d+")
 # A unified block stream — both DOCX and ODT walkers feed into the same
 # tree-builder. "p" carries the paragraph text (already stripped); "tbl"
 # carries a fully-converted Table dataclass.
-UnifiedBlock = tuple[str, Union[str, Table]]
+UnifiedBlock = tuple[str, str | Table]
 
 
-def _iter_body_blocks(doc: DocxDocument):
+def _iter_body_blocks(doc: DocxDocument) -> Iterator[tuple[str, DocxParagraph | DocxTable]]:
     """Yield (kind, obj) for each paragraph and table in the document body.
 
     We pass ``doc`` (the Document object) as the parent so that
@@ -166,8 +166,11 @@ _ODT_CELL_TAG = f"{{{_ODT_NS['table']}}}table-cell"
 def _odt_extract_text(elem: etree._Element) -> str:
     """Concatenate all text descendants of an ODT element, preserving order."""
     # lxml's `.itertext()` walks all descendant text in document order.
-    # Whitespace-only / empty parts are joined as-is.
-    return "".join(elem.itertext()).strip()
+    # Whitespace-only / empty parts are joined as-is. It is typed as yielding
+    # `str | bytes` because comment and processing-instruction nodes yield
+    # bytes; those are not document text, and joining one would have raised
+    # TypeError, so dropping them is safer than the previous unfiltered join.
+    return "".join(t for t in elem.itertext() if isinstance(t, str)).strip()
 
 
 def _odt_convert_table(tbl_elem: etree._Element) -> Table:
@@ -186,9 +189,8 @@ def _odt_convert_table(tbl_elem: etree._Element) -> Table:
 
 def _iter_odt_blocks(path: Path) -> Iterator[UnifiedBlock]:
     """Yield ("p", text) or ("tbl", Table) for each top-level body element of an ODT."""
-    with zipfile.ZipFile(path) as z:
-        with z.open("content.xml") as f:
-            tree = etree.parse(f)
+    with zipfile.ZipFile(path) as z, z.open("content.xml") as f:
+        tree = etree.parse(f)
     text_root = tree.getroot().find(".//office:body/office:text", _ODT_NS)
     if text_root is None:
         return
@@ -206,11 +208,11 @@ def _iter_odt_blocks(path: Path) -> Iterator[UnifiedBlock]:
 def _iter_docx_blocks_unified(docx: DocxDocument) -> Iterator[UnifiedBlock]:
     """Adapter: convert DOCX walker output to the unified (kind, text|Table) form."""
     for kind, obj in _iter_body_blocks(docx):
-        if kind == "p":
+        if kind == "p" and isinstance(obj, DocxParagraph):
             text = (obj.text or "").strip()
             if text:
                 yield "p", text
-        elif kind == "tbl":
+        elif kind == "tbl" and isinstance(obj, DocxTable):
             yield "tbl", _convert_table(obj)
 
 
@@ -223,13 +225,13 @@ def _build_document_from_blocks(blocks: Iterator[UnifiedBlock], source: SourceDo
     happens upstream (in the dedicated DOCX path) — but since NHI documents have
     no real heading styles anyway, the text-based detection is sufficient.
     """
-    blocks = list(blocks)
+    block_list = list(blocks)
 
     # Title is the first non-empty paragraph.
     title = ""
-    for kind, payload in blocks:
-        if kind == "p" and payload:
-            title = payload  # type: ignore[assignment]
+    for kind, payload in block_list:
+        if kind == "p" and isinstance(payload, str) and payload:
+            title = payload
             break
 
     section_match = SECTION_NUMBER_RE.search(title)
@@ -244,9 +246,9 @@ def _build_document_from_blocks(blocks: Iterator[UnifiedBlock], source: SourceDo
     stack: list[Node] = [root]
     title_consumed = False
 
-    for kind, payload in blocks:
-        if kind == "p":
-            text = payload  # type: ignore[assignment]
+    for kind, payload in block_list:
+        if kind == "p" and isinstance(payload, str):
+            text = payload
             if not title_consumed and text == title:
                 title_consumed = True
                 continue
@@ -256,8 +258,8 @@ def _build_document_from_blocks(blocks: Iterator[UnifiedBlock], source: SourceDo
                 _attach_heading_node(root, stack, new_node)
             else:
                 _attach_block(stack, root, Paragraph(text=text))
-        elif kind == "tbl":
-            _attach_block(stack, root, payload)  # type: ignore[arg-type]
+        elif kind == "tbl" and isinstance(payload, Table):
+            _attach_block(stack, root, payload)
 
     return Document(source=source, title=title, section_number=section_number, root=root)
 

@@ -1,8 +1,8 @@
 from datetime import date
 from pathlib import Path
 
-from nhi_extractor.parse import parse_docx, parse_document, parse_odt
-from nhi_extractor.types import Document, Node, Paragraph, SourceDoc, Table
+from nhi_extractor.parse import parse_document, parse_docx, parse_odt
+from nhi_extractor.types import Document, Node, SourceDoc, Table
 
 
 def _make_source(p: Path) -> SourceDoc:

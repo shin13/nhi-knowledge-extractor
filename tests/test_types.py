@@ -2,7 +2,12 @@ from datetime import date
 from pathlib import Path
 
 from nhi_extractor.types import (
-    SourceDoc, Manifest, Document, Node, Paragraph, Table, Item,
+    Document,
+    Item,
+    Node,
+    Paragraph,
+    SourceDoc,
+    Table,
 )
 
 

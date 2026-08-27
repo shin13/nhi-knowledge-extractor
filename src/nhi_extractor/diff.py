@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from .types import ManifestEntry
+
 
 @dataclass
 class DiffResult:
@@ -24,7 +26,7 @@ class DiffResult:
             lines.append(summary)
         lines.append("")
 
-        def _section(title: str, ids: list[str], paths: dict[str, str]):
+        def _section(title: str, ids: list[str], paths: dict[str, str]) -> None:
             if not ids:
                 return
             lines.append(f"### {title}")
@@ -42,7 +44,7 @@ class DiffResult:
         return "\n".join(lines).rstrip() + "\n"
 
 
-def compute_diff(*, old: list[dict], new: list[dict]) -> DiffResult:
+def compute_diff(*, old: list[ManifestEntry], new: list[ManifestEntry]) -> DiffResult:
     """`old` and `new` are lists of manifest entries (each a dict with
     'item_id', 'content_sha256', and optionally 'section_path')."""
     old_map = {e["item_id"]: e for e in old}

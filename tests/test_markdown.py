@@ -1,5 +1,7 @@
 from nhi_extractor.markdown import (
-    count_tokens, table_to_markdown, render_node_to_markdown,
+    count_tokens,
+    render_node_to_markdown,
+    table_to_markdown,
 )
 from nhi_extractor.types import Node, Paragraph, Table
 
