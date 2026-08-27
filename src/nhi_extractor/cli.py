@@ -13,7 +13,7 @@ from rich.table import Table as RichTable
 from . import config as cfg
 from .chunk import chunk_document
 from .diff import compute_diff
-from .fetch import fetch_all, latest_local_release
+from .fetch import CloudflareBlocked, fetch_all, latest_local_release
 from .package import build_release
 from .parse import parse_document
 from .types import Manifest, SourceDoc
@@ -69,7 +69,16 @@ def sync(
     """Full pipeline: fetch -> parse -> chunk -> render -> package."""
     if emit_depth < 1:
         raise typer.BadParameter("--emit-depth must be a positive integer (≥ 1)")
-    manifest = _build_manifest_from_chapters(cfg.CHAPTERS_DIR) if skip_fetch else fetch_all()
+    if skip_fetch:
+        manifest = _build_manifest_from_chapters(cfg.CHAPTERS_DIR)
+    else:
+        try:
+            manifest = fetch_all()
+        except CloudflareBlocked as exc:
+            # Show the message on its own — a traceback here would bury the one
+            # thing the user needs, and there is no code defect to point at.
+            console.print(f"[red]{exc}[/red]")
+            raise typer.Exit(code=1) from None
     console.print(f"[bold]Fetched:[/bold] {len(manifest.documents)} documents, release date {manifest.update_date_iso}")
     if manifest.skipped_documents:
         by_reason: dict[str, int] = {}

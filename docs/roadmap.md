@@ -58,9 +58,9 @@ Run these once the repo is live on GitHub.
 
 | Item | Trigger | Estimate |
 |---|---|---|
-| `fetch` retry / backoff | NHI occasionally returns 429 / timeout | 0.5 day |
+| `fetch` retry / backoff for 429 | Rate limiting only. TLS-fingerprint 403s are already handled by the candidate walk + catalog sweep, and timeouts now abort deliberately (`NetworkUnreachable`) — see `docs/spec.md` §5 | 0.25 day |
 | Schema migration script | When CSV columns change and we need to migrate old releases | 0.5 day |
-| Scheduled weekly sync (cron / CI workflow) | Auto-fetch + diff + notify — and the only guard against fetch breakage: the Cloudflare 403 fixed in v0.1.1 hid for a month because `test_fetch.py` mocks the session | 0.5 day |
+| Scheduled weekly sync (cron / CI workflow) | Auto-fetch + diff + notify. Also the only *unattended* guard against fetch breakage: `pytest -m live` can now detect a Cloudflare block, but nothing runs it on a schedule, so a block still surfaces only when someone runs `sync` by hand | 0.5 day |
 | Incident log on failed sync | Traceability | 0.25 day |
 | Retire `_char_split_oversized` | It's a band-aid for a pathological test; remove once spec confirms it's unreachable | 0.5 day |
 

@@ -7,9 +7,20 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 ## [Unreleased]
 
 ### Fixed
+- `sync` no longer fails with `403 Forbidden`. Cloudflare began rejecting recent Chrome TLS fingerprints, including the one the `impersonate="chrome"` alias resolved to. `fetch` now walks `config.IMPERSONATE_CANDIDATES` and keeps the first profile that clears the challenge, so a future block on one fingerprint degrades to a slower first request instead of a hard failure.
+
+### Added
+- Catalog fallback sweep. Once the pinned candidates are exhausted, `fetch` walks every other profile curl_cffi ships, non-Chromium first — a live sweep found 22 of 45 profiles clearing while all Edge and all but three Chrome were blocked. Derived defensively from undocumented curl_cffi internals: if their shape changes on a version bump the sweep yields nothing and the pinned list still works, rather than raising from inside the fetcher.
+- `fetch.NetworkUnreachable`, raised immediately on a DNS/connection/timeout failure. Previously any exception advanced the walk, so an offline machine would probe every candidate and then be told at length, in two languages, that its network was fine. Only errors specific to a profile (`ImpersonateError`) now continue the walk.
+- When every profile is blocked, `sync` now exits with a bilingual (English / 繁體中文) explanation — what failed, what it does *not* mean (the site and your network are fine), and how to recover — instead of a `curl_cffi` traceback. Raised as `fetch.CloudflareBlocked` so the CLI can present it without a stack trace.
+- `pytest -m live` — an opt-in test that hits the real NHI site. The rest of `test_fetch.py` mocks the session and cannot detect a Cloudflare block.
+
 - `--skip-fetch` no longer silently builds a corpus from every release at once. The download directory accumulates one file set per release, and the old `*.docx` glob swept all of them into a single run: on a 7-release directory it emitted 3689 items with duplicated `item_id`s instead of 575. (`chunk_document`'s collision guard is per-document, so nothing caught it.) It now selects the newest release by the date stamp in the filename and reports how many older files it ignored.
 - `--skip-fetch` no longer drops the ODT-only chapters. The `*.docx` glob excluded 通則, 第六節, 第十一節, 第十二節 and 第十五節 — 5 of the 16 in-scope documents — with no warning.
 - `--skip-fetch` now dates the release from the source filenames instead of `date.today()`, so the output folder is named for the NHI release it actually contains.
+
+### Changed
+- Impersonation targets are pinned explicitly. The bare `"chrome"`/`"firefox"` aliases track whatever curl_cffi ships as newest, which silently changes the fingerprint on a dependency bump.
 
 ## [v0.1.1] - 2026-07-27
 

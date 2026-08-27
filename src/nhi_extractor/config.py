@@ -5,6 +5,22 @@ from pathlib import Path
 # --- Source ---
 SOURCE_URL = "https://www.nhi.gov.tw/ch/cp-7593-ad2a9-3397-1.html"
 UPDATE_DATE_SELECTOR = "body > main > div.contentbox > section.pubInfo > dl > div:nth-child(2) > dd > time"
+
+# curl_cffi TLS-impersonation targets, tried in order until one clears NHI's
+# Cloudflare challenge (see fetch._open_session).
+#
+# Do NOT use the bare aliases ("chrome", "firefox", ...) here: they resolve to
+# whatever that curl_cffi release considers newest, so the effective fingerprint
+# silently changes when the dependency is bumped. Pin explicit versions.
+#
+# Measured 2026-08-27 against SOURCE_URL, fresh session per request, targets
+# interleaved to control for time-of-day effects:
+#   firefox147 12/12 · safari184 12/12 · chrome131 12/12
+#   chrome146 3/12 · chrome142 0/5 · edge101 0/5 · chrome_android 0/5
+# Cloudflare currently rejects recent Chrome fingerprints. When these stop
+# working, re-measure with n>=10 per target before changing this list — a
+# single sample cannot distinguish a blocked profile from ordinary flakiness.
+IMPERSONATE_CANDIDATES = ("firefox147", "safari184", "chrome131")
 DOCX_LINK_PATTERN = r".*\.docx$"
 ODT_LINK_PATTERN = r".*\.odt$"
 

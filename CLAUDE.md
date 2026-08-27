@@ -49,14 +49,15 @@ src/nhi_extractor/
   markdown.py   table_to_markdown, render_node_to_markdown, count_tokens
 tests/
   fixtures/     real DOCX from past NHI releases
-  test_*.py     one file per module + test_chunk_pain_cases.py
+  test_*.py     one or more focused files per module — split by topic once a
+                single file grows unwieldy (see test_chunk_*.py, test_fetch*.py)
 ```
 
 ## Conventions
 
 - All paths and tunables in `src/nhi_extractor/config.py`. Do not hardcode elsewhere.
 - The chunker's token budget is a **contract**: any item over `HARD_BUDGET` (7000) raises in `chunk_document`. Don't catch and ignore.
-- New stages get a new module + a new `tests/test_<module>.py`. One responsibility per file.
+- New stages get a new module + test coverage under `tests/`. One responsibility per file — which means splitting a module's tests across several focused files once one grows unwieldy (`test_<module>_<topic>.py`), not growing a single file to match the module.
 - TDD: write the failing test first. `tests/test_chunk_pain_cases.py` is the regression net — never disable it.
 
 ## What is and isn't committed
@@ -79,9 +80,14 @@ The predecessor (`NHI-Knowledge-Extraction`) needed two hand-fixes every release
 ## Running tests
 
 ```bash
-uv run pytest                                    # all
+uv run pytest                                    # all (offline; `live` excluded by default)
+uv run pytest -m live                            # opt-in: hits the real NHI site
 uv run pytest tests/test_chunk_pain_cases.py -v  # regression net
 ```
+
+`-m live` is the only check that can catch a Cloudflare block — everything else
+mocks the session. CI runs the offline set; run the live one before claiming a
+fetch change works.
 
 ## Releasing
 
@@ -116,7 +122,11 @@ Read in order before non-trivial changes:
 - **Heading-based splitting destroys structure.** The predecessor split at 2/3-level headings and flattened everything below into one CSV cell. This chunker splits by token budget *as a contract*, descending the tree until each item fits.
 - **`odfpy.getElementsByType(P)` can't see tables** — why the predecessor needed Google Docs roundtrip for §9.69. `python-docx` walks `<w:tbl>` natively; tables are first-class blocks.
 - **NHI publishes 通則 / 第六節 / 第十一節 / 第十二節 / 第十五節 only as .doc/.odt.** Filter-by-`.docx` silently drops half the corpus. `fetch.parse_listing` groups by title; `.odt` parsed natively (no LibreOffice).
-- **NHI sits behind Cloudflare — use `curl_cffi`, not `cloudscraper`/`requests`.** Cloudflare gates a JS challenge on the TLS/JA3 fingerprint: `cloudscraper` gets a hard 403, a browser User-Agent alone is flaky. `fetch._make_session` uses `curl_cffi.Session(impersonate="chrome")` for a deterministic pass — don't "simplify" it back. If 403s return, bump the impersonation target before suspecting code. No offline test covers this (the session is mocked); only a live `sync` catches it. Corollary: a green test run is **not** evidence that a fetch change works — cite a live `sync` instead.
+- **NHI sits behind Cloudflare — use `curl_cffi`, not `cloudscraper`/`requests`.** Cloudflare gates its challenge on the TLS/JA3 fingerprint, not the User-Agent: `cloudscraper` gets a hard 403, a browser UA alone is flaky. `curl_cffi` impersonates a real browser's fingerprint.
+- **Which fingerprint works drifts over time — never pin the bare `"chrome"` alias.** The aliases resolve to whatever that curl_cffi release considers newest, so the effective fingerprint changes when the dependency is bumped while the source line looks untouched. `config.IMPERSONATE_CANDIDATES` holds explicit pinned versions and `fetch._open_session` walks them until one clears; once they are exhausted it sweeps the rest of curl_cffi's catalog, non-Chromium first. The catalog comes from undocumented curl_cffi internals, so `_catalog_candidates` swallows any error and returns `()` — degrading to the pinned list is the whole point, and a crash there would be worse than the 403 it routes around. Don't "clean up" that bare `except`.
+- **Only fingerprint-specific errors advance the walk.** `ImpersonateError` means try the next profile; a DNS/connection/timeout error raises `NetworkUnreachable` immediately. Advancing on every exception is how an offline machine gets told, in two languages, that its network is fine — and with a 45-profile catalog it also means 45 requests at a dead host. Measured 2026-08-27: `chrome146` (what `"chrome"` resolved to) cleared 3/12; `firefox147` / `safari184` / `chrome131` cleared 12/12. A full sweep of all 45 distinct profiles cleared 22 — and **Cloudflare blocks by engine family, not by age**: every Edge and every Chrome outside the narrow 123–131 band was blocked, including the oldest (`chrome99`), while Firefox, Safari and Tor cleared almost across the board. When picking a replacement, reach for non-Chromium, not merely older.
+- **A 403 sweep needs n≥10 per target.** An earlier session concluded "intermittent 20-40% flake, retry fixes it" from single samples and wrote it into the handoff; the real 2026-08-27 failure was a profile-level block that retrying could not fix (same session, 6/6 × 403). Interleave targets across the sweep so a time-of-day effect can't masquerade as a per-profile signal.
+- **A green `pytest` is not evidence that fetch works** — `test_fetch.py` mocks the session, and every offline test passed straight through the 2026-08-27 block. Cite `uv run pytest -m live` (the opt-in live test) or a real `sync`.
 - **Tilde cross-references look like headings.** `4.1~3項規定` would parse as a `(4,1)` heading. `parse.TILDE_REFERENCE_RE` rejects them. Also: `HEADING_PREFIX_RE` requires `.` / whitespace / EOL after the numeric prefix, so `"2.18歲以上..."` stays as body.
 - **通則 uses Chinese-numeral headings (一、二、三)** — doesn't match Arabic-only regex. `chunk_document` detects root-only shape and emits as a single `sec0` item.
 

@@ -1,6 +1,6 @@
 # Spec — NHI Knowledge Extractor
 
-- **Date:** 2026-05-21 (initial); last substantive edit 2026-06-24 (§5, curl_cffi fetch)
+- **Date:** 2026-05-21 (initial); last substantive edit 2026-08-27 (§5 fetch resilience, §6.1 live tests)
 - **Status:** Implemented — current as of v0.1.1
 - **Predecessor:** `NHI-Knowledge-Extraction` — see [`intent.md`](intent.md) for problem statement
 
@@ -238,7 +238,10 @@ Eliminates the predecessor's `"General Information"` / `"Additional Information"
 
 ## 5. Other stages (brief)
 
-- **`fetch`** — `curl_cffi` browser-impersonating session (clears NHI's Cloudflare TLS-fingerprint challenge), ROC date parsing. Groups listing links by document title; classifies as `regulation` (download) / `appendix_form` (record in `Manifest.skipped_documents`) / `unknown` (warn). Prefers `.docx`, falls back to `.odt`.
+- **`fetch`** — `curl_cffi` browser-impersonating session, ROC date parsing. Groups listing links by document title; classifies as `regulation` (download) / `appendix_form` (record in `Manifest.skipped_documents`) / `unknown` (warn). Prefers `.docx`, falls back to `.odt`.
+
+  NHI sits behind Cloudflare, which gates on the TLS/JA3 fingerprint and drifts over time — so a single pinned profile is not durable. `_open_session` walks `config.IMPERSONATE_CANDIDATES` (explicit pinned versions; never the `"chrome"`-style aliases, which float across curl_cffi releases), then sweeps the rest of curl_cffi's catalog non-Chromium first, and reuses the first session that clears for the whole run. Only a `403` advances the walk — `404`/`5xx` are returned as-is, and DNS/connection/timeout raises `NetworkUnreachable` rather than being misreported as a block. Exhausting everything raises `CloudflareBlocked`. Both carry a bilingual, actionable message that the CLI prints without a traceback.
+
   `latest_local_release` is the read-back counterpart of `_safe_filename`: `--skip-fetch` uses it to select **one** release from the download directory (which accumulates every release ever fetched) by the date stamp in the filename, covering `.docx` and `.odt` alike.
 - **`parse`** — DOCX via `python-docx`; ODT natively via zipfile + lxml. Walks document body in order; dispatches Paragraph (heading detection via style + numeric prefix regex) vs. Table.
 - **`render`** — Pure function `Item → dict[str, str]`. Writes CSVs with `csv.DictWriter`, `utf-8-sig` BOM (Excel-friendly).
@@ -249,7 +252,9 @@ Eliminates the predecessor's `"General Information"` / `"Additional Information"
 
 ### 6.1 Unit tests (per module)
 
-One `test_<module>.py` per source module. Standard assertions on tree structure, table extraction, column mapping, etc.
+One or more focused `test_<module>[_<topic>].py` files per source module — split by topic once a single file grows unwieldy. Standard assertions on tree structure, table extraction, column mapping, etc.
+
+Tests marked `@pytest.mark.live` hit the real NHI site and are excluded by default (`addopts = "-m 'not live'"`); run them with `uv run pytest -m live`. They exist because every other test mocks the HTTP session, so the offline suite cannot detect a Cloudflare block — the whole suite passed straight through the 2026-08-27 outage.
 
 ### 6.2 Pain-case regression tests
 

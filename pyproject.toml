@@ -29,3 +29,9 @@ build-backend = "hatchling.build"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+# `live` tests hit the real NHI site. Excluded by default so `uv run pytest`
+# stays offline and deterministic; run them with `uv run pytest -m live`.
+addopts = "-m 'not live'"
+markers = [
+    "live: hits the live NHI website (opt-in; the only check that can catch a Cloudflare block)",
+]

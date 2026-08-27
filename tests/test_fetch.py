@@ -74,6 +74,152 @@ def test_classify_document(title, expected):
     assert classify_document(title) == expected
 
 
+# --- _open_session impersonation fallback ------------------------------------
+#
+# NHI sits behind Cloudflare, which gates on the TLS/JA3 fingerprint. A given
+# impersonation target works until Cloudflare decides otherwise, so the fetcher
+# walks a candidate list. These tests pin the walk; they do not touch the network.
+
+def _sessions_for(monkeypatch, codes):
+    """Stub _make_session so the Nth call yields a session returning codes[N].
+
+    Calls past the end of `codes` return 403 — once the pinned candidates are
+    exhausted the walk continues into the curl_cffi catalog, and these tests
+    are about the pinned prefix.
+
+    Returns the list of created (target, session) pairs so tests can assert
+    which candidates were tried and that rejected sessions were closed.
+    """
+    created = []
+
+    def fake_make_session(target):
+        i = len(created)
+        code = codes[i] if i < len(codes) else 403
+        session = MagicMock()
+        session.get = MagicMock(return_value=MagicMock(status_code=code))
+        created.append((target, session))
+        return session
+
+    monkeypatch.setattr("nhi_extractor.fetch._make_session", fake_make_session)
+    return created
+
+
+def test_open_session_uses_first_candidate_that_clears(monkeypatch):
+    created = _sessions_for(monkeypatch, [200])
+    from nhi_extractor.fetch import _open_session
+
+    session, resp = _open_session(BASE_URL, candidates=("firefox147", "safari184"))
+
+    assert [t for t, _ in created] == ["firefox147"], "must not probe past a working target"
+    assert session is created[0][1]
+    assert resp.status_code == 200
+
+
+def test_open_session_falls_back_past_a_challenge(monkeypatch):
+    created = _sessions_for(monkeypatch, [403, 403, 200])
+    from nhi_extractor.fetch import _open_session
+
+    session, resp = _open_session(BASE_URL, candidates=("chrome146", "chrome142", "firefox147"))
+
+    assert [t for t, _ in created] == ["chrome146", "chrome142", "firefox147"]
+    assert session is created[2][1]
+    assert resp.status_code == 200
+    for _, rejected in created[:2]:
+        rejected.close.assert_called_once()
+
+
+def _sessions_raising(monkeypatch, outcomes):
+    """Stub _make_session where each outcome is either an exception to raise
+    from .get() or a status code to return."""
+    created = []
+
+    def fake_make_session(target):
+        outcome = outcomes[len(created)]
+        session = MagicMock()
+        if isinstance(outcome, Exception):
+            session.get = MagicMock(side_effect=outcome)
+        else:
+            session.get = MagicMock(return_value=MagicMock(status_code=outcome))
+        created.append((target, session))
+        return session
+
+    monkeypatch.setattr("nhi_extractor.fetch._make_session", fake_make_session)
+    return created
+
+
+def test_open_session_skips_a_profile_curl_cannot_impersonate(monkeypatch):
+    """An unsupported profile is a fact about that profile — try the next one."""
+    from curl_cffi.requests.exceptions import ImpersonateError
+
+    created = _sessions_raising(monkeypatch, [ImpersonateError("nope"), 200])
+    from nhi_extractor.fetch import _open_session
+
+    session, resp = _open_session(BASE_URL, candidates=("chrome146", "firefox147"))
+    assert [t for t, _ in created] == ["chrome146", "firefox147"]
+    assert resp.status_code == 200
+
+
+def test_open_session_aborts_immediately_on_a_network_failure(monkeypatch):
+    """A connection/DNS failure is not about the fingerprint. Walking the list
+    would hammer the host once per candidate and then report, in confident
+    bilingual prose, that the network is fine."""
+    from curl_cffi.requests.exceptions import DNSError
+
+    from nhi_extractor.fetch import NetworkUnreachable, _open_session
+
+    created = _sessions_raising(monkeypatch, [DNSError("could not resolve"), 200, 200])
+
+    with pytest.raises(NetworkUnreachable) as exc:
+        _open_session(BASE_URL, candidates=("firefox147", "safari184", "chrome131"))
+
+    assert len(created) == 1, "must not try another profile after a network error"
+    msg = str(exc.value)
+    assert "could not resolve" in msg
+    assert "無法連線" in msg and "Could not reach" in msg
+
+
+def test_open_session_aborts_on_timeout(monkeypatch):
+    """45 candidates x a 30s timeout is a 20-minute hang, not a fallback."""
+    from curl_cffi.requests.exceptions import Timeout
+
+    from nhi_extractor.fetch import NetworkUnreachable, _open_session
+
+    created = _sessions_raising(monkeypatch, [Timeout("timed out"), 200])
+
+    with pytest.raises(NetworkUnreachable):
+        _open_session(BASE_URL, candidates=("firefox147", "safari184"))
+    assert len(created) == 1
+
+
+def test_open_session_raises_when_every_candidate_is_blocked(monkeypatch):
+    _sessions_for(monkeypatch, [403, 403, 403])
+    from nhi_extractor.fetch import CloudflareBlocked, _open_session
+
+    with pytest.raises(CloudflareBlocked) as exc:
+        _open_session(BASE_URL, candidates=("chrome146", "chrome142", "edge101"))
+
+    msg = str(exc.value)
+    # The error must name the targets tried and the last status, or the next
+    # person re-derives this whole investigation from scratch.
+    assert "chrome146" in msg and "edge101" in msg
+    assert "403" in msg
+    # Bilingual, and it must say what to do — not just what failed.
+    assert "Blocked by Cloudflare" in msg and "被 Cloudflare 阻擋" in msg
+    assert "IMPERSONATE_CANDIDATES" in msg and "--skip-fetch" in msg
+
+
+def test_open_session_does_not_fall_back_on_a_real_http_error(monkeypatch):
+    """A 404/500 is the site being broken, not Cloudflare. Walking the list
+    would waste requests and bury the real status."""
+    created = _sessions_for(monkeypatch, [404, 200])
+    from nhi_extractor.fetch import _open_session
+
+    session, resp = _open_session(BASE_URL, candidates=("firefox147", "safari184"))
+
+    assert [t for t, _ in created] == ["firefox147"], "must not retry other targets on 404"
+    assert resp.status_code == 404
+
+
 # --- fetch_all orchestration -------------------------------------------------
 
 def test_fetch_all_records_skipped_appendix_forms(tmp_path, monkeypatch):
@@ -90,7 +236,10 @@ def test_fetch_all_records_skipped_appendix_forms(tmp_path, monkeypatch):
     fake_session.get = MagicMock(
         side_effect=lambda url, **kw: listing_resp if url.endswith(".html") else download_resp
     )
-    monkeypatch.setattr("nhi_extractor.fetch._make_session", lambda: fake_session)
+    monkeypatch.setattr(
+        "nhi_extractor.fetch._open_session",
+        lambda url, **kw: (fake_session, listing_resp),
+    )
 
     from nhi_extractor.fetch import fetch_all
     manifest = fetch_all(download_dir=tmp_path)
@@ -108,3 +257,28 @@ def test_fetch_all_records_skipped_appendix_forms(tmp_path, monkeypatch):
     for s in appendix_skipped:
         assert s.title.startswith("附表")
         assert s.url
+
+
+# --- live network check ------------------------------------------------------
+#
+# Everything above mocks the session, so a green suite is NOT evidence that the
+# fetcher can actually reach NHI — the 2026-08-27 Cloudflare block passed every
+# offline test. This is the only test that can catch that class of failure.
+#
+# Opt-in, because it hits a live government site:
+#     uv run pytest -m live
+
+@pytest.mark.live
+def test_live_open_session_clears_cloudflare():
+    """At least one configured impersonation profile must still get through."""
+    from nhi_extractor.config import SOURCE_URL
+    from nhi_extractor.fetch import _open_session
+
+    session, resp = _open_session(SOURCE_URL)
+    try:
+        assert resp.status_code == 200
+        docs, update_date = parse_listing(resp.text, base_url=SOURCE_URL)
+        assert any(classify_document(d.title) == "regulation" for d in docs)
+        assert update_date.year >= 2024
+    finally:
+        session.close()
