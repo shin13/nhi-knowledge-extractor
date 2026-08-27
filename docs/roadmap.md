@@ -1,6 +1,6 @@
 # Future Plans
 
-Categorised by priority and stance toward YAGNI. Status here reflects 2026-05-24.
+Categorised by priority and stance toward YAGNI. Status here reflects 2026-08-27.
 
 ## P0 — Demand-triggered (currently YAGNI)
 
@@ -19,19 +19,19 @@ Run these once the repo is live on GitHub.
 | Item | Why | Estimate |
 |---|---|---|
 | `gh repo create … --push` | Make the repo a public asset | 5 min — **done in this session** |
-| README badges (CI, license, Python version) | Standard public-repo signaling | 10 min |
-| `CONTRIBUTING.md` | Required when accepting outside PRs | 30 min |
+| README badges (CI, license, Python version) | Standard public-repo signaling | 10 min — **done** |
+| `CONTRIBUTING.md` | Required when accepting outside PRs | 30 min — **done** |
 | GitHub Actions CI (pytest) | Auto-gate PRs | 30 min — **done in this session** |
-| Add `ruff check` to CI | Style + dead-code guardrail | 30 min |
-| Add `mypy src/` to CI | Type-drift guardrail (start non-strict) | 2–4 hr |
+| Add `ruff check` to CI | Style + dead-code guardrail | 30 min — **done** |
+| Add `mypy src/` to CI | Type-drift guardrail | 2–4 hr — **done, and strict** |
 | PyPI release | `pip install nhi-knowledge-extractor` instead of cloning | 1 hr (trusted publisher setup) |
 
 ## P2 — Code-quality (raise the bar)
 
 | Item | Pain it solves | Estimate |
 |---|---|---|
-| **ruff** | Unified style, catch unused imports | 30 min |
-| **mypy strict** | Catch type drift; some functions still un-annotated | 2–4 hr |
+| **ruff** | Unified style, catch unused imports | 30 min — **done** (`E,F,I,UP,B,SIM`) |
+| **mypy strict** | Catch type drift; some functions still un-annotated | 2–4 hr — **done, no per-module exemptions** |
 | **pre-commit hooks** | Gate at local commit, not just CI | 30 min |
 | **Coverage threshold + badge** | Encourage tests with new features | 30 min |
 
@@ -44,6 +44,7 @@ Run these once the repo is live on GitHub.
 | **MANIFEST audit fields** | per-doc `max_depth_in_tree`, `emit_depth_used`, polluted-row count | 0.5 day |
 | **`chunk --verbose`** | Show budget utilisation, parent_id groupings per row | 0.5 day |
 | **Per-section stats dashboard** | A self-contained HTML visualisation of a release | 1–2 days |
+| **MCP server — evaluate feasibility first** | Serve a release to MCP clients (coding agents, LLM desktop apps) so "which regulation covers Pembrolizumab?" is answerable without standing up a RAG stack. **Step 1 is an evaluation, not a build**: name the client, and say what MCP gives that handing the CSV to an existing RAG pipeline does not. Only scope the build if that answer is concrete. Sibling prior art: `taiwan-fda-mcp`, `dmc-data-context` | 0.5 day to evaluate |
 
 ## P4 — Cross-project integration (downstream / upstream)
 
@@ -76,11 +77,14 @@ Run these once the repo is live on GitHub.
 
 ## Recommended sequence (whenever the project is touched again)
 
-1. Confirm downstream RAG integration works with current 11-column schema + hydration pattern
-2. Add ruff to CI (low cost, high signal)
+1. P5 scheduled sync — the only thing that would run `pytest -m live` unattended, and
+   therefore the only unattended guard against the fetch breaking again
+2. Confirm downstream RAG integration works with current 11-column schema + hydration pattern
 3. Wait for demand to drive P0 items (don't pre-build)
 
-Feature-complete for its stated scope as of `v0.1.1` (2026-07-27). 107 / 107 tests green.
-Last pipeline check: full `nhi-extract sync` on 2026-07-27 — 16 docs, 551 items, max 6001
-tokens per row, no polluted rows, CHANGES file and zip both produced. All five spec §7
-success criteria verified.
+Feature-complete for its stated scope. 137 / 137 offline tests green, plus `ruff`,
+`mypy --strict` and the opt-in `pytest -m live`. Last pipeline check: full
+`nhi-extract sync` on 2026-08-27 — NHI release 2026-08-21, 16 documents, 575 items,
+max 5907 tokens per row, diff vs prior `+25 / ~13 / -1`, zip produced. The last full
+audit against all five spec §7 success criteria was PR #8; this run confirms the
+end-to-end shape, not each criterion individually.

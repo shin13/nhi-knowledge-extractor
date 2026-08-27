@@ -26,14 +26,18 @@ first profile that gets through, instead of pinning one and hoping.
 from __future__ import annotations
 
 import re
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
-from typing import get_args
+from typing import TYPE_CHECKING, cast, get_args
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
+from bs4.element import Tag
+
+if TYPE_CHECKING:
+    from curl_cffi.requests.impersonate import BrowserTypeLiteral
 from curl_cffi import requests as cffi_requests
 from curl_cffi.requests import exceptions as cffi_exceptions
 
@@ -46,7 +50,6 @@ from .config import (
     UPDATE_DATE_SELECTOR,
 )
 from .types import Manifest, SkippedDoc, SourceDoc
-
 
 # --- Listing parse -----------------------------------------------------------
 
@@ -78,13 +81,28 @@ def _parse_update_date(soup: BeautifulSoup) -> date | None:
     return date(roc_year + 1911, mo, da)
 
 
+def _attr(tag: Tag, name: str) -> str:
+    """One attribute value as a string.
+
+    BeautifulSoup types every attribute as `str | list[str]` because a few of
+    them (class, rel) really are multi-valued. `href` and `title` are not, so
+    narrow once here rather than casting at each use site.
+    """
+    value = tag.get(name)
+    if isinstance(value, str):
+        return value
+    if isinstance(value, list):
+        return " ".join(value)
+    return ""
+
+
 def parse_listing(html: str, *, base_url: str) -> tuple[list[DocLinks], date]:
     """Group <a> tags by document title and collect every available format URL."""
     soup = BeautifulSoup(html, "html.parser")
     groups: dict[str, dict[str, str]] = {}
     for a in soup.find_all("a", href=True):
-        href = a.get("href") or ""
-        title_attr = (a.get("title") or "").strip()
+        href = _attr(a, "href")
+        title_attr = _attr(a, "title").strip()
         # Detect extension from title (preferred) or href
         m = _EXT_RE.search(title_attr) or _EXT_RE.search(href)
         if not m:
@@ -206,9 +224,15 @@ def latest_local_release(chapters_dir: Path) -> LocalRelease:
     )
 
 
-def _make_session(impersonate: str):
-    """HTTP session pinned to one curl_cffi TLS-impersonation profile."""
-    return cffi_requests.Session(impersonate=impersonate)
+def _make_session(impersonate: str) -> cffi_requests.Session:
+    """HTTP session pinned to one curl_cffi TLS-impersonation profile.
+
+    `impersonate` is `str`, not curl_cffi's `BrowserTypeLiteral`, because the
+    catalog sweep discovers profile names at runtime — they cannot be known
+    statically. The pinned list in `config.IMPERSONATE_CANDIDATES` *is* typed
+    as that Literal, so a typo there is caught by mypy rather than by a 403.
+    """
+    return cffi_requests.Session(impersonate=cast("BrowserTypeLiteral", impersonate))
 
 
 CHALLENGE_STATUS = 403
@@ -239,7 +263,7 @@ class NetworkUnreachable(RuntimeError):
 _PROFILE_ERRORS = (cffi_exceptions.ImpersonateError,)
 
 
-def _catalog_raw():
+def _catalog_raw() -> tuple[tuple[str, ...], Callable[[str], str]]:
     """Raw (names, normalizer) from curl_cffi's impersonation catalog.
 
     Split out purely so the guard in `_catalog_candidates` is testable. Both
@@ -285,7 +309,7 @@ def _catalog_candidates(exclude: Sequence[str] = ()) -> tuple[str, ...]:
     )
 
 
-def _cleared_challenge(resp) -> bool:
+def _cleared_challenge(resp: cffi_requests.Response) -> bool:
     """Did this response get past Cloudflare, or should we try the next profile?
 
     Only a 403 means "wrong TLS fingerprint, try another profile". Every other
@@ -295,7 +319,9 @@ def _cleared_challenge(resp) -> bool:
     return resp.status_code != CHALLENGE_STATUS
 
 
-def _open_session(url: str, *, candidates=IMPERSONATE_CANDIDATES):
+def _open_session(
+    url: str, *, candidates: Sequence[str] = IMPERSONATE_CANDIDATES
+) -> tuple[cffi_requests.Session, cffi_requests.Response]:
     """Return `(session, response)` for the first profile that clears Cloudflare.
 
     Probes `url` once per candidate. The winning session is returned open so the
@@ -388,13 +414,13 @@ def _open_session(url: str, *, candidates=IMPERSONATE_CANDIDATES):
     )
 
 
-def _download(session, url: str, out_path: Path) -> None:
+def _download(session: cffi_requests.Session, url: str, out_path: Path) -> None:
     if out_path.exists():
         return
     r = session.get(url, stream=True)
-    r.raise_for_status()
+    r.raise_for_status()  # type: ignore[no-untyped-call]  # curl_cffi is unannotated here
     with open(out_path, "wb") as f:
-        for chunk in r.iter_content(8192):
+        for chunk in r.iter_content(8192):  # type: ignore[no-untyped-call]
             f.write(chunk)
 
 
@@ -412,7 +438,7 @@ def fetch_all(
     """
     download_dir.mkdir(parents=True, exist_ok=True)
     session, resp = _open_session(source_url)
-    resp.raise_for_status()
+    resp.raise_for_status()  # type: ignore[no-untyped-call]  # curl_cffi is unannotated here
     docs, update_date = parse_listing(resp.text, base_url=source_url)
 
     sources: list[SourceDoc] = []

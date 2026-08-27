@@ -3,7 +3,7 @@ from pathlib import Path
 
 from nhi_extractor.chunk import chunk_document
 from nhi_extractor.config import HARD_BUDGET
-from nhi_extractor.types import Document, Node, Paragraph, SourceDoc, Table
+from nhi_extractor.types import Document, Node, Paragraph, SourceDoc
 
 
 def _source(p: Path = Path("test.docx")) -> SourceDoc:

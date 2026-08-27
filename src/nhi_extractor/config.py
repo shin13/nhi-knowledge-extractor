@@ -1,6 +1,15 @@
 """Project-wide constants. All paths and tunables live here."""
 
+from __future__ import annotations
+
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    # Annotation only. This name lives in curl_cffi's undocumented internals;
+    # importing it at runtime would let an upstream rename break the whole
+    # package, which is the failure `fetch._catalog_candidates` exists to avoid.
+    from curl_cffi.requests.impersonate import BrowserTypeLiteral
 
 # --- Source ---
 SOURCE_URL = "https://www.nhi.gov.tw/ch/cp-7593-ad2a9-3397-1.html"
@@ -20,7 +29,10 @@ UPDATE_DATE_SELECTOR = "body > main > div.contentbox > section.pubInfo > dl > di
 # Cloudflare currently rejects recent Chrome fingerprints. When these stop
 # working, re-measure with n>=10 per target before changing this list — a
 # single sample cannot distinguish a blocked profile from ordinary flakiness.
-IMPERSONATE_CANDIDATES = ("firefox147", "safari184", "chrome131")
+# Typed as curl_cffi's own Literal of valid profiles, so a name that does not
+# exist (a typo, or a profile dropped upstream) fails `mypy` in CI instead of
+# failing against Cloudflare on someone's next `sync`.
+IMPERSONATE_CANDIDATES: tuple[BrowserTypeLiteral, ...] = ("firefox147", "safari184", "chrome131")
 DOCX_LINK_PATTERN = r".*\.docx$"
 ODT_LINK_PATTERN = r".*\.odt$"
 

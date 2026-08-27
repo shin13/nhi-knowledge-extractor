@@ -4,11 +4,9 @@ from unittest.mock import MagicMock
 import pytest
 
 from nhi_extractor.fetch import (
-    DocLinks,
     classify_document,
     parse_listing,
 )
-
 
 FIXTURE = Path(__file__).parent / "fixtures" / "listing_page.html"
 BASE_URL = "https://www.nhi.gov.tw/ch/cp-7593-ad2a9-3397-1.html"

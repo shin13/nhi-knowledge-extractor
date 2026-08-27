@@ -18,6 +18,7 @@ uv run nhi-extract sync --dry-run        # build, print stats, write nothing
 uv run nhi-extract parse <docx>          # debug: print tree
 uv run nhi-extract chunk <docx>          # debug: print emitted items + tokens
 uv run nhi-extract diff <dir_a> <dir_b>  # diff two release folders
+uv run nhi-extract --version             # installed version (read from package metadata)
 ```
 
 ## "I want to..." quick map
@@ -59,12 +60,14 @@ tests/
 - The chunker's token budget is a **contract**: any item over `HARD_BUDGET` (7000) raises in `chunk_document`. Don't catch and ignore.
 - New stages get a new module + test coverage under `tests/`. One responsibility per file — which means splitting a module's tests across several focused files once one grows unwieldy (`test_<module>_<topic>.py`), not growing a single file to match the module.
 - TDD: write the failing test first. `tests/test_chunk_pain_cases.py` is the regression net — never disable it.
+- `mypy` runs **strict with no per-module exemptions**. A new module is expected to type-check clean, not to be added to an ignore list. The only override in `pyproject.toml` is `ignore_missing_imports` for `curl_cffi`.
+- `config.IMPERSONATE_CANDIDATES` is typed as curl_cffi's own `BrowserTypeLiteral`, imported under `TYPE_CHECKING` only. A profile name that does not exist now fails `mypy` in CI instead of failing against Cloudflare on someone's next `sync`. Keep the import guarded — a runtime import would let an upstream rename break the whole package.
 
 ## What is and isn't committed
 
 This repo ships **the pipeline**, not the data. Re-fetch produces everything downstream.
 
-**Commit:** `src/`, `tests/`, `docs/`, `pyproject.toml`/`uv.lock`, `CHANGELOG.md`, small fixed `tests/fixtures/*.docx`, `CLAUDE.md`.
+**Commit:** `src/`, `tests/`, `docs/`, `pyproject.toml`/`uv.lock`, `CHANGELOG.md`, `CONTRIBUTING.md`, small fixed `tests/fixtures/*.docx`, `CLAUDE.md`.
 
 **Gitignored:** `data/regulations/medication/chapters/` (downloaded sources), `data/.../藥品給付規定_*/` (release outputs), `data/.../CHANGELOG_data.md` (pipeline-generated), `.private/` (local dev notes).
 
@@ -77,9 +80,13 @@ The predecessor (`NHI-Knowledge-Extraction`) needed two hand-fixes every release
 - `第8節 row 13` (Etanercept) — was hand-split with the predecessor's `csv_splitter.py`. Now: `chunk._chunk_node` descent + `split_leaf` numbered-list split.
 - `第9節 row 85` (PD-L1 table) — was a Google Docs → Markdown → LLM roundtrip. Now: `parse.py` reads `<w:tbl>` directly, table preserved atomically.
 
-## Running tests
+## Running checks
+
+CI gates on all three. Run them before pushing.
 
 ```bash
+uv run ruff check src/ tests/                    # style, unused imports, bugbear
+uv run mypy                                      # strict, no per-module exemptions
 uv run pytest                                    # all (offline; `live` excluded by default)
 uv run pytest -m live                            # opt-in: hits the real NHI site
 uv run pytest tests/test_chunk_pain_cases.py -v  # regression net
@@ -91,10 +98,10 @@ fetch change works.
 
 ## Releasing
 
-The version lives in **three** places: `pyproject.toml`, `uv.lock` (run `uv lock` after bumping — never hand-edit), and `CHANGELOG.md`. There is no `__version__` in the package.
+The version lives in **three** places: `pyproject.toml`, `uv.lock` (run `uv lock` after bumping — never hand-edit), and `CHANGELOG.md`. `nhi_extractor.__version__` and `nhi-extract --version` read it from installed package metadata via `importlib.metadata`, so they follow the bump automatically — do not add a fourth hand-maintained copy.
 
 1. Branch `release/vX.Y.Z`. In `CHANGELOG.md`: `[Unreleased]` → `[vX.Y.Z] - YYYY-MM-DD`, leave a new empty `[Unreleased]` above it, and repoint the `compare/…HEAD` link at the new tag.
-2. Bump `pyproject.toml`, run `uv lock`, then `uv run pytest`.
+2. Bump `pyproject.toml`, run `uv lock`, then run all three gates (`ruff`, `mypy`, `pytest` — see § Running checks).
 3. PR → squash merge. The trunk is protected; no direct pushes.
 4. Tag and publish — the tag message **is** the release body:
 

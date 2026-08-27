@@ -10,13 +10,14 @@ import typer
 from rich.console import Console
 from rich.table import Table as RichTable
 
+from . import __version__
 from . import config as cfg
 from .chunk import chunk_document
 from .diff import compute_diff
 from .fetch import CloudflareBlocked, fetch_all, latest_local_release
 from .package import build_release
 from .parse import parse_document
-from .types import Manifest, SourceDoc
+from .types import Manifest, Node, SourceDoc
 
 app = typer.Typer(no_args_is_help=True, add_completion=False)
 console = Console()
@@ -57,6 +58,25 @@ def _build_manifest_from_chapters(chapters_dir: Path) -> Manifest:
     return Manifest(update_date_iso=update_date, documents=docs)
 
 
+def _version_callback(value: bool) -> None:
+    if value:
+        console.print(__version__)
+        raise typer.Exit()
+
+
+@app.callback()
+def main(
+    version: bool = typer.Option(
+        False,
+        "--version",
+        help="Show the installed version and exit.",
+        callback=_version_callback,
+        is_eager=True,
+    ),
+) -> None:
+    """Convert Taiwan NHI medication regulation documents into RAG-ready CSVs."""
+
+
 @app.command()
 def sync(
     skip_fetch: bool = typer.Option(False, "--skip-fetch", help="Use already-downloaded DOCX."),
@@ -79,7 +99,10 @@ def sync(
             # thing the user needs, and there is no code defect to point at.
             console.print(f"[red]{exc}[/red]")
             raise typer.Exit(code=1) from None
-    console.print(f"[bold]Fetched:[/bold] {len(manifest.documents)} documents, release date {manifest.update_date_iso}")
+    console.print(
+        f"[bold]Fetched:[/bold] {len(manifest.documents)} documents, "
+        f"release date {manifest.update_date_iso}"
+    )
     if manifest.skipped_documents:
         by_reason: dict[str, int] = {}
         for s in manifest.skipped_documents:
@@ -110,7 +133,8 @@ def sync(
     )
     console.print(f"[green]Wrote:[/green] {result.zip_path}")
     console.print(
-        f"Diff vs prior: +{len(result.diff.added)} / ~{len(result.diff.modified)} / -{len(result.diff.removed)}"
+        f"Diff vs prior: +{len(result.diff.added)} / ~{len(result.diff.modified)}"
+        f" / -{len(result.diff.removed)}"
     )
 
 
@@ -122,9 +146,12 @@ def cmd_parse(docx_path: Path) -> None:
     console.print(f"[bold]Title:[/bold] {doc.title}")
     console.print(f"[bold]Section:[/bold] {doc.section_number}")
 
-    def walk(n, depth=0):
+    def walk(n: Node, depth: int = 0) -> None:
         prefix = "  " * depth
-        console.print(f"{prefix}- {n.heading}  (level={n.level}, body={len(n.body)}, children={len(n.children)})")
+        console.print(
+            f"{prefix}- {n.heading}  "
+            f"(level={n.level}, body={len(n.body)}, children={len(n.children)})"
+        )
         for c in n.children:
             walk(c, depth + 1)
     walk(doc.root)

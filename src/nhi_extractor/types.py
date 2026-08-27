@@ -5,7 +5,23 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
-from typing import Union
+from typing import NotRequired, TypedDict
+
+
+class ManifestEntry(TypedDict):
+    """One entry in MANIFEST.json's `items` list.
+
+    A TypedDict, not a dataclass: these round-trip through JSON, and `diff`
+    reads manifests written by *earlier* releases. Only the two fields diff
+    actually requires are mandatory; the rest are NotRequired so a manifest
+    predating a column still type-checks instead of needing a migration.
+    """
+
+    item_id: str
+    content_sha256: str
+    section_path: NotRequired[str]
+    source_file: NotRequired[str]
+    token_count: NotRequired[int]
 
 
 @dataclass(frozen=True)
@@ -52,7 +68,7 @@ class Table:
 
 
 # A Block is either a paragraph or a table.
-Block = Union[Paragraph, Table]
+Block = Paragraph | Table
 
 
 @dataclass

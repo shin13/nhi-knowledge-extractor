@@ -1,10 +1,22 @@
-from datetime import date
-
 from typer.testing import CliRunner
 
 from nhi_extractor.cli import app
 
 runner = CliRunner()
+
+
+def test_cli_version_matches_package_metadata():
+    """`--version` must report the installed version, not a hardcoded string.
+
+    The whole point of reading it from package metadata is that pyproject.toml
+    stays the single source of truth; asserting against `__version__` here would
+    pass even if both drifted from the distribution.
+    """
+    from importlib.metadata import version
+
+    result = runner.invoke(app, ["--version"])
+    assert result.exit_code == 0
+    assert result.output.strip() == version("nhi-extractor")
 
 
 def test_cli_help_lists_commands():

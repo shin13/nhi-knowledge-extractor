@@ -6,18 +6,32 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 
 ## [Unreleased]
 
-### Fixed
-- `sync` no longer fails with `403 Forbidden`. Cloudflare began rejecting recent Chrome TLS fingerprints, including the one the `impersonate="chrome"` alias resolved to. `fetch` now walks `config.IMPERSONATE_CANDIDATES` and keeps the first profile that clears the challenge, so a future block on one fingerprint degrades to a slower first request instead of a hard failure.
-
 ### Added
+- `nhi-extract --version`, and `nhi_extractor.__version__`. Both read the installed
+  package metadata via `importlib.metadata`, so `pyproject.toml` stays the single
+  source of truth rather than gaining a fourth hand-synced copy of the number.
+- `ruff` (`E,F,I,UP,B,SIM`) and `mypy --strict` now gate every pull request alongside
+  the test suite. mypy runs with no per-module exemptions; the only override is
+  `ignore_missing_imports` for `curl_cffi`.
+- `config.IMPERSONATE_CANDIDATES` is typed as curl_cffi's own `BrowserTypeLiteral`
+  (imported under `TYPE_CHECKING`, so an upstream rename fails CI rather than the
+  package). A profile name that does not exist is now caught by `mypy` instead of
+  surfacing as a Cloudflare 403 on someone's next `sync`.
+- `CONTRIBUTING.md`, and CI / license / Python-version badges on the README.
 - Catalog fallback sweep. Once the pinned candidates are exhausted, `fetch` walks every other profile curl_cffi ships, non-Chromium first — a live sweep found 22 of 45 profiles clearing while all Edge and all but three Chrome were blocked. Derived defensively from undocumented curl_cffi internals: if their shape changes on a version bump the sweep yields nothing and the pinned list still works, rather than raising from inside the fetcher.
 - `fetch.NetworkUnreachable`, raised immediately on a DNS/connection/timeout failure. Previously any exception advanced the walk, so an offline machine would probe every candidate and then be told at length, in two languages, that its network was fine. Only errors specific to a profile (`ImpersonateError`) now continue the walk.
 - When every profile is blocked, `sync` now exits with a bilingual (English / 繁體中文) explanation — what failed, what it does *not* mean (the site and your network are fine), and how to recover — instead of a `curl_cffi` traceback. Raised as `fetch.CloudflareBlocked` so the CLI can present it without a stack trace.
 - `pytest -m live` — an opt-in test that hits the real NHI site. The rest of `test_fetch.py` mocks the session and cannot detect a Cloudflare block.
 
+### Fixed
+- `sync` no longer fails with `403 Forbidden`. Cloudflare began rejecting recent Chrome TLS fingerprints, including the one the `impersonate="chrome"` alias resolved to. `fetch` now walks `config.IMPERSONATE_CANDIDATES` and keeps the first profile that clears the challenge, so a future block on one fingerprint degrades to a slower first request instead of a hard failure.
 - `--skip-fetch` no longer silently builds a corpus from every release at once. The download directory accumulates one file set per release, and the old `*.docx` glob swept all of them into a single run: on a 7-release directory it emitted 3689 items with duplicated `item_id`s instead of 575. (`chunk_document`'s collision guard is per-document, so nothing caught it.) It now selects the newest release by the date stamp in the filename and reports how many older files it ignored.
 - `--skip-fetch` no longer drops the ODT-only chapters. The `*.docx` glob excluded 通則, 第六節, 第十一節, 第十二節 and 第十五節 — 5 of the 16 in-scope documents — with no warning.
 - `--skip-fetch` now dates the release from the source filenames instead of `date.today()`, so the output folder is named for the NHI release it actually contains.
+- `_odt_extract_text` would raise `TypeError` on an ODT element containing a comment
+  or processing-instruction node: `lxml`'s `itertext()` yields `bytes` for those, and
+  the join assumed `str` throughout. Non-text nodes are now dropped. Surfaced by the
+  new type-check; no released input is known to have triggered it.
 
 ### Changed
 - Impersonation targets are pinned explicitly. The bare `"chrome"`/`"firefox"` aliases track whatever curl_cffi ships as newest, which silently changes the fingerprint on a dependency bump.
