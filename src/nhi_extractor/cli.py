@@ -13,7 +13,7 @@ from rich.table import Table as RichTable
 from . import config as cfg
 from .chunk import chunk_document
 from .diff import compute_diff
-from .fetch import fetch_all
+from .fetch import fetch_all, latest_local_release
 from .package import build_release
 from .parse import parse_document
 from .types import Manifest, SourceDoc
@@ -23,17 +23,38 @@ console = Console()
 
 
 def _build_manifest_from_chapters(chapters_dir: Path) -> Manifest:
-    """When --skip-fetch is used: synthesise a Manifest from local DOCX files.
-    The update_date is today's date (no website data to consult)."""
-    today = date.today()
-    docs: list[SourceDoc] = []
-    for p in sorted(chapters_dir.glob("*.docx")):
-        docs.append(SourceDoc(
-            path=p, url="", display_name=p.stem, update_date_iso=today,
-        ))
-    if not docs:
-        raise typer.BadParameter(f"No .docx found in {chapters_dir}")
-    return Manifest(update_date_iso=today, documents=tuple(docs))
+    """When --skip-fetch is used: synthesise a Manifest from the newest local release.
+
+    The directory holds every release ever downloaded, so this selects one — see
+    fetch.latest_local_release for why mixing them is silently destructive.
+    """
+    try:
+        release = latest_local_release(chapters_dir)
+    except FileNotFoundError as exc:
+        raise typer.BadParameter(str(exc)) from None
+
+    if release.update_date is None:
+        # No release stamps to read; fall back to today so the run still names
+        # an output folder, and say so rather than implying it came from NHI.
+        update_date = date.today()
+        console.print(
+            f"[yellow]No release stamps in {chapters_dir} — treating all "
+            f"{len(release.paths)} files as one batch, dated today.[/yellow]"
+        )
+    else:
+        update_date = release.update_date
+
+    if release.superseded:
+        console.print(
+            f"[dim]Using release {update_date}: {len(release.paths)} documents. "
+            f"Ignored {len(release.superseded)} files from older releases.[/dim]"
+        )
+
+    docs = tuple(
+        SourceDoc(path=p, url="", display_name=p.stem, update_date_iso=update_date)
+        for p in release.paths
+    )
+    return Manifest(update_date_iso=update_date, documents=docs)
 
 
 @app.command()

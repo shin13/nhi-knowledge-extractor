@@ -6,6 +6,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versioning: [S
 
 ## [Unreleased]
 
+### Fixed
+- `--skip-fetch` no longer silently builds a corpus from every release at once. The download directory accumulates one file set per release, and the old `*.docx` glob swept all of them into a single run: on a 7-release directory it emitted 3689 items with duplicated `item_id`s instead of 575. (`chunk_document`'s collision guard is per-document, so nothing caught it.) It now selects the newest release by the date stamp in the filename and reports how many older files it ignored.
+- `--skip-fetch` no longer drops the ODT-only chapters. The `*.docx` glob excluded 通則, 第六節, 第十一節, 第十二節 and 第十五節 — 5 of the 16 in-scope documents — with no warning.
+- `--skip-fetch` now dates the release from the source filenames instead of `date.today()`, so the output folder is named for the NHI release it actually contains.
+
 ## [v0.1.1] - 2026-07-27
 
 ### Fixed

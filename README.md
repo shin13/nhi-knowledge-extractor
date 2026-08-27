@@ -37,7 +37,7 @@ Each release zip contains one CSV per chapter, plus `MANIFEST.json` and `CHANGES
 ### Other commands
 
 ```bash
-uv run nhi-extract sync --skip-fetch       # use already-downloaded chapters/
+uv run nhi-extract sync --skip-fetch       # rebuild from the newest release already in chapters/
 uv run nhi-extract sync --dry-run          # build + print stats, don't write zip
 uv run nhi-extract sync --emit-depth 4     # coarser chunks (default 5)
 uv run nhi-extract parse <doc>             # debug: print parsed tree
@@ -134,7 +134,7 @@ uv run nhi-extract sync
 ### 常用指令
 
 ```bash
-uv run nhi-extract sync --skip-fetch     # 用已下載的檔案，不重抓
+uv run nhi-extract sync --skip-fetch     # 用 chapters/ 裡最新版次的檔案重建，不重抓
 uv run nhi-extract sync --dry-run        # 跑流程印統計，不寫 zip
 uv run nhi-extract sync --emit-depth 4   # 較粗粒度切塊
 uv run nhi-extract diff <舊版> <新版>     # 比對兩次 release 的差異
