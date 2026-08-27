@@ -106,10 +106,21 @@ The version lives in **three** places: `pyproject.toml`, `uv.lock` (run `uv lock
 4. Tag and publish — the tag message **is** the release body:
 
 ```bash
-git tag -a vX.Y.Z -F <notes-file>   # annotated only; lightweight tags have no message
+git tag -a vX.Y.Z --cleanup=verbatim -F <notes-file>   # annotated; verbatim is required
 git push origin vX.Y.Z
-gh release create vX.Y.Z --notes-from-tag
+gh release create vX.Y.Z --notes-from-tag --title "vX.Y.Z — <short summary>"
 ```
+
+Two traps, both hit while cutting v0.1.2:
+
+- **`--cleanup=verbatim` is not optional.** Git's default cleanup treats every
+  line starting with `#` as a comment and deletes it, so `## Fixed` / `## Added`
+  vanish from the tag message — and therefore from the release body — without any
+  warning. Check with `git tag -l vX.Y.Z --format='%(contents)' | grep '^## '`
+  before pushing.
+- **`--notes-from-tag` does not set a title.** It puts the whole tag message in
+  the body and leaves the release name empty, which renders as a bare tag in the
+  releases list while v0.1.0 and v0.1.1 have descriptive titles. Pass `--title`.
 
 ## Project history & lessons
 
