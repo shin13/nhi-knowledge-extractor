@@ -49,14 +49,15 @@ src/nhi_extractor/
   markdown.py   table_to_markdown, render_node_to_markdown, count_tokens
 tests/
   fixtures/     real DOCX from past NHI releases
-  test_*.py     one file per module + test_chunk_pain_cases.py
+  test_*.py     one or more focused files per module — split by topic once a
+                single file grows unwieldy (see test_chunk_*.py, test_fetch*.py)
 ```
 
 ## Conventions
 
 - All paths and tunables in `src/nhi_extractor/config.py`. Do not hardcode elsewhere.
 - The chunker's token budget is a **contract**: any item over `HARD_BUDGET` (7000) raises in `chunk_document`. Don't catch and ignore.
-- New stages get a new module + a new `tests/test_<module>.py`. One responsibility per file.
+- New stages get a new module + test coverage under `tests/`. One responsibility per file — which means splitting a module's tests across several focused files once one grows unwieldy (`test_<module>_<topic>.py`), not growing a single file to match the module.
 - TDD: write the failing test first. `tests/test_chunk_pain_cases.py` is the regression net — never disable it.
 
 ## What is and isn't committed
@@ -79,9 +80,14 @@ The predecessor (`NHI-Knowledge-Extraction`) needed two hand-fixes every release
 ## Running tests
 
 ```bash
-uv run pytest                                    # all
+uv run pytest                                    # all (offline; `live` excluded by default)
+uv run pytest -m live                            # opt-in: hits the real NHI site
 uv run pytest tests/test_chunk_pain_cases.py -v  # regression net
 ```
+
+`-m live` is the only check that can catch a Cloudflare block — everything else
+mocks the session. CI runs the offline set; run the live one before claiming a
+fetch change works.
 
 ## Releasing
 
